@@ -37,7 +37,7 @@ public enum PHPHelper {
             }
         }
         
-        var string:String {
+        public var string:String {
             switch self {
             case .integer(let x):
                 return String(x)
@@ -46,7 +46,7 @@ public enum PHPHelper {
             }
         }
         
-        var int:Int {
+        public var int:Int {
             switch self {
             case .integer(let x):
                 return x
@@ -84,7 +84,7 @@ public enum PHPHelper {
             }
         }
         
-        var array:[GameProgressAchievement_DTO] {
+        public var array:[GameProgressAchievement_DTO] {
             
             switch self {
             case .achievementMap(let x):
