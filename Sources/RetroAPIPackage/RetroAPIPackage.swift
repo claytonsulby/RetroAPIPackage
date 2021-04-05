@@ -31,9 +31,13 @@ public extension RetroAPI {
 }
 
 public extension RetroAPI {
-    
-    static let url = "https://retroachievements.org/API/"
-    static let apiPages = [
+    static let baseBadgeURL = "https://s3-eu-west-1.amazonaws.com/i.retroachievements.org/Badge/"
+    static let baseImageURL = "https://retroachievements.org"
+}
+
+public extension RetroAPI {
+
+    private static let apiPages = [
         "getTopTenUsers": "API_GetTopTenUsers.php",
         "getGameInfo": "API_GetGame.php",
         "getGameInfoExtended": "API_GetGameExtended.php",
