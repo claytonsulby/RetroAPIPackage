@@ -8,14 +8,7 @@
 import Foundation
 import Combine
 
-enum RetroAPI {}
-
-enum Test {
-    static var test = 10
-    static func testPrint() {
-        print(Test.test)
-    }
-}
+public enum RetroAPI {}
 
 extension RetroAPI {
     
