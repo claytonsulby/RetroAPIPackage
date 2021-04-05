@@ -8,7 +8,9 @@
 import Foundation
 import Combine
 
-public enum RetroAPI {
+public class RetroAPI {}
+
+public extension RetroAPI {
     
     static var user:String?
     static var key:String?
@@ -25,7 +27,10 @@ public enum RetroAPI {
         RetroAPI.user = user
         RetroAPI.key = key
     }
+    
+}
 
+public extension RetroAPI {
     
     static let url = "https://retroachievements.org/API/"
     static let apiPages = [
@@ -55,7 +60,10 @@ public enum RetroAPI {
         
         return components
     }
+}
 
+@available(iOS 13.0, *)
+public extension RetroAPI {
 
     static let agent = Agent()
     
@@ -269,6 +277,9 @@ public enum RetroAPI {
         
     }
 
+}
+
+public extension RetroAPI {
     
     private static func makeRequest(_ url:URL, completionHandler: @escaping (Data) -> Void) {
 
