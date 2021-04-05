@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - WelcomeElement
-struct UserRecent_DTO: Codable {
+public struct UserRecent_DTO: Codable {
     var gameID, consoleID, consoleName, title: String?
     var imageIcon, lastPlayed: String?
     var myVote: String?
@@ -27,4 +27,4 @@ struct UserRecent_DTO: Codable {
     }
 }
 
-typealias UserRecents_DTO = [UserRecent_DTO]
+public typealias UserRecents_DTO = [UserRecent_DTO]

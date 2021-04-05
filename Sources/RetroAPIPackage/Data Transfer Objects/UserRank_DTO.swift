@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - UserRank_DTO
-struct UserRank_DTO: Codable {
+public struct UserRank_DTO: Codable {
     var score, rank: Int?
     var totalRanked: String?
 

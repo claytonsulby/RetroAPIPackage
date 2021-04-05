@@ -6,6 +6,6 @@
 import Foundation
 
 // MARK: - UserFeed_DTO
-struct UserFeed_DTO: Codable {
+public struct UserFeed_DTO: Codable {
     var success: Bool?
 }

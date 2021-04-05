@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - UserProgressElement_DTO
-struct UserProgressElement_DTO: Codable {
+public struct UserProgressElement_DTO: Codable {
     var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
     var numAchievedHardcore, scoreAchievedHardcore: Int?
 
@@ -20,4 +20,4 @@ struct UserProgressElement_DTO: Codable {
     }
 }
 
-typealias UserProgress_DTO = [String: UserProgressElement_DTO]
+public typealias UserProgress_DTO = [String: UserProgressElement_DTO]

@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 @available(iOS 13.0, *)
-struct Agent {
+public struct Agent {
     // 1
     @available(iOS 13.0, *)
     struct Response<T> {

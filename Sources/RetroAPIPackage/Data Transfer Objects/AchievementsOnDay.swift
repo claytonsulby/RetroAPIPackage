@@ -7,8 +7,8 @@
 
 import Foundation
 
-typealias AchievementsOnDay_DTO = [AchievementOnDay_DTO]
+public typealias AchievementsOnDay_DTO = [AchievementOnDay_DTO]
 
-struct AchievementOnDay_DTO : Codable {
+public struct AchievementOnDay_DTO : Codable {
     
 }

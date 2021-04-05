@@ -8,13 +8,13 @@
 import Foundation
 
 
-enum PHPHelper {
+public enum PHPHelper {
     
-    enum JSONIntOrString: Codable {
+    public enum JSONIntOrString: Codable {
         case integer(Int)
         case string(String)
 
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             if let x = try? container.decode(Int.self) {
                 self = .integer(x)
@@ -27,7 +27,7 @@ enum PHPHelper {
             throw DecodingError.typeMismatch(JSONIntOrString.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for NumAchieved"))
         }
 
-        func encode(to encoder: Encoder) throws {
+        public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
             case .integer(let x):
@@ -57,11 +57,11 @@ enum PHPHelper {
         
     }
     
-    enum GameProgressAchievements_DTO: Codable {
+    public enum GameProgressAchievements_DTO: Codable {
         case achievementMap([String: GameProgressAchievement_DTO])
         case anythingArray([JSONAny])
 
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             if let x = try? container.decode([JSONAny].self) {
                 self = .anythingArray(x)
@@ -74,7 +74,7 @@ enum PHPHelper {
             throw DecodingError.typeMismatch(GameProgressAchievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
         }
 
-        func encode(to encoder: Encoder) throws {
+        public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
             case .achievementMap(let x):
@@ -101,27 +101,27 @@ enum PHPHelper {
     }
 }
 
-class JSONCodingKey: CodingKey {
+public class JSONCodingKey: CodingKey {
     let key: String
 
-    required init?(intValue: Int) {
+    required public init?(intValue: Int) {
         return nil
     }
 
-    required init?(stringValue: String) {
+    required public init?(stringValue: String) {
         key = stringValue
     }
 
-    var intValue: Int? {
+    public var intValue: Int? {
         return nil
     }
 
-    var stringValue: String {
+    public var stringValue: String {
         return key
     }
 }
 
-class JSONAny: Codable {
+public class JSONAny: Codable {
 
     let value: Any
 
@@ -316,3 +316,28 @@ class JSONAny: Codable {
     }
 }
 
+
+public class JSONNull: Codable, Hashable {
+
+    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
+        return true
+    }
+
+    public var hashValue: Int {
+        return 0
+    }
+
+    public init() {}
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if !container.decodeNil() {
+            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encodeNil()
+    }
+}

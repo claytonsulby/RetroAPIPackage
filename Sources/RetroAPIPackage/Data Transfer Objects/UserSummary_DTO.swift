@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - UserSummary
-struct UserSummary_DTO: Codable {
+public struct UserSummary_DTO: Codable {
     var recentlyPlayedCount: Int?
     var recentlyPlayed: [RecentlyPlayed_DTO]?
     var memberSince: String?
@@ -49,10 +49,10 @@ struct UserSummary_DTO: Codable {
 }
 
 // MARK: - Awarded
-struct Awarded_DTO: Codable {
-    var numPossibleAchievements, possibleScore: Achieved_DTO?
-    var numAchieved, scoreAchieved: Achieved_DTO?
-    var numAchievedHardcore, scoreAchievedHardcore: Achieved_DTO?
+public struct Awarded_DTO: Codable {
+    var numPossibleAchievements, possibleScore: PHPHelper.JSONIntOrString?
+    var numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
+    var numAchievedHardcore, scoreAchievedHardcore: PHPHelper.JSONIntOrString?
 
     enum CodingKeys: String, CodingKey {
         case numPossibleAchievements = "NumPossibleAchievements"
@@ -64,36 +64,8 @@ struct Awarded_DTO: Codable {
     }
 }
 
-enum Achieved_DTO: Codable {
-    case integer(Int)
-    case string(String)
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode(Int.self) {
-            self = .integer(x)
-            return
-        }
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
-            return
-        }
-        throw DecodingError.typeMismatch(Achieved_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achieved"))
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .integer(let x):
-            try container.encode(x)
-        case .string(let x):
-            try container.encode(x)
-        }
-    }
-}
-
 // MARK: - LastActivity
-struct LastActivity_DTO: Codable {
+public struct LastActivity_DTO: Codable {
     var id, timestamp, lastupdate, activitytype: String?
     var user: String?
     var data, data2: String?
@@ -107,7 +79,7 @@ struct LastActivity_DTO: Codable {
 }
 
 // MARK: - LastGame
-struct LastGame_DTO: Codable {
+public struct LastGame_DTO: Codable {
     var id: Int?
     var title: String?
     var consoleID, forumTopicID, flags: Int?
@@ -137,7 +109,7 @@ struct LastGame_DTO: Codable {
 }
 
 // MARK: - RecentAchievement
-struct RecentAchievement_DTO: Hashable, Codable {
+public struct RecentAchievement_DTO: Hashable, Codable {
     var id, gameID, gameTitle, title: String?
     var recentAchievementDescription, points, badgeName, isAwarded: String?
     var dateAwarded, hardcoreAchieved: String?
@@ -157,7 +129,7 @@ struct RecentAchievement_DTO: Hashable, Codable {
 }
 
 // MARK: - RecentlyPlayed
-struct RecentlyPlayed_DTO: Codable {
+public struct RecentlyPlayed_DTO: Codable {
     var gameID, consoleID, consoleName, title: String?
     var imageIcon, lastPlayed: String?
     var myVote: String? //FIXME: type mismatch
@@ -170,32 +142,5 @@ struct RecentlyPlayed_DTO: Codable {
         case imageIcon = "ImageIcon"
         case lastPlayed = "LastPlayed"
         case myVote = "MyVote"
-    }
-}
-
-// MARK: - Encode/decode helpers
-
-class JSONNull: Codable, Hashable {
-
-    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
-        return true
-    }
-
-    public var hashValue: Int {
-        return 0
-    }
-
-    public init() {}
-
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encodeNil()
     }
 }

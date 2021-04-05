@@ -5,10 +5,10 @@
 
 import Foundation
 
-typealias ExtendedGamesInfo_DTO = [ExtendedGameInfo_DTO]
+public typealias ExtendedGamesInfo_DTO = [ExtendedGameInfo_DTO]
 
 // MARK: - ExtendedGamesInfo_DTO
-struct ExtendedGameInfo_DTO: Codable {
+public struct ExtendedGameInfo_DTO: Codable {
     var id: Int?
     var title: String?
     var consoleID, forumTopicID, flags: Int?
@@ -45,7 +45,7 @@ struct ExtendedGameInfo_DTO: Codable {
 }
 
 // MARK: - Achievement
-struct ExtendedGamesInfo_Achievement_DTO: Codable {
+public struct ExtendedGamesInfo_Achievement_DTO: Codable {
     var id, numAwarded, numAwardedHardcore, title: String?
     var achievementDescription, points, trueRatio: String?
     var author: String?

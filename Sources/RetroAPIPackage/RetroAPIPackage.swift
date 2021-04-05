@@ -10,7 +10,7 @@ import Combine
 
 public enum RetroAPI {}
 
-extension RetroAPI {
+public extension RetroAPI {
     
     static var user:String?
     static var key:String?
@@ -30,7 +30,7 @@ extension RetroAPI {
     
 }
 
-extension RetroAPI {
+public extension RetroAPI {
     
     static let url = "https://retroachievements.org/API/"
     static let apiPages = [
@@ -63,7 +63,7 @@ extension RetroAPI {
 }
 
 @available(iOS 13.0, *)
-extension RetroAPI {
+public extension RetroAPI {
 
     static let agent = Agent()
     
@@ -279,7 +279,7 @@ extension RetroAPI {
 
 }
 
-extension RetroAPI {
+public extension RetroAPI {
     
     private static func makeRequest(_ url:URL, completionHandler: @escaping (Data) -> Void) {
 
@@ -500,29 +500,4 @@ extension RetroAPI {
             }
         }
     }
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 }

@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - AchievementBetween
-struct AchievementBetween_DTO: Hashable, Codable {
+public struct AchievementBetween_DTO: Hashable, Codable {
     var date, hardcoreMode, achievementID, title: String?
     var welcomeDescription, badgeName, points, author: String?
     var gameTitle, gameIcon, gameID, consoleName: String?
@@ -32,4 +32,4 @@ struct AchievementBetween_DTO: Hashable, Codable {
     }
 }
 
-typealias AchievementsBetween_DTO = [AchievementBetween_DTO]
+public typealias AchievementsBetween_DTO = [AchievementBetween_DTO]

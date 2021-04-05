@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - GameListElement_DTO
-struct GameListElement_DTO: Codable {
+public struct GameListElement_DTO: Codable {
     var title, id, consoleID, imageIcon, consoleName: String?
 
     enum CodingKeys: String, CodingKey {
@@ -18,4 +18,4 @@ struct GameListElement_DTO: Codable {
     }
 }
 
-typealias GameList_DTO = [GameListElement_DTO]
+public typealias GameList_DTO = [GameListElement_DTO]

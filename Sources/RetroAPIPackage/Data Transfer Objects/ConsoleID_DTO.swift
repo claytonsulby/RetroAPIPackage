@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - ConsoleID_DTO
-struct ConsoleID_DTO: Codable {
+public struct ConsoleID_DTO: Codable {
     var id, name: String?
 
     enum CodingKeys: String, CodingKey {
@@ -15,4 +15,4 @@ struct ConsoleID_DTO: Codable {
     }
 }
 
-typealias ConsoleIDs_DTO = [ConsoleID_DTO]
+public typealias ConsoleIDs_DTO = [ConsoleID_DTO]

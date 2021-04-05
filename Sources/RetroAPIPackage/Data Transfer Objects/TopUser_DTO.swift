@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias TopUsers_DTO = [TopUser_DTO]
+public typealias TopUsers_DTO = [TopUser_DTO]
 
-struct TopUser_DTO : Hashable, Decodable {
+public struct TopUser_DTO : Hashable, Decodable {
     var user:String
     var points:String
     var score:String

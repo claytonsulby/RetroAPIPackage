@@ -9,10 +9,10 @@
 
 import Foundation
 
-typealias GamesInfo_DTO = [GameInfo_DTO]
+public typealias GamesInfo_DTO = [GameInfo_DTO]
 
 
-struct GameInfo_DTO : Hashable, Decodable {
+public struct GameInfo_DTO : Hashable, Decodable {
     var name:String?
     var forumTopicID:String?
     var consoleID:String?

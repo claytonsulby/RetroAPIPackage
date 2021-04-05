@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - WelcomeElement
-struct UserCompletedGame_DTO: Codable {
+public struct UserCompletedGame_DTO: Codable {
     var gameID, consoleName, imageIcon, title: String?
     var numAwarded, maxPossible, pctWon, hardcoreMode: String?
 
@@ -22,6 +22,6 @@ struct UserCompletedGame_DTO: Codable {
     }
 }
 
-typealias UserCompletedGames_DTO = [UserCompletedGame_DTO]
+public typealias UserCompletedGames_DTO = [UserCompletedGame_DTO]
 
 // API gets all games with non-zero progress

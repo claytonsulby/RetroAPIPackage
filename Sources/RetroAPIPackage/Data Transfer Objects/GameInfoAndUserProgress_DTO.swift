@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - WelcomeElement
-struct GameInfoAndUserProgress_DTO: Codable {
+public struct GameInfoAndUserProgress_DTO: Codable {
     var id: Int?
     var title: String?
     var consoleID, forumTopicID, flags: Int?
@@ -49,7 +49,7 @@ struct GameInfoAndUserProgress_DTO: Codable {
 }
 
 // MARK: - Achievement
-struct GameProgressAchievement_DTO: Codable {
+public struct GameProgressAchievement_DTO: Codable {
     var id, numAwarded, numAwardedHardcore, title: String?
     var achievementDescription, points, trueRatio: String?
     var author: String?
