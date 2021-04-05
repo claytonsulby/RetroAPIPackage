@@ -7,10 +7,10 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserRecent_DTO: Codable {
-    public var gameID, consoleID, consoleName, title: String?
-    public var imageIcon, lastPlayed: String?
-    public var myVote: String?
-    public var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
+    var gameID, consoleID, consoleName, title: String?
+    var imageIcon, lastPlayed: String?
+    var myVote: String?
+    var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
 
     enum CodingKeys: String, CodingKey {
         case gameID = "GameID"

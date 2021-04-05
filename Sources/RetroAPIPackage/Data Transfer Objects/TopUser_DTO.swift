@@ -10,9 +10,9 @@ import Foundation
 public typealias TopUsers_DTO = [TopUser_DTO]
 
 public struct TopUser_DTO : Hashable, Decodable {
-    public var user:String
-    public var points:String
-    public var score:String
+    var user:String
+    var points:String
+    var score:String
     
     enum CodingKeys: String, CodingKey {
         case user = "1"

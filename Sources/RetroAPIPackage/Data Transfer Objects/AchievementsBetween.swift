@@ -7,11 +7,11 @@ import Foundation
 
 // MARK: - AchievementBetween
 public struct AchievementBetween_DTO: Hashable, Codable {
-    public var date, hardcoreMode, achievementID, title: String?
-    public var welcomeDescription, badgeName, points, author: String?
-    public var gameTitle, gameIcon, gameID, consoleName: String?
-    public var cumulScore: Int?
-    public var badgeURL, gameURL: String?
+    var date, hardcoreMode, achievementID, title: String?
+    var welcomeDescription, badgeName, points, author: String?
+    var gameTitle, gameIcon, gameID, consoleName: String?
+    var cumulScore: Int?
+    var badgeURL, gameURL: String?
 
     enum CodingKeys: String, CodingKey {
         case date = "Date"

@@ -9,16 +9,16 @@ public typealias ExtendedGamesInfo_DTO = [ExtendedGameInfo_DTO]
 
 // MARK: - ExtendedGamesInfo_DTO
 public struct ExtendedGameInfo_DTO: Codable {
-    public var id: Int?
-    public var title: String?
-    public var consoleID, forumTopicID, flags: Int?
-    public var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
-    public var publisher, developer, genre, released: String?
-    public var isFinal: Bool?
-    public var consoleName, richPresencePatch: String?
-    public var numAchievements: Int?
-    public var numDistinctPlayersCasual, numDistinctPlayersHardcore: String?
-    public var achievements: [String: ExtendedGamesInfo_Achievement_DTO]?
+    var id: Int?
+    var title: String?
+    var consoleID, forumTopicID, flags: Int?
+    var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
+    var publisher, developer, genre, released: String?
+    var isFinal: Bool?
+    var consoleName, richPresencePatch: String?
+    var numAchievements: Int?
+    var numDistinctPlayersCasual, numDistinctPlayersHardcore: String?
+    var achievements: [String: ExtendedGamesInfo_Achievement_DTO]?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"
@@ -46,11 +46,11 @@ public struct ExtendedGameInfo_DTO: Codable {
 
 // MARK: - Achievement
 public struct ExtendedGamesInfo_Achievement_DTO: Codable {
-    public var id, numAwarded, numAwardedHardcore, title: String?
-    public var achievementDescription, points, trueRatio: String?
-    public var author: String?
-    public var dateModified, dateCreated, badgeName, displayOrder: String?
-    public var memAddr: String?
+    var id, numAwarded, numAwardedHardcore, title: String?
+    var achievementDescription, points, trueRatio: String?
+    var author: String?
+    var dateModified, dateCreated, badgeName, displayOrder: String?
+    var memAddr: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"

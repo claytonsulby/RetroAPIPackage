@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - ConsoleID_DTO
 public struct ConsoleID_DTO: Codable {
-    public var id, name: String?
+    var id, name: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"

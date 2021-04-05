@@ -13,22 +13,22 @@ public typealias GamesInfo_DTO = [GameInfo_DTO]
 
 
 public struct GameInfo_DTO : Hashable, Decodable {
-    public var name:String?
-    public var forumTopicID:String?
-    public var consoleID:String?
-    public var consoleName:String?
-    public var flags:String?
-    public var imageIcon:String?
-    public var gameIcon:String?
-    public var imageTitle:String?
-    public var imageInGame:String?
-    public var imageBoxArt:String?
-    public var publisher:String?
-    public var developer:String?
-    public var genre:String?
-    public var releaseYear:String?
-    public var gameTitle:String?
-    public var console:String?
+    var name:String?
+    var forumTopicID:String?
+    var consoleID:String?
+    var consoleName:String?
+    var flags:String?
+    var imageIcon:String?
+    var gameIcon:String?
+    var imageTitle:String?
+    var imageInGame:String?
+    var imageBoxArt:String?
+    var publisher:String?
+    var developer:String?
+    var genre:String?
+    var releaseYear:String?
+    var gameTitle:String?
+    var console:String?
     
     enum CodingKeys: String, CodingKey {
         case name = "Title"

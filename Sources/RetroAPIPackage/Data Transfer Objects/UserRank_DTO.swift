@@ -7,8 +7,8 @@ import Foundation
 
 // MARK: - UserRank_DTO
 public struct UserRank_DTO: Codable {
-    public var score, rank: Int?
-    public var totalRanked: String?
+    var score, rank: Int?
+    var totalRanked: String?
 
     enum CodingKeys: String, CodingKey {
         case score = "Score"
