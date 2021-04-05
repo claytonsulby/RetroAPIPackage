@@ -47,7 +47,7 @@ public extension RetroAPI {
         "getGameInfoAndUserProgress": "API_GetGameInfoAndUserProgress.php",
         "getAchievementsEarnedOnDay": "API_GetAchievementsEarnedOnDay.php",
         "getAchievementsEarnedBetween": "API_GetAchievementsEarnedBetween.php",
-        "getUserGamesCompleted":"API_GetUserCompletedGames.php"
+        "getUserCompletedGames":"API_GetUserCompletedGames.php"
     ]
 
     static func baseURLComponents(_ page:String) -> URLComponents {
@@ -264,7 +264,7 @@ public extension RetroAPI {
 
     static func getUserGamesCompleted(user:String) -> AnyPublisher<UserCompletedGames_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getUserGamesCompleted"] ?? "")
+        var components = baseURLComponents(RetroAPI.apiPages["getUserCompletedGames"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user)
         ])
@@ -488,7 +488,7 @@ public extension RetroAPI {
     }
     
     static func getUserGamesCompleted(user:String, completionHandler: @escaping (UserCompletedGames_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getUserGamesCompleted"] ?? "")
+        var components = baseURLComponents(RetroAPI.apiPages["getUserCompletedGames"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user)
         ])
