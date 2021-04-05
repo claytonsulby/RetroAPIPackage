@@ -7,5 +7,5 @@ import Foundation
 
 // MARK: - UserFeed_DTO
 public struct UserFeed_DTO: Codable {
-    var success: Bool?
+    public var success: Bool?
 }

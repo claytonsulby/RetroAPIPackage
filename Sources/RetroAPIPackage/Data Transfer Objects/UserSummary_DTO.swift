@@ -7,19 +7,19 @@ import Foundation
 
 // MARK: - UserSummary
 public struct UserSummary_DTO: Codable {
-    var recentlyPlayedCount: Int?
-    var recentlyPlayed: [RecentlyPlayed_DTO]?
-    var memberSince: String?
-    var lastActivity: LastActivity_DTO?
-    var richPresenceMsg, lastGameID: String?
-    var lastGame: LastGame_DTO?
-    var contribCount, contribYield, totalPoints, totalTruePoints: PHPHelper.JSONIntOrString?
-    var permissions, untracked, id, userWallActive: String?
-    var motto: String?
-    var rank: Int?
-    var awarded: [String: Awarded_DTO]?
-    var recentAchievements: [String: [String: RecentAchievement_DTO]]?
-    var points, userPic, totalRanked, status: String?
+    public var recentlyPlayedCount: Int?
+    public var recentlyPlayed: [RecentlyPlayed_DTO]?
+    public var memberSince: String?
+    public var lastActivity: LastActivity_DTO?
+    public var richPresenceMsg, lastGameID: String?
+    public var lastGame: LastGame_DTO?
+    public var contribCount, contribYield, totalPoints, totalTruePoints: PHPHelper.JSONIntOrString?
+    public var permissions, untracked, id, userWallActive: String?
+    public var motto: String?
+    public var rank: Int?
+    public var awarded: [String: Awarded_DTO]?
+    public var recentAchievements: [String: [String: RecentAchievement_DTO]]?
+    public var points, userPic, totalRanked, status: String?
 
     enum CodingKeys: String, CodingKey {
         case recentlyPlayedCount = "RecentlyPlayedCount"
@@ -50,9 +50,9 @@ public struct UserSummary_DTO: Codable {
 
 // MARK: - Awarded
 public struct Awarded_DTO: Codable {
-    var numPossibleAchievements, possibleScore: PHPHelper.JSONIntOrString?
-    var numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
-    var numAchievedHardcore, scoreAchievedHardcore: PHPHelper.JSONIntOrString?
+    public var numPossibleAchievements, possibleScore: PHPHelper.JSONIntOrString?
+    public var numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
+    public var numAchievedHardcore, scoreAchievedHardcore: PHPHelper.JSONIntOrString?
 
     enum CodingKeys: String, CodingKey {
         case numPossibleAchievements = "NumPossibleAchievements"
@@ -66,9 +66,9 @@ public struct Awarded_DTO: Codable {
 
 // MARK: - LastActivity
 public struct LastActivity_DTO: Codable {
-    var id, timestamp, lastupdate, activitytype: String?
-    var user: String?
-    var data, data2: String?
+    public var id, timestamp, lastupdate, activitytype: String?
+    public var user: String?
+    public var data, data2: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"
@@ -80,13 +80,13 @@ public struct LastActivity_DTO: Codable {
 
 // MARK: - LastGame
 public struct LastGame_DTO: Codable {
-    var id: Int?
-    var title: String?
-    var consoleID, forumTopicID, flags: Int?
-    var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
-    var publisher, developer, genre, released: String?
-    var isFinal: Bool?
-    var consoleName, richPresencePatch: String?
+    public var id: Int?
+    public var title: String?
+    public var consoleID, forumTopicID, flags: Int?
+    public var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
+    public var publisher, developer, genre, released: String?
+    public var isFinal: Bool?
+    public var consoleName, richPresencePatch: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"
@@ -110,9 +110,9 @@ public struct LastGame_DTO: Codable {
 
 // MARK: - RecentAchievement
 public struct RecentAchievement_DTO: Hashable, Codable {
-    var id, gameID, gameTitle, title: String?
-    var recentAchievementDescription, points, badgeName, isAwarded: String?
-    var dateAwarded, hardcoreAchieved: String?
+    public var id, gameID, gameTitle, title: String?
+    public var recentAchievementDescription, points, badgeName, isAwarded: String?
+    public var dateAwarded, hardcoreAchieved: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"
@@ -130,9 +130,9 @@ public struct RecentAchievement_DTO: Hashable, Codable {
 
 // MARK: - RecentlyPlayed
 public struct RecentlyPlayed_DTO: Codable {
-    var gameID, consoleID, consoleName, title: String?
-    var imageIcon, lastPlayed: String?
-    var myVote: String? //FIXME: type mismatch
+    public var gameID, consoleID, consoleName, title: String?
+    public var imageIcon, lastPlayed: String?
+    public var myVote: String? //FIXME: type mismatch
 
     enum CodingKeys: String, CodingKey {
         case gameID = "GameID"

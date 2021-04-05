@@ -7,8 +7,8 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserCompletedGame_DTO: Codable {
-    var gameID, consoleName, imageIcon, title: String?
-    var numAwarded, maxPossible, pctWon, hardcoreMode: String?
+    public var gameID, consoleName, imageIcon, title: String?
+    public var numAwarded, maxPossible, pctWon, hardcoreMode: String?
 
     enum CodingKeys: String, CodingKey {
         case gameID = "GameID"
