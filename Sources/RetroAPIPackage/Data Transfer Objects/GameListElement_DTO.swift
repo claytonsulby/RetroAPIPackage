@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - GameListElement_DTO
 public struct GameListElement_DTO: Codable {
-    var title, id, consoleID, imageIcon, consoleName: String?
+    public var title, id, consoleID, imageIcon, consoleName: String?
 
     enum CodingKeys: String, CodingKey {
         case title = "Title"

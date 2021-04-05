@@ -7,18 +7,18 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable {
-    var id: Int?
-    var title: String?
-    var consoleID, forumTopicID, flags: Int?
-    var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
-    var publisher, developer, genre, released: String?
-    var isFinal: Bool?
-    var consoleName, richPresencePatch: String?
-    var numAchievements: Int?
-    var numDistinctPlayersCasual, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString?
-    var achievements: PHPHelper.GameProgressAchievements_DTO?
-    var numAwardedToUser, numAwardedToUserHardcore: Int?
-    var userCompletion, userCompletionHardcore: PHPHelper.JSONIntOrString?
+    public var id: Int?
+    public var title: String?
+    public var consoleID, forumTopicID, flags: Int?
+    public var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
+    public var publisher, developer, genre, released: String?
+    public var isFinal: Bool?
+    public var consoleName, richPresencePatch: String?
+    public var numAchievements: Int?
+    public var numDistinctPlayersCasual, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString?
+    public var achievements: PHPHelper.GameProgressAchievements_DTO?
+    public var numAwardedToUser, numAwardedToUserHardcore: Int?
+    public var userCompletion, userCompletionHardcore: PHPHelper.JSONIntOrString?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"
@@ -50,11 +50,11 @@ public struct GameInfoAndUserProgress_DTO: Codable {
 
 // MARK: - Achievement
 public struct GameProgressAchievement_DTO: Codable {
-    var id, numAwarded, numAwardedHardcore, title: String?
-    var achievementDescription, points, trueRatio: String?
-    var author: String?
-    var dateModified, dateCreated, badgeName, displayOrder: String?
-    var memAddr: String?
+    public var id, numAwarded, numAwardedHardcore, title: String?
+    public var achievementDescription, points, trueRatio: String?
+    public var author: String?
+    public var dateModified, dateCreated, badgeName, displayOrder: String?
+    public var memAddr: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"

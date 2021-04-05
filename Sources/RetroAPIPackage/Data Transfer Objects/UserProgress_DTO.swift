@@ -7,8 +7,8 @@ import Foundation
 
 // MARK: - UserProgressElement_DTO
 public struct UserProgressElement_DTO: Codable {
-    var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
-    var numAchievedHardcore, scoreAchievedHardcore: Int?
+    public var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
+    public var numAchievedHardcore, scoreAchievedHardcore: Int?
 
     enum CodingKeys: String, CodingKey {
         case numPossibleAchievements = "NumPossibleAchievements"
