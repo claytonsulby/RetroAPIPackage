@@ -13,7 +13,7 @@ import Combine
 
 Somewhere in your code, preferably somewhere that loads earliest, include the following function call with your RetroAchievements API username and key.
 ```swift
-RetroAPI.setUserAndKey("wertox123", "NntdFEl8LSxcqcEaud8AN33uRrgAsEBU")
+RetroAPI.setUserAndKey("your-username-here", "your-key-here")
 ```
 For instance, you could include it in your App struct as follows:
 ```swift
