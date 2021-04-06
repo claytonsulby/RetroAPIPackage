@@ -10,7 +10,7 @@ import Foundation
 
 public enum PHPHelper {
     
-    public enum JSONIntOrString: Codable {
+    public enum JSONIntOrString: Codable, Equatable {
         case integer(Int)
         case string(String)
 
@@ -57,7 +57,11 @@ public enum PHPHelper {
         
     }
     
-    public enum GameProgressAchievements_DTO: Codable {
+    public enum GameProgressAchievements_DTO: Codable, Equatable  {
+        public static func == (lhs: PHPHelper.GameProgressAchievements_DTO, rhs: PHPHelper.GameProgressAchievements_DTO) -> Bool {
+            return lhs.array == rhs.array
+        }
+        
         case achievementMap([String: GameProgressAchievement_DTO])
         case anythingArray([JSONAny])
 

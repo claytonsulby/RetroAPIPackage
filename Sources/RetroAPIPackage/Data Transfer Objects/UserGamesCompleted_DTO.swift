@@ -6,7 +6,18 @@
 import Foundation
 
 // MARK: - WelcomeElement
-public struct UserCompletedGame_DTO: Codable {
+public struct UserCompletedGame_DTO: Codable, Equatable {
+    internal init(gameID: String? = nil, consoleName: String? = nil, imageIcon: String? = nil, title: String? = nil, numAwarded: String? = nil, maxPossible: String? = nil, pctWon: String? = nil, hardcoreMode: String? = nil) {
+        self.gameID = gameID
+        self.consoleName = consoleName
+        self.imageIcon = imageIcon
+        self.title = title
+        self.numAwarded = numAwarded
+        self.maxPossible = maxPossible
+        self.pctWon = pctWon
+        self.hardcoreMode = hardcoreMode
+    }
+    
     public var gameID, consoleName, imageIcon, title: String?
     public var numAwarded, maxPossible, pctWon, hardcoreMode: String?
 
@@ -19,6 +30,17 @@ public struct UserCompletedGame_DTO: Codable {
         case maxPossible = "MaxPossible"
         case pctWon = "PctWon"
         case hardcoreMode = "HardcoreMode"
+    }
+    
+    public static func == (lhs: UserCompletedGame_DTO, rhs: UserCompletedGame_DTO) -> Bool {
+        return lhs.gameID == rhs.gameID &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.imageIcon == rhs.imageIcon &&
+            lhs.title == rhs.title &&
+            lhs.numAwarded == rhs.numAwarded &&
+            lhs.maxPossible == rhs.maxPossible &&
+            lhs.pctWon == rhs.pctWon &&
+            lhs.hardcoreMode == rhs.hardcoreMode
     }
 }
 

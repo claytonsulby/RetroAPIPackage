@@ -12,7 +12,26 @@ import Foundation
 public typealias GamesInfo_DTO = [GameInfo_DTO]
 
 
-public struct GameInfo_DTO : Hashable, Decodable {
+public struct GameInfo_DTO : Codable, Equatable {
+    internal init(name: String? = nil, forumTopicID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, flags: String? = nil, imageIcon: String? = nil, gameIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releaseYear: String? = nil, gameTitle: String? = nil, console: String? = nil) {
+        self.name = name
+        self.forumTopicID = forumTopicID
+        self.consoleID = consoleID
+        self.consoleName = consoleName
+        self.flags = flags
+        self.imageIcon = imageIcon
+        self.gameIcon = gameIcon
+        self.imageTitle = imageTitle
+        self.imageInGame = imageInGame
+        self.imageBoxArt = imageBoxArt
+        self.publisher = publisher
+        self.developer = developer
+        self.genre = genre
+        self.releaseYear = releaseYear
+        self.gameTitle = gameTitle
+        self.console = console
+    }
+    
     public var name:String?
     public var forumTopicID:String?
     public var consoleID:String?
@@ -47,5 +66,24 @@ public struct GameInfo_DTO : Hashable, Decodable {
         case releaseYear = "Released"
         case gameTitle = "GameTitle"
         case console = "Console"
+    }
+    
+    public static func == (lhs: GameInfo_DTO, rhs: GameInfo_DTO) -> Bool {
+        return lhs.name == rhs.name &&
+            lhs.forumTopicID == rhs.forumTopicID &&
+            lhs.consoleID == rhs.consoleID &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.flags == rhs.flags &&
+            lhs.imageIcon == rhs.imageIcon &&
+            lhs.gameIcon == rhs.gameIcon &&
+            lhs.imageTitle == rhs.imageTitle &&
+            lhs.imageInGame == rhs.imageInGame &&
+            lhs.imageBoxArt == rhs.imageBoxArt &&
+            lhs.publisher == rhs.publisher &&
+            lhs.developer == rhs.developer &&
+            lhs.genre == rhs.genre &&
+            lhs.releaseYear == rhs.releaseYear &&
+            lhs.gameTitle == rhs.gameTitle &&
+            lhs.console == rhs.console
     }
 }

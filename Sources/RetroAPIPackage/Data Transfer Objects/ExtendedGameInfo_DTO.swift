@@ -8,7 +8,30 @@ import Foundation
 public typealias ExtendedGamesInfo_DTO = [ExtendedGameInfo_DTO]
 
 // MARK: - ExtendedGamesInfo_DTO
-public struct ExtendedGameInfo_DTO: Codable {
+public struct ExtendedGameInfo_DTO: Codable, Equatable {
+    internal init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: String? = nil, numDistinctPlayersHardcore: String? = nil, achievements: [String : ExtendedGamesInfo_Achievement_DTO]? = nil) {
+        self.id = id
+        self.title = title
+        self.consoleID = consoleID
+        self.forumTopicID = forumTopicID
+        self.flags = flags
+        self.imageIcon = imageIcon
+        self.imageTitle = imageTitle
+        self.imageIngame = imageIngame
+        self.imageBoxArt = imageBoxArt
+        self.publisher = publisher
+        self.developer = developer
+        self.genre = genre
+        self.released = released
+        self.isFinal = isFinal
+        self.consoleName = consoleName
+        self.richPresencePatch = richPresencePatch
+        self.numAchievements = numAchievements
+        self.numDistinctPlayersCasual = numDistinctPlayersCasual
+        self.numDistinctPlayersHardcore = numDistinctPlayersHardcore
+        self.achievements = achievements
+    }
+    
     public var id: Int?
     public var title: String?
     public var consoleID, forumTopicID, flags: Int?
@@ -42,10 +65,49 @@ public struct ExtendedGameInfo_DTO: Codable {
         case numDistinctPlayersHardcore = "NumDistinctPlayersHardcore"
         case achievements = "Achievements"
     }
+    
+    public static func == (lhs: ExtendedGameInfo_DTO, rhs: ExtendedGameInfo_DTO) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.title == rhs.title &&
+            lhs.consoleID == rhs.consoleID &&
+            lhs.forumTopicID == rhs.forumTopicID &&
+            lhs.flags == rhs.flags &&
+            lhs.imageIcon == rhs.imageIcon &&
+            lhs.imageTitle == rhs.imageTitle &&
+            lhs.imageIngame == rhs.imageIngame &&
+            lhs.imageBoxArt == rhs.imageBoxArt &&
+            lhs.publisher == rhs.publisher &&
+            lhs.developer == rhs.developer &&
+            lhs.genre == rhs.genre &&
+            lhs.released == rhs.released &&
+            lhs.isFinal == rhs.isFinal &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.richPresencePatch == rhs.richPresencePatch &&
+            lhs.numAchievements == rhs.numAchievements &&
+            lhs.numDistinctPlayersCasual == rhs.numDistinctPlayersCasual &&
+            lhs.numDistinctPlayersHardcore == rhs.numDistinctPlayersHardcore &&
+            lhs.achievements == rhs.achievements
+    }
 }
 
 // MARK: - Achievement
-public struct ExtendedGamesInfo_Achievement_DTO: Codable {
+public struct ExtendedGamesInfo_Achievement_DTO: Codable, Equatable {
+    internal init(id: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil) {
+        self.id = id
+        self.numAwarded = numAwarded
+        self.numAwardedHardcore = numAwardedHardcore
+        self.title = title
+        self.achievementDescription = achievementDescription
+        self.points = points
+        self.trueRatio = trueRatio
+        self.author = author
+        self.dateModified = dateModified
+        self.dateCreated = dateCreated
+        self.badgeName = badgeName
+        self.displayOrder = displayOrder
+        self.memAddr = memAddr
+    }
+    
     public var id, numAwarded, numAwardedHardcore, title: String?
     public var achievementDescription, points, trueRatio: String?
     public var author: String?
@@ -66,5 +128,21 @@ public struct ExtendedGamesInfo_Achievement_DTO: Codable {
         case badgeName = "BadgeName"
         case displayOrder = "DisplayOrder"
         case memAddr = "MemAddr"
+    }
+    
+    public static func == (lhs: ExtendedGamesInfo_Achievement_DTO, rhs: ExtendedGamesInfo_Achievement_DTO) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.numAwarded == rhs.numAwarded &&
+            lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
+            lhs.title == rhs.title &&
+            lhs.achievementDescription == rhs.achievementDescription &&
+            lhs.points == rhs.points &&
+            lhs.trueRatio == rhs.trueRatio &&
+            lhs.author == rhs.author &&
+            lhs.dateModified == rhs.dateModified &&
+            lhs.dateCreated == rhs.dateCreated &&
+            lhs.badgeName == rhs.badgeName &&
+            lhs.displayOrder == rhs.displayOrder &&
+            lhs.memAddr == rhs.memAddr
     }
 }

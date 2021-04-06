@@ -6,7 +6,15 @@
 import Foundation
 
 // MARK: - GameListElement_DTO
-public struct GameListElement_DTO: Codable {
+public struct GameListElement_DTO: Codable, Equatable {
+    internal init(title: String? = nil, id: String? = nil, consoleID: String? = nil, imageIcon: String? = nil, consoleName: String? = nil) {
+        self.title = title
+        self.id = id
+        self.consoleID = consoleID
+        self.imageIcon = imageIcon
+        self.consoleName = consoleName
+    }
+    
     public var title, id, consoleID, imageIcon, consoleName: String?
 
     enum CodingKeys: String, CodingKey {
@@ -15,6 +23,14 @@ public struct GameListElement_DTO: Codable {
         case consoleID = "ConsoleID"
         case imageIcon = "ImageIcon"
         case consoleName = "ConsoleName"
+    }
+    
+    public static func == (lhs: GameListElement_DTO, rhs: GameListElement_DTO) -> Bool {
+        return lhs.title == rhs.title &&
+            lhs.id == rhs.id &&
+            lhs.consoleID == rhs.consoleID &&
+            lhs.imageIcon == rhs.imageIcon &&
+            lhs.consoleName == rhs.consoleName
     }
 }
 

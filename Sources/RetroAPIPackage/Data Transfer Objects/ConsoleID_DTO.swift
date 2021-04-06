@@ -6,12 +6,22 @@
 import Foundation
 
 // MARK: - ConsoleID_DTO
-public struct ConsoleID_DTO: Codable {
+public struct ConsoleID_DTO: Codable, Equatable {
+    internal init(id: String? = nil, name: String? = nil) {
+        self.id = id
+        self.name = name
+    }
+    
     public var id, name: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"
         case name = "Name"
+    }
+    
+    public static func == (lhs: ConsoleID_DTO, rhs: ConsoleID_DTO) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.name == rhs.name
     }
 }
 
