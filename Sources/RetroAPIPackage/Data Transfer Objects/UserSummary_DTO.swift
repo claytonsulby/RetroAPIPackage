@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserSummary
 public struct UserSummary_DTO: Codable, Equatable {
-    internal init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [RecentlyPlayed_DTO]? = nil, memberSince: String? = nil, lastActivity: LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: LastGame_DTO? = nil, contribCount: PHPHelper.JSONIntOrString? = nil, contribYield: PHPHelper.JSONIntOrString? = nil, totalPoints: PHPHelper.JSONIntOrString? = nil, totalTruePoints: PHPHelper.JSONIntOrString? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: [String : Awarded_DTO]? = nil, recentAchievements: [String : [String : RecentAchievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
+    public init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [RecentlyPlayed_DTO]? = nil, memberSince: String? = nil, lastActivity: LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: LastGame_DTO? = nil, contribCount: PHPHelper.JSONIntOrString? = nil, contribYield: PHPHelper.JSONIntOrString? = nil, totalPoints: PHPHelper.JSONIntOrString? = nil, totalTruePoints: PHPHelper.JSONIntOrString? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: [String : Awarded_DTO]? = nil, recentAchievements: [String : [String : RecentAchievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
         self.recentlyPlayedCount = recentlyPlayedCount
         self.recentlyPlayed = recentlyPlayed
         self.memberSince = memberSince
@@ -102,7 +102,7 @@ public struct UserSummary_DTO: Codable, Equatable {
 
 // MARK: - Awarded
 public struct Awarded_DTO: Codable, Equatable {
-    internal init(numPossibleAchievements: PHPHelper.JSONIntOrString? = nil, possibleScore: PHPHelper.JSONIntOrString? = nil, numAchieved: PHPHelper.JSONIntOrString? = nil, scoreAchieved: PHPHelper.JSONIntOrString? = nil, numAchievedHardcore: PHPHelper.JSONIntOrString? = nil, scoreAchievedHardcore: PHPHelper.JSONIntOrString? = nil) {
+    public init(numPossibleAchievements: PHPHelper.JSONIntOrString? = nil, possibleScore: PHPHelper.JSONIntOrString? = nil, numAchieved: PHPHelper.JSONIntOrString? = nil, scoreAchieved: PHPHelper.JSONIntOrString? = nil, numAchievedHardcore: PHPHelper.JSONIntOrString? = nil, scoreAchievedHardcore: PHPHelper.JSONIntOrString? = nil) {
         self.numPossibleAchievements = numPossibleAchievements
         self.possibleScore = possibleScore
         self.numAchieved = numAchieved
@@ -136,7 +136,7 @@ public struct Awarded_DTO: Codable, Equatable {
 
 // MARK: - LastActivity
 public struct LastActivity_DTO: Codable, Equatable {
-    internal init(id: String? = nil, timestamp: String? = nil, lastupdate: String? = nil, activitytype: String? = nil, user: String? = nil, data: String? = nil, data2: String? = nil) {
+    public init(id: String? = nil, timestamp: String? = nil, lastupdate: String? = nil, activitytype: String? = nil, user: String? = nil, data: String? = nil, data2: String? = nil) {
         self.id = id
         self.timestamp = timestamp
         self.lastupdate = lastupdate
@@ -170,7 +170,7 @@ public struct LastActivity_DTO: Codable, Equatable {
 
 // MARK: - LastGame
 public struct LastGame_DTO: Codable, Equatable {
-    internal init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil) {
+    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil) {
         self.id = id
         self.title = title
         self.consoleID = consoleID
@@ -238,7 +238,7 @@ public struct LastGame_DTO: Codable, Equatable {
 
 // MARK: - RecentAchievement
 public struct RecentAchievement_DTO: Codable, Equatable {
-    internal init(id: String? = nil, gameID: String? = nil, gameTitle: String? = nil, title: String? = nil, recentAchievementDescription: String? = nil, points: String? = nil, badgeName: String? = nil, isAwarded: String? = nil, dateAwarded: String? = nil, hardcoreAchieved: String? = nil) {
+    public init(id: String? = nil, gameID: String? = nil, gameTitle: String? = nil, title: String? = nil, recentAchievementDescription: String? = nil, points: String? = nil, badgeName: String? = nil, isAwarded: String? = nil, dateAwarded: String? = nil, hardcoreAchieved: String? = nil) {
         self.id = id
         self.gameID = gameID
         self.gameTitle = gameTitle
@@ -284,7 +284,7 @@ public struct RecentAchievement_DTO: Codable, Equatable {
 
 // MARK: - RecentlyPlayed
 public struct RecentlyPlayed_DTO: Codable, Equatable {
-    internal init(gameID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, title: String? = nil, imageIcon: String? = nil, lastPlayed: String? = nil, myVote: String? = nil) {
+    public init(gameID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, title: String? = nil, imageIcon: String? = nil, lastPlayed: String? = nil, myVote: String? = nil) {
         self.gameID = gameID
         self.consoleID = consoleID
         self.consoleName = consoleName
