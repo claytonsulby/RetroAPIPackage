@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserFeed_DTO
 public struct UserFeed_DTO: Codable, Equatable {
-    internal init(success: Bool? = nil) {
+    public init(success: Bool? = nil) {
         self.success = success
     }
     

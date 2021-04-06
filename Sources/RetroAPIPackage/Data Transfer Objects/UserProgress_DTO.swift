@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserProgressElement_DTO
 public struct UserProgressElement_DTO: Codable, Equatable {
-    internal init(numPossibleAchievements: PHPHelper.JSONIntOrString? = nil, possibleScore: PHPHelper.JSONIntOrString? = nil, numAchieved: PHPHelper.JSONIntOrString? = nil, scoreAchieved: PHPHelper.JSONIntOrString? = nil, numAchievedHardcore: Int? = nil, scoreAchievedHardcore: Int? = nil) {
+    public init(numPossibleAchievements: PHPHelper.JSONIntOrString? = nil, possibleScore: PHPHelper.JSONIntOrString? = nil, numAchieved: PHPHelper.JSONIntOrString? = nil, scoreAchieved: PHPHelper.JSONIntOrString? = nil, numAchievedHardcore: Int? = nil, scoreAchievedHardcore: Int? = nil) {
         self.numPossibleAchievements = numPossibleAchievements
         self.possibleScore = possibleScore
         self.numAchieved = numAchieved

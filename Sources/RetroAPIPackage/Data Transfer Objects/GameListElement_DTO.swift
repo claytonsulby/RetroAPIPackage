@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - GameListElement_DTO
 public struct GameListElement_DTO: Codable, Equatable {
-    internal init(title: String? = nil, id: String? = nil, consoleID: String? = nil, imageIcon: String? = nil, consoleName: String? = nil) {
+    public init(title: String? = nil, id: String? = nil, consoleID: String? = nil, imageIcon: String? = nil, consoleName: String? = nil) {
         self.title = title
         self.id = id
         self.consoleID = consoleID

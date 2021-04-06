@@ -13,7 +13,7 @@ public typealias GamesInfo_DTO = [GameInfo_DTO]
 
 
 public struct GameInfo_DTO : Codable, Equatable {
-    internal init(name: String? = nil, forumTopicID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, flags: String? = nil, imageIcon: String? = nil, gameIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releaseYear: String? = nil, gameTitle: String? = nil, console: String? = nil) {
+    public init(name: String? = nil, forumTopicID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, flags: String? = nil, imageIcon: String? = nil, gameIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releaseYear: String? = nil, gameTitle: String? = nil, console: String? = nil) {
         self.name = name
         self.forumTopicID = forumTopicID
         self.consoleID = consoleID

@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - ConsoleID_DTO
 public struct ConsoleID_DTO: Codable, Equatable {
-    internal init(id: String? = nil, name: String? = nil) {
+    public init(id: String? = nil, name: String? = nil) {
         self.id = id
         self.name = name
     }

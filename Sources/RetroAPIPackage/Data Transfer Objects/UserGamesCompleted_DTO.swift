@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserCompletedGame_DTO: Codable, Equatable {
-    internal init(gameID: String? = nil, consoleName: String? = nil, imageIcon: String? = nil, title: String? = nil, numAwarded: String? = nil, maxPossible: String? = nil, pctWon: String? = nil, hardcoreMode: String? = nil) {
+    public init(gameID: String? = nil, consoleName: String? = nil, imageIcon: String? = nil, title: String? = nil, numAwarded: String? = nil, maxPossible: String? = nil, pctWon: String? = nil, hardcoreMode: String? = nil) {
         self.gameID = gameID
         self.consoleName = consoleName
         self.imageIcon = imageIcon

@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserRecent_DTO: Codable, Equatable {
-    internal init(gameID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, title: String? = nil, imageIcon: String? = nil, lastPlayed: String? = nil, myVote: String? = nil, numPossibleAchievements: PHPHelper.JSONIntOrString? = nil, possibleScore: PHPHelper.JSONIntOrString? = nil, numAchieved: PHPHelper.JSONIntOrString? = nil, scoreAchieved: PHPHelper.JSONIntOrString? = nil) {
+    public init(gameID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, title: String? = nil, imageIcon: String? = nil, lastPlayed: String? = nil, myVote: String? = nil, numPossibleAchievements: PHPHelper.JSONIntOrString? = nil, possibleScore: PHPHelper.JSONIntOrString? = nil, numAchieved: PHPHelper.JSONIntOrString? = nil, scoreAchieved: PHPHelper.JSONIntOrString? = nil) {
         self.gameID = gameID
         self.consoleID = consoleID
         self.consoleName = consoleName

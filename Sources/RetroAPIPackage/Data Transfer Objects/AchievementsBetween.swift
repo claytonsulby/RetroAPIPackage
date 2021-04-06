@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - AchievementBetween
 public struct AchievementBetween_DTO: Codable, Equatable {
-    internal init(date: String? = nil, hardcoreMode: String? = nil, achievementID: String? = nil, title: String? = nil, welcomeDescription: String? = nil, badgeName: String? = nil, points: String? = nil, author: String? = nil, gameTitle: String? = nil, gameIcon: String? = nil, gameID: String? = nil, consoleName: String? = nil, cumulScore: Int? = nil, badgeURL: String? = nil, gameURL: String? = nil) {
+    public init(date: String? = nil, hardcoreMode: String? = nil, achievementID: String? = nil, title: String? = nil, welcomeDescription: String? = nil, badgeName: String? = nil, points: String? = nil, author: String? = nil, gameTitle: String? = nil, gameIcon: String? = nil, gameID: String? = nil, consoleName: String? = nil, cumulScore: Int? = nil, badgeURL: String? = nil, gameURL: String? = nil) {
         self.date = date
         self.hardcoreMode = hardcoreMode
         self.achievementID = achievementID

@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserRank_DTO
 public struct UserRank_DTO: Codable, Equatable {
-    internal init(score: Int? = nil, rank: Int? = nil, totalRanked: String? = nil) {
+    public init(score: Int? = nil, rank: Int? = nil, totalRanked: String? = nil) {
         self.score = score
         self.rank = rank
         self.totalRanked = totalRanked

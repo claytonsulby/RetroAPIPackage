@@ -10,7 +10,7 @@ import Foundation
 public typealias TopUsers_DTO = [TopUser_DTO]
 
 public struct TopUser_DTO : Codable, Equatable {
-    internal init(user: String, points: String, score: String) {
+    public init(user: String, points: String, score: String) {
         self.user = user
         self.points = points
         self.score = score
