@@ -82,7 +82,7 @@ public extension RetroAPI {
             .eraseToAnyPublisher()
         
     }
-    
+        
     static func getGameInfo(_ gameID:String) -> AnyPublisher<GameInfo_DTO,Error> {
         
         var components = baseURLComponents(RetroAPI.apiPages["getGameInfo"] ?? "")
@@ -504,4 +504,32 @@ public extension RetroAPI {
             }
         }
     }
+}
+
+public extension RetroAPI {
+    
+    static func getTopTenUsersTest1() -> AnyPublisher<TopUsers_DTO, Never> {
+        
+        let components = baseURLComponents(RetroAPI.apiPages["getTopTenUsers"] ?? "")
+        
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .replaceError(with: TopUsers_DTO())
+            .eraseToAnyPublisher()
+    }
+    
+    static func getTopTenUsersTest2() -> AnyPublisher<TopUsers_DTO, Never> {
+        
+        let components = baseURLComponents(RetroAPI.apiPages["getTopTenUsers"] ?? "")
+        
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run2(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
+    
 }

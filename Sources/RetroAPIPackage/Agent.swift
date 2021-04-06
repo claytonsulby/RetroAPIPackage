@@ -13,12 +13,15 @@ public struct Agent {
     // 1
     @available(iOS 13.0, *)
     struct Response<T> {
+        internal init(value: T, response: URLResponse) {
+            self.value = value
+            self.response = response
+        }
+        
         let value: T
         let response: URLResponse
     }
-    
-    
-    
+
     // 2
     @available(iOS 13.0, *)
     func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Error> {
@@ -32,5 +35,22 @@ public struct Agent {
             .receive(on: DispatchQueue.main) // 6
             .eraseToAnyPublisher() // 7
     }
-
+    
+    func run2<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Never> {
+        
+        var local:Response<T>?
+        
+        return URLSession.shared
+            .dataTaskPublisher(for: request) // 3
+            .tryMap {
+                result -> Response<T> in
+                let value = try decoder.decode(T.self, from: result.data) // 4
+                local = Response(value: value, response: result.response)
+                return Response(value: value, response: result.response) // 5
+            }
+            .receive(on: DispatchQueue.main) // 6
+            .eraseToAnyPublisher() // 7
+            .replaceError(with: local!)
+            .eraseToAnyPublisher() // 7
+    }
 }
