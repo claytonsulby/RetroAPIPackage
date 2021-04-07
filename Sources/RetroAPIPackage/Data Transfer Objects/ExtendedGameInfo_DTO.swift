@@ -9,7 +9,7 @@ public typealias ExtendedGamesInfo_DTO = [ExtendedGameInfo_DTO]
 
 // MARK: - ExtendedGamesInfo_DTO
 public struct ExtendedGameInfo_DTO: Codable, Equatable {
-    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: String? = nil, numDistinctPlayersHardcore: String? = nil, achievements: [String : ExtendedGamesInfo_Achievement_DTO]? = nil) {
+    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: PHPHelper.JSONIntOrString? = nil, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString? = nil, achievements: [String : ExtendedGamesInfo_Achievement_DTO]? = nil) {
         self.id = id
         self.title = title
         self.consoleID = consoleID
@@ -40,7 +40,7 @@ public struct ExtendedGameInfo_DTO: Codable, Equatable {
     public var isFinal: Bool?
     public var consoleName, richPresencePatch: String?
     public var numAchievements: Int?
-    public var numDistinctPlayersCasual, numDistinctPlayersHardcore: String?
+    public var numDistinctPlayersCasual, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString?
     public var achievements: [String: ExtendedGamesInfo_Achievement_DTO]?
 
     enum CodingKeys: String, CodingKey {
