@@ -116,12 +116,12 @@ public enum PHPHelper {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            if let x = try? container.decode([JSONAny].self) {
-                self = .anythingArray(x)
-                return
-            }
             if let x = try? container.decode([String: ExtendedGamesInfo_Achievement_DTO].self) {
                 self = .achievementMap(x)
+                return
+            }
+            if let x = try? container.decode([JSONAny].self) {
+                self = .anythingArray(x)
                 return
             }
             throw DecodingError.typeMismatch(PHPHelper.ExtendedGamesInfo_Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
