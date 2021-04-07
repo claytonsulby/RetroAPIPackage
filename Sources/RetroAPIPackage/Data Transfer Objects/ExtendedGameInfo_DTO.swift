@@ -66,7 +66,7 @@ public struct ExtendedGameInfo_DTO: Codable, Equatable {
         case achievements = "Achievements"
     }
     
-    static func == (lhs: ExtendedGameInfo_DTO, rhs: ExtendedGameInfo_DTO) -> Bool {
+    public static func == (lhs: ExtendedGameInfo_DTO, rhs: ExtendedGameInfo_DTO) -> Bool {
         return lhs.id == rhs.id &&
             lhs.title == rhs.title &&
             lhs.consoleID == rhs.consoleID &&
@@ -132,7 +132,7 @@ public struct ExtendedGamesInfo_Achievement_DTO: Codable, Equatable {
         case memAddr = "MemAddr"
     }
     
-    static func == (lhs: ExtendedGamesInfo_Achievement_DTO, rhs: ExtendedGamesInfo_Achievement_DTO) -> Bool {
+    public static func == (lhs: ExtendedGamesInfo_Achievement_DTO, rhs: ExtendedGamesInfo_Achievement_DTO) -> Bool {
         return lhs.id == rhs.id &&
             lhs.numAwarded == rhs.numAwarded &&
             lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
@@ -149,7 +149,7 @@ public struct ExtendedGamesInfo_Achievement_DTO: Codable, Equatable {
     }
 }
 
-public enum ExtendedGamesInfo_Achievements_DTO: Codable {
+public enum ExtendedGamesInfo_Achievements_DTO: Codable, Equatable {
     case achievementMap([String: ExtendedGamesInfo_Achievement_DTO])
     case anythingArray([JSONAny])
 
@@ -175,4 +175,23 @@ public enum ExtendedGamesInfo_Achievements_DTO: Codable {
             try container.encode(x)
         }
     }
+    
+    public static func == (lhs: ExtendedGamesInfo_Achievements_DTO, rhs: ExtendedGamesInfo_Achievements_DTO) -> Bool {
+        return lhs.array == rhs.array
+    }
+    
+    public var array:[ExtendedGamesInfo_Achievement_DTO] {
+        
+        switch self {
+        case .achievementMap(let x):
+            let achievements = x.map({ (key:String, achievement: ExtendedGamesInfo_Achievement_DTO) -> ExtendedGamesInfo_Achievement_DTO in
+                achievement
+            })
+            return achievements
+        case .anythingArray(_):
+            return []
+        }
+
+    }
+    
 }

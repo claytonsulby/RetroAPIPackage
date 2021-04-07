@@ -58,9 +58,6 @@ public enum PHPHelper {
     }
     
     public enum GameProgressAchievements_DTO: Codable, Equatable  {
-        public static func == (lhs: PHPHelper.GameProgressAchievements_DTO, rhs: PHPHelper.GameProgressAchievements_DTO) -> Bool {
-            return lhs.array == rhs.array
-        }
         
         case achievementMap([String: GameProgressAchievement_DTO])
         case anythingArray([JSONAny])
@@ -86,6 +83,10 @@ public enum PHPHelper {
             case .anythingArray(let x):
                 try container.encode(x)
             }
+        }
+        
+        public static func == (lhs: PHPHelper.GameProgressAchievements_DTO, rhs: PHPHelper.GameProgressAchievements_DTO) -> Bool {
+            return lhs.array == rhs.array
         }
         
         public var array:[GameProgressAchievement_DTO] {
