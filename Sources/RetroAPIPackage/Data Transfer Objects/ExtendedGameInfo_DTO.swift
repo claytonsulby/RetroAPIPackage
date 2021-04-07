@@ -149,11 +149,11 @@ public struct ExtendedGamesInfo_Achievement_DTO: Codable, Equatable {
     }
 }
 
-enum ExtendedGamesInfo_Achievements_DTO: Codable {
+public enum ExtendedGamesInfo_Achievements_DTO: Codable {
     case achievementMap([String: ExtendedGamesInfo_Achievement_DTO])
     case anythingArray([JSONAny])
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let x = try? container.decode([JSONAny].self) {
             self = .anythingArray(x)
@@ -166,7 +166,7 @@ enum ExtendedGamesInfo_Achievements_DTO: Codable {
         throw DecodingError.typeMismatch(ExtendedGamesInfo_Achievements_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
         case .achievementMap(let x):
