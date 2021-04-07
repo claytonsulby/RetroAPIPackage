@@ -103,6 +103,55 @@ public enum PHPHelper {
         }
         
     }
+    
+    public enum ExtendedGamesInfo_Achievement_DTO: Codable, Equatable  {
+        public static func == (lhs: PHPHelper.ExtendedGamesInfo_Achievement_DTO, rhs: PHPHelper.ExtendedGamesInfo_Achievement_DTO) -> Bool {
+            return lhs.array == rhs.array
+        }
+        
+        case achievementMap([String: ExtendedGamesInfo_Achievement_DTO])
+        case anythingArray([JSONAny])
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let x = try? container.decode([JSONAny].self) {
+                self = .anythingArray(x)
+                return
+            }
+            if let x = try? container.decode([String: ExtendedGamesInfo_Achievement_DTO].self) {
+                self = .achievementMap(x)
+                return
+            }
+            throw DecodingError.typeMismatch(ExtendedGamesInfo_Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .achievementMap(let x):
+                try container.encode(x)
+            case .anythingArray(let x):
+                try container.encode(x)
+            }
+        }
+        
+        public var array:[ExtendedGamesInfo_Achievement_DTO] {
+            
+            switch self {
+            case .achievementMap(let x):
+                let achievements = x.map({ (key:String, achievement: ExtendedGamesInfo_Achievement_DTO) -> ExtendedGamesInfo_Achievement_DTO in
+                    achievement
+                })
+                return achievements
+            case .anythingArray(_):
+                return []
+            }
+
+        }
+        
+    }
+    
+    
 }
 
 public class JSONCodingKey: CodingKey {
