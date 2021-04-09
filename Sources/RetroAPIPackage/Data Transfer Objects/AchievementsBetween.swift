@@ -5,8 +5,11 @@
 
 import Foundation
 
+public typealias AchievementsBetween_DTO = [AchievementBetween_DTO]
+
 // MARK: - AchievementBetween
-public struct AchievementBetween_DTO: Codable, Equatable {
+public struct AchievementBetween_DTO {
+    
     public init(date: String? = nil, hardcoreMode: String? = nil, achievementID: String? = nil, title: String? = nil, welcomeDescription: String? = nil, badgeName: String? = nil, points: String? = nil, author: String? = nil, gameTitle: String? = nil, gameIcon: String? = nil, gameID: String? = nil, consoleName: String? = nil, cumulScore: Int? = nil, badgeURL: String? = nil, gameURL: String? = nil) {
         self.date = date
         self.hardcoreMode = hardcoreMode
@@ -31,6 +34,13 @@ public struct AchievementBetween_DTO: Codable, Equatable {
     public var cumulScore: Int?
     public var badgeURL, gameURL: String?
 
+
+    
+
+}
+
+extension AchievementBetween_DTO : Codable {
+    
     enum CodingKeys: String, CodingKey {
         case date = "Date"
         case hardcoreMode = "HardcoreMode"
@@ -49,6 +59,9 @@ public struct AchievementBetween_DTO: Codable, Equatable {
         case gameURL = "GameURL"
     }
     
+}
+
+extension AchievementBetween_DTO : Equatable {
     public static func == (lhs: AchievementBetween_DTO, rhs: AchievementBetween_DTO) -> Bool {
         return lhs.date == rhs.date &&
             lhs.hardcoreMode == rhs.hardcoreMode &&
@@ -68,4 +81,6 @@ public struct AchievementBetween_DTO: Codable, Equatable {
     }
 }
 
-public typealias AchievementsBetween_DTO = [AchievementBetween_DTO]
+extension AchievementBetween_DTO : Hashable {
+    
+}
