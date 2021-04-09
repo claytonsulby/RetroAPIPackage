@@ -90,67 +90,8 @@ public struct ExtendedGameInfo_DTO: Codable, Equatable {
     }
 }
 
-
-// MARK: - Achievement
-public struct ExtendedGamesInfo_Achievement_DTO: Codable, Equatable {
-    public init(id: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil) {
-        self.id = id
-        self.numAwarded = numAwarded
-        self.numAwardedHardcore = numAwardedHardcore
-        self.title = title
-        self.achievementDescription = achievementDescription
-        self.points = points
-        self.trueRatio = trueRatio
-        self.author = author
-        self.dateModified = dateModified
-        self.dateCreated = dateCreated
-        self.badgeName = badgeName
-        self.displayOrder = displayOrder
-        self.memAddr = memAddr
-    }
-    
-
-    public var id, numAwarded, numAwardedHardcore, title: String?
-    public var achievementDescription, points, trueRatio: String?
-    public var author: String?
-    public var dateModified, dateCreated, badgeName, displayOrder: String?
-    public var memAddr: String?
-
-    enum CodingKeys: String, CodingKey {
-        case id = "ID"
-        case numAwarded = "NumAwarded"
-        case numAwardedHardcore = "NumAwardedHardcore"
-        case title = "Title"
-        case achievementDescription = "Description"
-        case points = "Points"
-        case trueRatio = "TrueRatio"
-        case author = "Author"
-        case dateModified = "DateModified"
-        case dateCreated = "DateCreated"
-        case badgeName = "BadgeName"
-        case displayOrder = "DisplayOrder"
-        case memAddr = "MemAddr"
-    }
-    
-    public static func == (lhs: ExtendedGamesInfo_Achievement_DTO, rhs: ExtendedGamesInfo_Achievement_DTO) -> Bool {
-        return lhs.id == rhs.id &&
-            lhs.numAwarded == rhs.numAwarded &&
-            lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
-            lhs.title == rhs.title &&
-            lhs.achievementDescription == rhs.achievementDescription &&
-            lhs.points == rhs.points &&
-            lhs.trueRatio == rhs.trueRatio &&
-            lhs.author == rhs.author &&
-            lhs.dateModified == rhs.dateModified &&
-            lhs.dateCreated == rhs.dateCreated &&
-            lhs.badgeName == rhs.badgeName &&
-            lhs.displayOrder == rhs.displayOrder &&
-            lhs.memAddr == rhs.memAddr
-    }
-}
-
 public enum ExtendedGamesInfo_Achievements_DTO: Codable, Equatable {
-    case achievementMap([String: ExtendedGamesInfo_Achievement_DTO])
+    case achievementMap([String: Achievement_DTO])
     case anythingArray([JSONAny])
 
     public init(from decoder: Decoder) throws {
@@ -159,11 +100,11 @@ public enum ExtendedGamesInfo_Achievements_DTO: Codable, Equatable {
             self = .anythingArray(x)
             return
         }
-        if let x = try? container.decode([String: ExtendedGamesInfo_Achievement_DTO].self) {
+        if let x = try? container.decode([String: Achievement_DTO].self) {
             self = .achievementMap(x)
             return
         }
-        throw DecodingError.typeMismatch(ExtendedGamesInfo_Achievements_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
+        throw DecodingError.typeMismatch(Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -180,11 +121,11 @@ public enum ExtendedGamesInfo_Achievements_DTO: Codable, Equatable {
         return lhs.array == rhs.array
     }
     
-    public var array:[ExtendedGamesInfo_Achievement_DTO] {
+    public var array:[Achievement_DTO] {
         
         switch self {
         case .achievementMap(let x):
-            let achievements = x.map({ (key:String, achievement: ExtendedGamesInfo_Achievement_DTO) -> ExtendedGamesInfo_Achievement_DTO in
+            let achievements = x.map({ (key:String, achievement: Achievement_DTO) -> Achievement_DTO in
                 achievement
             })
             return achievements

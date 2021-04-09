@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserSummary
 public struct UserSummary_DTO: Codable, Equatable {
-    public init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [RecentlyPlayed_DTO]? = nil, memberSince: String? = nil, lastActivity: LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: LastGame_DTO? = nil, contribCount: PHPHelper.JSONIntOrString? = nil, contribYield: PHPHelper.JSONIntOrString? = nil, totalPoints: PHPHelper.JSONIntOrString? = nil, totalTruePoints: PHPHelper.JSONIntOrString? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: [String : Awarded_DTO]? = nil, recentAchievements: [String : [String : RecentAchievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
+    public init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [RecentlyPlayed_DTO]? = nil, memberSince: String? = nil, lastActivity: LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: LastGame_DTO? = nil, contribCount: PHPHelper.JSONIntOrString? = nil, contribYield: PHPHelper.JSONIntOrString? = nil, totalPoints: PHPHelper.JSONIntOrString? = nil, totalTruePoints: PHPHelper.JSONIntOrString? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: [String : Awarded_DTO]? = nil, recentAchievements: [String : [String : Achievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
         self.recentlyPlayedCount = recentlyPlayedCount
         self.recentlyPlayed = recentlyPlayed
         self.memberSince = memberSince
@@ -44,7 +44,7 @@ public struct UserSummary_DTO: Codable, Equatable {
     public var motto: String?
     public var rank: Int?
     public var awarded: [String: Awarded_DTO]?
-    public var recentAchievements: [String: [String: RecentAchievement_DTO]]?
+    public var recentAchievements: [String: [String: Achievement_DTO]]?
     public var points, userPic, totalRanked, status: String?
     
     enum CodingKeys: String, CodingKey {
@@ -233,52 +233,6 @@ public struct LastGame_DTO: Codable, Equatable {
             lhs.isFinal == rhs.isFinal &&
             lhs.consoleName == rhs.consoleName &&
             lhs.richPresencePatch == rhs.richPresencePatch
-    }
-}
-
-// MARK: - RecentAchievement
-public struct RecentAchievement_DTO: Codable, Equatable {
-    public init(id: String? = nil, gameID: String? = nil, gameTitle: String? = nil, title: String? = nil, recentAchievementDescription: String? = nil, points: String? = nil, badgeName: String? = nil, isAwarded: String? = nil, dateAwarded: String? = nil, hardcoreAchieved: String? = nil) {
-        self.id = id
-        self.gameID = gameID
-        self.gameTitle = gameTitle
-        self.title = title
-        self.recentAchievementDescription = recentAchievementDescription
-        self.points = points
-        self.badgeName = badgeName
-        self.isAwarded = isAwarded
-        self.dateAwarded = dateAwarded
-        self.hardcoreAchieved = hardcoreAchieved
-    }
-    
-    public var id, gameID, gameTitle, title: String?
-    public var recentAchievementDescription, points, badgeName, isAwarded: String?
-    public var dateAwarded, hardcoreAchieved: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "ID"
-        case gameID = "GameID"
-        case gameTitle = "GameTitle"
-        case title = "Title"
-        case recentAchievementDescription = "Description"
-        case points = "Points"
-        case badgeName = "BadgeName"
-        case isAwarded = "IsAwarded"
-        case dateAwarded = "DateAwarded"
-        case hardcoreAchieved = "HardcoreAchieved"
-    }
-    
-    public static func == (lhs: RecentAchievement_DTO, rhs: RecentAchievement_DTO) -> Bool {
-        return lhs.id == rhs.id &&
-            lhs.gameID == rhs.gameID &&
-            lhs.gameTitle == rhs.gameTitle &&
-            lhs.title == rhs.title &&
-            lhs.recentAchievementDescription == rhs.recentAchievementDescription &&
-            lhs.points == rhs.points &&
-            lhs.badgeName == rhs.badgeName &&
-            lhs.isAwarded == rhs.isAwarded &&
-            lhs.dateAwarded == rhs.dateAwarded &&
-            lhs.hardcoreAchieved == rhs.hardcoreAchieved
     }
 }
 

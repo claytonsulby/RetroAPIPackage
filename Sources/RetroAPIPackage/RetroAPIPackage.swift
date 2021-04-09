@@ -54,6 +54,7 @@ public extension RetroAPI {
         "getUserCompletedGames":"API_GetUserCompletedGames.php"
     ]
 
+    //  https://retroachievements.org/API/
     static func baseURLComponents(_ page:String) -> URLComponents {
         
         var components = URLComponents()
@@ -65,6 +66,7 @@ public extension RetroAPI {
         return components
     }
 }
+
 
 @available(iOS 13.0, *)
 public extension RetroAPI {
@@ -96,6 +98,7 @@ public extension RetroAPI {
         
     }
     
+    //  https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=<>&i=201
     static func getGameInfoExtended(_ gameID:String) -> AnyPublisher<ExtendedGameInfo_DTO,Error> {
         
         var components = baseURLComponents(RetroAPI.apiPages["getGameInfoExtended"] ?? "")
@@ -207,6 +210,7 @@ public extension RetroAPI {
     
     //FIXME: if username doesn't exist handle this:
     //{"ID":null,"User":"<username here>"}
+    //  https://retroachievements.org/API/API_GetUserSummary.php?z=wertox123&y=<>&u=wertox123&g=785
     static func getUserSummary(user: String, numRecentGames: Int) -> AnyPublisher<UserSummary_DTO,Error> {
         
         var components = baseURLComponents(RetroAPI.apiPages["getUserSummary"] ?? "")
@@ -220,6 +224,7 @@ public extension RetroAPI {
         
     }
     
+
     static func getGameInfoAndUserProgress(user:String, gameID:String) -> AnyPublisher<GameInfoAndUserProgress_DTO,Error> {
         
         var components = baseURLComponents(RetroAPI.apiPages["getGameInfoAndUserProgress"] ?? "")
@@ -249,6 +254,7 @@ public extension RetroAPI {
         
     }
     
+    //https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=<>&u=wertox123&f=0&t=1000000000
     static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date) -> AnyPublisher<[AchievementBetween_DTO],Error> {
         
         var components = baseURLComponents(RetroAPI.apiPages["getAchievementsEarnedBetween"] ?? "")
@@ -475,6 +481,8 @@ public extension RetroAPI {
         }
     }
     
+    
+    
     static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date, completionHandler: @escaping (AchievementsBetween_DTO) -> Void) {
         var components = baseURLComponents(RetroAPI.apiPages["getAchievementsEarnedBetween"] ?? "")
         components.queryItems?.append(contentsOf: [
@@ -504,32 +512,4 @@ public extension RetroAPI {
             }
         }
     }
-}
-
-public extension RetroAPI {
-    
-    static func getTopTenUsersTest1() -> AnyPublisher<TopUsers_DTO, Never> {
-        
-        let components = baseURLComponents(RetroAPI.apiPages["getTopTenUsers"] ?? "")
-        
-        let request = URLRequest(url: components.url!)
-        
-        return agent.run(request)
-            .map{$0.value}
-            .replaceError(with: TopUsers_DTO())
-            .eraseToAnyPublisher()
-    }
-    
-    static func getTopTenUsersTest2() -> AnyPublisher<TopUsers_DTO, Never> {
-        
-        let components = baseURLComponents(RetroAPI.apiPages["getTopTenUsers"] ?? "")
-        
-        let request = URLRequest(url: components.url!)
-        
-        return agent.run2(request)
-            .map{$0.value}
-            .eraseToAnyPublisher()
-        
-    }
-    
 }

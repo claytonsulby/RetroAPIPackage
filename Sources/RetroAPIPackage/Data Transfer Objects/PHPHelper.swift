@@ -59,7 +59,7 @@ public enum PHPHelper {
     
     public enum GameProgressAchievements_DTO: Codable, Equatable  {
         
-        case achievementMap([String: GameProgressAchievement_DTO])
+        case achievementMap([String: Achievement_DTO])
         case anythingArray([JSONAny])
 
         public init(from decoder: Decoder) throws {
@@ -68,11 +68,11 @@ public enum PHPHelper {
                 self = .anythingArray(x)
                 return
             }
-            if let x = try? container.decode([String: GameProgressAchievement_DTO].self) {
+            if let x = try? container.decode([String: Achievement_DTO].self) {
                 self = .achievementMap(x)
                 return
             }
-            throw DecodingError.typeMismatch(GameProgressAchievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
+            throw DecodingError.typeMismatch(Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -89,11 +89,11 @@ public enum PHPHelper {
             return lhs.array == rhs.array
         }
         
-        public var array:[GameProgressAchievement_DTO] {
+        public var array:[Achievement_DTO] {
             
             switch self {
             case .achievementMap(let x):
-                let achievements = x.map({ (key:String, achievement: GameProgressAchievement_DTO) -> GameProgressAchievement_DTO in
+                let achievements = x.map({ (key:String, achievement: Achievement_DTO) -> Achievement_DTO in
                     achievement
                 })
                 return achievements
