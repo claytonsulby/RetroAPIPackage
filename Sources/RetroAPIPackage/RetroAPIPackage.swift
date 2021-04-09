@@ -255,7 +255,7 @@ public extension RetroAPI {
     }
     
     //https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=<>&u=wertox123&f=0&t=1000000000
-    static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date) -> AnyPublisher<[AchievementBetween_DTO],Error> {
+    static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date) -> AnyPublisher<[Achievement_DTO],Error> {
         
         var components = baseURLComponents(RetroAPI.apiPages["getAchievementsEarnedBetween"] ?? "")
         components.queryItems?.append(contentsOf: [
