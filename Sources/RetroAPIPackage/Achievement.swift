@@ -7,12 +7,12 @@ import Foundation
 
 // MARK: - Universal Achievement Struct
 public struct Achievement_DTO: Codable, Equatable {
-    internal init(id: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, welcomeDescription: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil, gameID: String? = nil, gameTitle: String? = nil, isAwarded: String? = nil, dateAwarded: String? = nil, hardcoreAchieved: String? = nil, dateEarned: String? = nil, date: String? = nil, hardcoreMode: String? = nil, achievementID: String? = nil, gameIcon: String? = nil, consoleName: String? = nil, cumulScore: Int? = nil, badgeURL: String? = nil, gameURL: String? = nil) {
+    internal init(id: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, description: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil, gameID: String? = nil, gameTitle: String? = nil, isAwarded: String? = nil, dateAwarded: String? = nil, hardcoreAchieved: String? = nil, dateEarned: String? = nil, date: String? = nil, hardcoreMode: String? = nil, achievementID: String? = nil, gameIcon: String? = nil, consoleName: String? = nil, cumulScore: Int? = nil, badgeURL: String? = nil, gameURL: String? = nil) {
         self.id = id
         self.numAwarded = numAwarded
         self.numAwardedHardcore = numAwardedHardcore
         self.title = title
-        self.welcomeDescription = welcomeDescription
+        self.description = description
         self.points = points
         self.trueRatio = trueRatio
         self.author = author
@@ -38,7 +38,7 @@ public struct Achievement_DTO: Codable, Equatable {
     }
     
     public var id, numAwarded, numAwardedHardcore, title: String?
-    public var welcomeDescription, points, trueRatio, author: String?
+    public var description, points, trueRatio, author: String?
     public var dateModified, dateCreated, badgeName, displayOrder: String?
     public var memAddr, gameID, gameTitle, isAwarded: String?
     public var dateAwarded, hardcoreAchieved, dateEarned, date: String?
@@ -51,7 +51,7 @@ public struct Achievement_DTO: Codable, Equatable {
         case numAwarded = "NumAwarded"
         case numAwardedHardcore = "NumAwardedHardcore"
         case title = "Title"
-        case welcomeDescription = "Description"
+        case description = "Description"
         case points = "Points"
         case trueRatio = "TrueRatio"
         case author = "Author"
@@ -81,7 +81,7 @@ public struct Achievement_DTO: Codable, Equatable {
             lhs.numAwarded == rhs.numAwarded &&
             lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
             lhs.title == rhs.title &&
-            lhs.welcomeDescription == rhs.welcomeDescription &&
+            lhs.description == rhs.description &&
             lhs.points == rhs.points &&
             lhs.trueRatio == rhs.trueRatio &&
             lhs.author == rhs.author &&

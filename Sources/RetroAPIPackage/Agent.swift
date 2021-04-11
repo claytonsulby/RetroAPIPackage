@@ -53,4 +53,24 @@ public struct Agent {
             .replaceError(with: local!)
             .eraseToAnyPublisher() // 7
     }
+    
+    
+    func makeRequest(_ url:URL, completionHandler: @escaping (Data) -> Void) {
+
+        var urlRequest: URLRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+        URLSession.shared.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+
+            guard let data = data else {
+                print("invalid response")
+                return
+            }
+
+            completionHandler(data)
+
+
+        }).resume()
+
+    }
+    
 }

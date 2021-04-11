@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - ConsoleID_DTO
-public struct ConsoleID_DTO: Codable, Equatable {
+public struct Console_DTO: Codable, Equatable {
     public init(id: String? = nil, name: String? = nil) {
         self.id = id
         self.name = name
@@ -19,10 +19,10 @@ public struct ConsoleID_DTO: Codable, Equatable {
         case name = "Name"
     }
     
-    public static func == (lhs: ConsoleID_DTO, rhs: ConsoleID_DTO) -> Bool {
+    public static func == (lhs: Console_DTO, rhs: Console_DTO) -> Bool {
         return lhs.id == rhs.id &&
             lhs.name == rhs.name
     }
 }
 
-public typealias ConsoleIDs_DTO = [ConsoleID_DTO]
+public typealias ConsoleIDs_DTO = [Console_DTO]
