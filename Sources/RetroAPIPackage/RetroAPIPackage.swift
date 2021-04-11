@@ -53,14 +53,48 @@ public extension RetroAPI {
         "getAchievementsEarnedBetween": "API_GetAchievementsEarnedBetween.php",
         "getUserCompletedGames":"API_GetUserCompletedGames.php"
     ]
+    
+    private enum APIPages : String {
+        case getTopTenUsers = "API_GetTopTenUsers"
+        case getGameInfo = "API_GetGame"
+        case getGameInfoExtended = "API_GetGameExtended"
+        case getConsoleIDs = "API_GetConsoleIDs"
+        case getGameList = "API_GetGameList"
+        case getFeedFor = "API_GetFeed"
+        case getUserRankAndScore = "API_GetUserRankAndScore"
+        case getUserProgress = "API_GetUserProgress"
+        case getUserRecentlyPlayedGames = "API_GetUserRecentlyPlayedGames"
+        case getUserSummary = "API_GetUserSummary"
+        case getGameInfoAndUserProgress = "API_GetGameInfoAndUserProgress"
+        case getAchievementsEarnedOnDay = "API_GetAchievementsEarnedOnDay"
+        case getAchievementsEarnedBetween = "API_GetAchievementsEarnedBetween"
+        case getUserCompletedGames = "API_GetUserCompletedGames"
+        case getAchievementUnlocks = "API_GetAchievementUnlocks"
+        case getAchievementCount = "API_GetAchievementCount"
+        case getAchievementOfTheWeek = "API_GetAchievementOfTheWeek"
+        case getGameRating = "API_GetGameRating"
+        case getTicketData = "API_GetTicketData"
+        case getUserGameRankAndScore = "API_GetUserGameRankAndScore"
+    }
 
     //  https://retroachievements.org/API/
-    static func baseURLComponents(_ page:String) -> URLComponents {
+    static func baseAPIComponents(_ page:String) -> URLComponents {
         
         var components = URLComponents()
         components.scheme = "https"
         components.host = "retroachievements.org"
         components.path = "/API/" + page
+        components.queryItems = [URLQueryItem(name: "z", value: RetroAPI.user), URLQueryItem(name: "y", value: RetroAPI.key)]
+        
+        return components
+    }
+    
+    private static func baseEnumComponents(_ page:APIPages) -> URLComponents {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "retroachievements.org"
+        components.path = "/API/" + page.rawValue + ".php"
         components.queryItems = [URLQueryItem(name: "z", value: RetroAPI.user), URLQueryItem(name: "y", value: RetroAPI.key)]
         
         return components
@@ -75,7 +109,7 @@ public extension RetroAPI {
     
     static func getTopTenUsers() -> AnyPublisher<TopUsers_DTO, Error> {
         
-        let components = baseURLComponents(RetroAPI.apiPages["getTopTenUsers"] ?? "")
+        let components = baseEnumComponents(.getTopTenUsers)
         
         let request = URLRequest(url: components.url!)
         
@@ -87,7 +121,7 @@ public extension RetroAPI {
         
     static func getGameInfo(_ gameID:String) -> AnyPublisher<GameInfo_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getGameInfo"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameInfo"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: gameID)])
         
         let request = URLRequest(url: components.url!)
@@ -101,7 +135,7 @@ public extension RetroAPI {
     //  https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=<>&i=201
     static func getGameInfoExtended(_ gameID:String) -> AnyPublisher<ExtendedGameInfo_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getGameInfoExtended"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameInfoExtended"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: gameID)])
         
         let request = URLRequest(url: components.url!)
@@ -114,7 +148,7 @@ public extension RetroAPI {
     
     static func getConsoleIDs() -> AnyPublisher<ConsoleIDs_DTO,Error> {
         
-        let components = baseURLComponents(RetroAPI.apiPages["getConsoleIDs"] ?? "")
+        let components = baseAPIComponents(RetroAPI.apiPages["getConsoleIDs"] ?? "")
         
         let request = URLRequest(url: components.url!)
         
@@ -126,7 +160,7 @@ public extension RetroAPI {
     
     static func getGameList(consoleID:String) -> AnyPublisher<GameList_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getGameList"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameList"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: consoleID)])
         
         let request = URLRequest(url: components.url!)
@@ -139,7 +173,7 @@ public extension RetroAPI {
     
     static func getFeedFor(user:String, count:Int, offset:Int = 0) -> AnyPublisher<UserFeed_DTO,Error> { //FIXME: only returns {"success":false}
         
-        var components = baseURLComponents(RetroAPI.apiPages["getFeedFor"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getFeedFor"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user),URLQueryItem(name: "c", value: String(count)),URLQueryItem(name: "o", value: String(offset))])
         
         let request = URLRequest(url: components.url!)
@@ -154,7 +188,7 @@ public extension RetroAPI {
     //{"Score":null,"Rank":1,"TotalRanked":"93827"}
     static func getUserRankAndScore(user:String) -> AnyPublisher<UserRank_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getUserRankAndScore"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserRankAndScore"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user)])
         
         let request = URLRequest(url: components.url!)
@@ -167,7 +201,7 @@ public extension RetroAPI {
     
     static func getUserProgress(user:String, gameID:String) -> AnyPublisher<UserProgress_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "i", value: gameID)])
         
         let request = URLRequest(url: components.url!)
@@ -180,7 +214,7 @@ public extension RetroAPI {
     
     static func getUserProgress(user:String, gameIDs:[String]) -> AnyPublisher<UserProgress_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "i", value: gameIDs.joined(separator: ","))])
         
         let request = URLRequest(url: components.url!)
@@ -193,7 +227,7 @@ public extension RetroAPI {
     
     static func getUserRecentlyPlayedGames(user:String, count:Int, offset:Int = 0) -> AnyPublisher<[UserRecent_DTO],Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getUserRecentlyPlayedGames"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserRecentlyPlayedGames"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
             URLQueryItem(name: "c", value: String(count)),
@@ -213,7 +247,7 @@ public extension RetroAPI {
     //  https://retroachievements.org/API/API_GetUserSummary.php?z=wertox123&y=<>&u=wertox123&g=785
     static func getUserSummary(user: String, numRecentGames: Int) -> AnyPublisher<UserSummary_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getUserSummary"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserSummary"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "g", value: String(numRecentGames))])
         
         let request = URLRequest(url: components.url!)
@@ -227,7 +261,7 @@ public extension RetroAPI {
 
     static func getGameInfoAndUserProgress(user:String, gameID:String) -> AnyPublisher<GameInfoAndUserProgress_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getGameInfoAndUserProgress"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameInfoAndUserProgress"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "g", value: String(gameID))])
         
         let request = URLRequest(url: components.url!)
@@ -240,7 +274,7 @@ public extension RetroAPI {
     
     static func getAchievementsEarnedOnDay(user:String, date:Date) -> AnyPublisher<[AchievementsOnDay_DTO],Error> { //FIXME: returns nothing
         
-        var components = baseURLComponents(RetroAPI.apiPages["getAchievementsEarnedOnDay"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getAchievementsEarnedOnDay"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
             URLQueryItem(name: "d", value: "\(date.timeIntervalSince1970)")
@@ -257,7 +291,7 @@ public extension RetroAPI {
     //https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=<>&u=wertox123&f=0&t=1000000000
     static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date) -> AnyPublisher<[Achievement_DTO],Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getAchievementsEarnedBetween"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getAchievementsEarnedBetween"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
             URLQueryItem(name: "f", value: "\(dateStart.timeIntervalSince1970)"),
@@ -274,7 +308,7 @@ public extension RetroAPI {
 
     static func getUserGamesCompleted(user:String) -> AnyPublisher<UserCompletedGames_DTO,Error> {
         
-        var components = baseURLComponents(RetroAPI.apiPages["getUserCompletedGames"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserCompletedGames"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user)
         ])
@@ -311,7 +345,7 @@ public extension RetroAPI {
     
     static func getTopTenUsers(completionHandler: @escaping (TopUsers_DTO) -> Void) {
         
-        let components = baseURLComponents(RetroAPI.apiPages["getTopTenUsers"] ?? "")
+        let components = baseAPIComponents(RetroAPI.apiPages["getTopTenUsers"] ?? "")
         makeRequest(components.url!) { data in
             do {
                 completionHandler(try JSONDecoder().decode(TopUsers_DTO.self, from: data))
@@ -322,7 +356,7 @@ public extension RetroAPI {
     }
     
     static func getGameInfo(_ gameID:String, completionHandler: @escaping (GameInfo_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getGameInfo"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameInfo"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: gameID)])
         
         makeRequest(components.url!) { data in
@@ -335,7 +369,7 @@ public extension RetroAPI {
     }
     
     static func getGameInfoExtended(_ gameID:String, completionHandler: @escaping (ExtendedGameInfo_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getGameInfoExtended"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameInfoExtended"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: gameID)])
         
         makeRequest(components.url!) { data in
@@ -348,7 +382,7 @@ public extension RetroAPI {
     }
     
     static func getConsoleIDs(completionHandler: @escaping (ConsoleIDs_DTO) -> Void) {
-        let components = baseURLComponents(RetroAPI.apiPages["getConsoleIDs"] ?? "")
+        let components = baseAPIComponents(RetroAPI.apiPages["getConsoleIDs"] ?? "")
 
         makeRequest(components.url!) { data in
             do {
@@ -360,7 +394,7 @@ public extension RetroAPI {
     }
     
     static func getGameList(_ consoleID:String, completionHandler: @escaping (GameList_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getGameList"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameList"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: consoleID)])
         
         makeRequest(components.url!) { data in
@@ -374,7 +408,7 @@ public extension RetroAPI {
     
     static func getFeedFor(user:String, count:Int, offset:Int = 0, completionHandler: @escaping (UserFeed_DTO) -> Void) {
         //FIXME: only returns failure
-        var components = baseURLComponents(RetroAPI.apiPages["getFeedFor"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getFeedFor"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user),URLQueryItem(name: "c", value: String(count)),URLQueryItem(name: "o", value: String(offset))])
         
         makeRequest(components.url!) { data in
@@ -387,7 +421,7 @@ public extension RetroAPI {
     }
     
     static func getUserRankAndScore(_ user:String, completionHandler: @escaping (UserRank_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getUserRankAndScore"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserRankAndScore"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user)])
         
         makeRequest(components.url!) { data in
@@ -400,7 +434,7 @@ public extension RetroAPI {
     }
     
     static func getUserProgress(user:String, gameID:String, completionHandler: @escaping (UserProgress_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "i", value: gameID)])
         
         makeRequest(components.url!) { data in
@@ -413,7 +447,7 @@ public extension RetroAPI {
     }
     
     static func getUserProgress(user:String, gameIDs:[String], completionHandler: @escaping (UserProgress_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserProgress"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "i", value: gameIDs.joined(separator: ","))])
         
         makeRequest(components.url!) { data in
@@ -426,7 +460,7 @@ public extension RetroAPI {
     }
     
     static func getUserRecentlyPlayedGames(user:String, count:Int, offset:Int = 0, completionHandler: @escaping (UserRecents_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getUserRecentlyPlayedGames"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserRecentlyPlayedGames"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
             URLQueryItem(name: "c", value: String(count)),
@@ -443,7 +477,7 @@ public extension RetroAPI {
     }
     
     static func getUserSummary(user:String, numRecentGames:Int, completionHandler: @escaping (UserSummary_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getUserSummary"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserSummary"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "g", value: String(numRecentGames))])
         makeRequest(components.url!) { data in
             do {
@@ -455,7 +489,7 @@ public extension RetroAPI {
     }
     
     static func getGameInfoAndUserProgress(user:String, gameID:String, completionHandler: @escaping (GameInfoAndUserProgress_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getGameInfoAndUserProgress"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getGameInfoAndUserProgress"] ?? "")
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "g", value: String(gameID))])
         makeRequest(components.url!) { data in
             do {
@@ -467,7 +501,7 @@ public extension RetroAPI {
     }
     
     static func getAchievementsEarnedOnDay(user:String, date:Date, completionHandler: @escaping (AchievementsOnDay_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getAchievementsEarnedOnDay"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getAchievementsEarnedOnDay"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
             URLQueryItem(name: "d", value: "\(date.timeIntervalSince1970)")
@@ -484,7 +518,7 @@ public extension RetroAPI {
     
     
     static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date, completionHandler: @escaping (Achievement_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getAchievementsEarnedBetween"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getAchievementsEarnedBetween"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
             URLQueryItem(name: "f", value: "\(dateStart.timeIntervalSince1970)"),
@@ -500,7 +534,7 @@ public extension RetroAPI {
     }
     
     static func getUserGamesCompleted(user:String, completionHandler: @escaping (UserCompletedGames_DTO) -> Void) {
-        var components = baseURLComponents(RetroAPI.apiPages["getUserCompletedGames"] ?? "")
+        var components = baseAPIComponents(RetroAPI.apiPages["getUserCompletedGames"] ?? "")
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user)
         ])
