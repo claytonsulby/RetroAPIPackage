@@ -47,3 +47,6 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
 public typealias UserCompletedGames_DTO = [UserCompletedGame_DTO]
 
 // API gets all games with non-zero progress
+extension UserCompletedGame_DTO : Hashable {
+    
+}
