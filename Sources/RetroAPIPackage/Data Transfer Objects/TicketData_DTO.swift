@@ -6,7 +6,13 @@
 import Foundation
 
 // MARK: - Welcome
-public struct TicketData_DTO: Codable {
+public struct TicketData_DTO: Codable, Equatable {
+    public init(recentTickets: [RecentTicket_DTO]? = nil, openTickets: String? = nil, url: String? = nil) {
+        self.recentTickets = recentTickets
+        self.openTickets = openTickets
+        self.url = url
+    }
+    
     public var recentTickets: [RecentTicket_DTO]?
     public var openTickets: String?
     public var url: String?
@@ -16,10 +22,37 @@ public struct TicketData_DTO: Codable {
         case openTickets = "OpenTickets"
         case url = "URL"
     }
+    
+    public static func == (lhs: TicketData_DTO, rhs: TicketData_DTO) -> Bool {
+        return lhs.recentTickets == rhs.recentTickets &&
+            lhs.openTickets == rhs.openTickets &&
+            lhs.url == rhs.url
+    }
 }
 
 // MARK: - RecentTicket
-public struct RecentTicket_DTO: Codable {
+public struct RecentTicket_DTO: Codable, Equatable {
+    public init(id: String? = nil, achievementID: String? = nil, achievementTitle: String? = nil, achievementDesc: String? = nil, points: String? = nil, badgeName: String? = nil, achievementAuthor: String? = nil, gameID: String? = nil, consoleName: String? = nil, gameTitle: String? = nil, gameIcon: String? = nil, reportedAt: String? = nil, reportType: String? = nil, reportNotes: String? = nil, reportedBy: String? = nil, resolvedAt: JSONNull? = nil, resolvedBy: JSONNull? = nil, reportState: String? = nil) {
+        self.id = id
+        self.achievementID = achievementID
+        self.achievementTitle = achievementTitle
+        self.achievementDesc = achievementDesc
+        self.points = points
+        self.badgeName = badgeName
+        self.achievementAuthor = achievementAuthor
+        self.gameID = gameID
+        self.consoleName = consoleName
+        self.gameTitle = gameTitle
+        self.gameIcon = gameIcon
+        self.reportedAt = reportedAt
+        self.reportType = reportType
+        self.reportNotes = reportNotes
+        self.reportedBy = reportedBy
+        self.resolvedAt = resolvedAt
+        self.resolvedBy = resolvedBy
+        self.reportState = reportState
+    }
+    
     public var id, achievementID, achievementTitle, achievementDesc: String?
     public var points, badgeName, achievementAuthor, gameID: String?
     public var consoleName, gameTitle, gameIcon, reportedAt: String?
@@ -46,6 +79,27 @@ public struct RecentTicket_DTO: Codable {
         case resolvedAt = "ResolvedAt"
         case resolvedBy = "ResolvedBy"
         case reportState = "ReportState"
+    }
+    
+    public static func == (lhs: RecentTicket_DTO, rhs: RecentTicket_DTO) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.achievementID == rhs.achievementID &&
+            lhs.achievementTitle == rhs.achievementTitle &&
+            lhs.achievementDesc == rhs.achievementDesc &&
+            lhs.points == rhs.points &&
+            lhs.badgeName == rhs.badgeName &&
+            lhs.achievementAuthor == rhs.achievementAuthor &&
+            lhs.gameID == rhs.gameID &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.gameTitle == rhs.gameTitle &&
+            lhs.gameIcon == rhs.gameIcon &&
+            lhs.reportedAt == rhs.reportedAt &&
+            lhs.reportType == rhs.reportType &&
+            lhs.reportNotes == rhs.reportNotes &&
+            lhs.reportedBy == rhs.reportedBy &&
+            lhs.resolvedAt == rhs.resolvedAt &&
+            lhs.resolvedBy == rhs.resolvedBy &&
+            lhs.reportState == rhs.reportState
     }
 }
 

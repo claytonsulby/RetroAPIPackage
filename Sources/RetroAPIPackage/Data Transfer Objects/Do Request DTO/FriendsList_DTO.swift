@@ -6,7 +6,13 @@
 import Foundation
 
 // MARK: - Welcome
-public struct FriendsList_DTO: Codable {
+public struct FriendsList_DTO: Codable, Equatable {
+    public init(success: Bool? = nil, friends: [Friend_DTO]? = nil, error: String? = nil) {
+        self.success = success
+        self.friends = friends
+        self.error = error
+    }
+    
     public var success: Bool?
     public var friends: [Friend_DTO]?
     public var error: String?
@@ -16,10 +22,23 @@ public struct FriendsList_DTO: Codable {
         case friends = "Friends"
         case error = "Error"
     }
+    
+    public static func == (lhs: FriendsList_DTO, rhs: FriendsList_DTO) -> Bool {
+        return lhs.success == rhs.success &&
+            lhs.friends == rhs.friends &&
+            lhs.error == rhs.error
+    }
 }
 
 // MARK: - Friend
-public struct Friend_DTO: Codable {
+public struct Friend_DTO: Codable, Equatable {
+    public init(friend: String? = nil, raPoints: String? = nil, lastSeen: String? = nil, id: String? = nil) {
+        self.friend = friend
+        self.raPoints = raPoints
+        self.lastSeen = lastSeen
+        self.id = id
+    }
+    
     public var friend, raPoints, lastSeen, id: String?
 
     enum CodingKeys: String, CodingKey {
@@ -27,5 +46,12 @@ public struct Friend_DTO: Codable {
         case raPoints = "RAPoints"
         case lastSeen = "LastSeen"
         case id = "ID"
+    }
+    
+    public static func == (lhs: Friend_DTO, rhs: Friend_DTO) -> Bool {
+        return lhs.friend == rhs.friend &&
+            lhs.raPoints == rhs.raPoints &&
+            lhs.lastSeen == rhs.lastSeen &&
+            lhs.id == rhs.id
     }
 }

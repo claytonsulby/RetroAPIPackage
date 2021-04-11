@@ -6,10 +6,18 @@
 import Foundation
 
 // MARK: - Success_DTO
-public struct Success_DTO: Codable {
+public struct Success_DTO: Codable, Equatable {
+    public init(success: Bool? = nil) {
+        self.success = success
+    }
+    
     public var success: Bool?
 
     enum CodingKeys: String, CodingKey {
         case success = "Success"
+    }
+    
+    public static func == (lhs: Success_DTO, rhs: Success_DTO) -> Bool {
+        return lhs.success == rhs.success
     }
 }

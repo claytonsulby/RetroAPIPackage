@@ -6,7 +6,14 @@
 import Foundation
 
 // MARK: - WelcomeElement
-public struct AwardAchievement_DTO: Codable {
+public struct AwardAchievement_DTO: Codable, Equatable {
+    public init(success: Bool? = nil, score: Int? = nil, achievementID: Int? = nil, error: String? = nil) {
+        self.success = success
+        self.score = score
+        self.achievementID = achievementID
+        self.error = error
+    }
+    
     public var success: Bool?
     public var score, achievementID: Int?
     public var error: String?
@@ -16,5 +23,12 @@ public struct AwardAchievement_DTO: Codable {
         case score = "Score"
         case achievementID = "AchievementID"
         case error = "Error"
+    }
+    
+    public static func == (lhs: AwardAchievement_DTO, rhs: AwardAchievement_DTO) -> Bool {
+        return lhs.success == rhs.success &&
+            lhs.score == rhs.score &&
+            lhs.achievementID == rhs.achievementID &&
+            lhs.error == rhs.error
     }
 }
