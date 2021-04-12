@@ -69,7 +69,7 @@ public extension DoRequest {
         
     }
     
-    static func doRequestPing(username:String) -> AnyPublisher<Success_DTO,Error> {
+    static func doRequestPing(username:String, token:String) -> AnyPublisher<Success_DTO,Error> {
         
         var components = baseRequestComponents(.ping)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: username)])
@@ -79,7 +79,6 @@ public extension DoRequest {
         return agent.run(request)
             .map{$0.value}
             .eraseToAnyPublisher()
-        
     }
 
     static func doRequestAwardAchievement(username:String, achievementID:Int, hardcoreEnabled:Bool = false, token:String) -> AnyPublisher<AwardAchievement_DTO,Error> {
