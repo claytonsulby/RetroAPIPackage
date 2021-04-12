@@ -45,7 +45,7 @@ public enum DoRequest {
         components.scheme = "https"
         components.host = "retroachievements.org"
         components.path = "/dorequest.php"
-        components.queryItems?.append(contentsOf: [URLQueryItem(name: "r", value: request.rawValue)])
+        components.queryItems = [URLQueryItem(name: "r", value: request.rawValue)]
         
         return components
     }
