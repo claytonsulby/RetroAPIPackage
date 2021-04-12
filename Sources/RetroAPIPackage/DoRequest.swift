@@ -72,7 +72,7 @@ public extension DoRequest {
     static func doRequestPing(username:String, token:String) -> AnyPublisher<Success_DTO,Error> {
         
         var components = baseRequestComponents(.ping)
-        components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: username)])
+        components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: username), URLQueryItem(name: "t", value: token)])
         
         let request = URLRequest(url: components.url!)
         
