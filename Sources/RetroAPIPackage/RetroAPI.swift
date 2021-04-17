@@ -360,7 +360,7 @@ public extension RetroAPI {
         
     }
 
-    static func getUserGameRankAndScore(username:String, gameID:String) -> AnyPublisher<UserGameRankAndScoreElement_DTO,Error> {
+    static func getUserGameRankAndScore(username:String, gameID:String) -> AnyPublisher<UserGameRankAndScore_DTO,Error> {
         
         var components = baseAPIComponents(.getUserGameRankAndScore)
         components.queryItems?.append(contentsOf: [
@@ -664,7 +664,7 @@ public extension RetroAPI {
         
     }
 
-    static func getUserGameRankAndScore(username:String, gameID:String, completionHandler: @escaping (UserGameRankAndScoreElement_DTO) -> Void) {
+    static func getUserGameRankAndScore(username:String, gameID:String, completionHandler: @escaping (UserGameRankAndScore_DTO) -> Void) {
         
         var components = baseAPIComponents(.getUserGameRankAndScore)
         components.queryItems?.append(contentsOf: [
