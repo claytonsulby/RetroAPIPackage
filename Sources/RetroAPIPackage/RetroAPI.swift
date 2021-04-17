@@ -674,7 +674,7 @@ public extension RetroAPI {
 
         agent.makeRequest(components.url!) { data in
             do {
-                completionHandler(try JSONDecoder().decode(UserGameRankAndScoreElement_DTO.self, from: data))
+                completionHandler(try JSONDecoder().decode(UserGameRankAndScore_DTO.self, from: data))
             } catch {
                 print(error.localizedDescription)
             }
