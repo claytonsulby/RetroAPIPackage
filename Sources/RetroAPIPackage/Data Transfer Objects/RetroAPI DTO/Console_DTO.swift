@@ -25,4 +25,4 @@ public struct Console_DTO: Codable, Equatable {
     }
 }
 
-public typealias ConsoleIDs_DTO = [Console_DTO]
+public typealias Consoles_DTO = [Console_DTO]

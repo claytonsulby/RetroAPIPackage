@@ -54,7 +54,7 @@ public enum DoRequest {
 @available(iOS 13.0, *)
 public extension DoRequest {
     
-    static let agent = Agent()
+    private static let agent = Agent()
     
     static func doRequestLogin(username:String, password:String) -> AnyPublisher<Login_DTO,Error> {
 
@@ -108,6 +108,24 @@ public extension DoRequest {
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: username),
             URLQueryItem(name: "t", value: token),
+        ])
+        
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
+    
+    static func doRequestPostActivity(username: String, token: String, activityType: String, message: String) -> AnyPublisher<PostActivity_DTO,Error> {
+
+        var components = baseRequestComponents(.postactivity)
+        components.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "u", value: username),
+            URLQueryItem(name: "t", value: token),
+            URLQueryItem(name: "a", value: activityType),
+            URLQueryItem(name: "m", value: message),
         ])
         
         let request = URLRequest(url: components.url!)

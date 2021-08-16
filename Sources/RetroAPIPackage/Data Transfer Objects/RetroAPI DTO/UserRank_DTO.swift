@@ -13,7 +13,13 @@ public struct UserRank_DTO: Codable, Equatable {
         self.totalRanked = totalRanked
     }
     
-    public var score, rank: Int?
+    ///Sum total of points accumulated
+    public var score: Int?
+    
+    ///Rank out of all ranked and unranked users
+    public var rank: Int?
+    
+    ///Sum of all ranked users
     public var totalRanked: String?
 
     enum CodingKeys: String, CodingKey {

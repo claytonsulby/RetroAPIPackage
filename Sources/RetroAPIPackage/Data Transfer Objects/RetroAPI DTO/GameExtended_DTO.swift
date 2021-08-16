@@ -5,10 +5,10 @@
 
 import Foundation
 
-public typealias ExtendedGamesInfo_DTO = [ExtendedGameInfo_DTO]
+public typealias ExtendedGamesInfo_DTO = [GameExtended_DTO]
 
 // MARK: - ExtendedGamesInfo_DTO
-public struct ExtendedGameInfo_DTO: Codable, Equatable {
+public struct GameExtended_DTO: Codable, Equatable {
     public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: PHPHelper.JSONIntOrString? = nil, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString? = nil, achievements: ExtendedGamesInfo_Achievements_DTO? = nil) {
         self.id = id
         self.title = title
@@ -66,7 +66,7 @@ public struct ExtendedGameInfo_DTO: Codable, Equatable {
         case achievements = "Achievements"
     }
     
-    public static func == (lhs: ExtendedGameInfo_DTO, rhs: ExtendedGameInfo_DTO) -> Bool {
+    public static func == (lhs: GameExtended_DTO, rhs: GameExtended_DTO) -> Bool {
         return lhs.id == rhs.id &&
             lhs.title == rhs.title &&
             lhs.consoleID == rhs.consoleID &&

@@ -5,14 +5,11 @@
 //  Created by Clayton Sulby on 3/28/21.
 //
 
-//{"Title":"Virtual Pinball","ForumTopicID":"4989","ConsoleID":"1","ConsoleName":"Mega Drive","Flags":"0","ImageIcon":"\/Images\/018055.png","GameIcon":"\/Images\/018055.png","ImageTitle":"\/Images\/018053.png","ImageIngame":"\/Images\/018054.png","ImageBoxArt":"\/Images\/018052.png","Publisher":"Electronic Arts","Developer":"BudgeCo. Inc","Genre":"Pinball, Simulation","Released":"1993","GameTitle":"Virtual Pinball","Console":"Mega Drive"}
-
 import Foundation
 
-public typealias GamesInfo_DTO = [GameInfo_DTO]
+public typealias GamesInfo_DTO = [Game_DTO]
 
-
-public struct GameInfo_DTO : Codable, Equatable {
+public struct Game_DTO : Codable, Equatable {
     public init(name: String? = nil, forumTopicID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, flags: String? = nil, imageIcon: String? = nil, gameIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releaseYear: String? = nil, gameTitle: String? = nil, console: String? = nil) {
         self.name = name
         self.forumTopicID = forumTopicID
@@ -68,7 +65,7 @@ public struct GameInfo_DTO : Codable, Equatable {
         case console = "Console"
     }
     
-    public static func == (lhs: GameInfo_DTO, rhs: GameInfo_DTO) -> Bool {
+    public static func == (lhs: Game_DTO, rhs: Game_DTO) -> Bool {
         return lhs.name == rhs.name &&
             lhs.forumTopicID == rhs.forumTopicID &&
             lhs.consoleID == rhs.consoleID &&
