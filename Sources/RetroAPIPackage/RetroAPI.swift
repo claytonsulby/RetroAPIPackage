@@ -176,7 +176,7 @@ public extension RetroAPI {
     /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetConsoleIDs.php)
     ///
     /// - Returns: List of Console_DTO object containing console name and console ID.
-    static func getConsoleIDs() -> AnyPublisher<Console_DTO,Error> {
+    static func getConsoleIDs() -> AnyPublisher<Consoles_DTO,Error> {
         
         let components = baseAPIComponents(.getConsoleIDs)
         
