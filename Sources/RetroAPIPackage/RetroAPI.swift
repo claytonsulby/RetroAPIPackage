@@ -410,7 +410,7 @@ public extension RetroAPI {
     ///     - dateEnd:      Swift Date object indicating end of interval
     /// - Returns: Array of achievements with limited information.
     /// - bug: Currently returns empty arrey.
-    static func getAchievementsEarnedBetween(username:String, dateStart:Date, dateEnd:Date) -> AnyPublisher<[Achievement_DTO],Error> {
+    static func getAchievementsEarnedBetween(username:String, dateStart:Date, dateEnd:Date) -> AnyPublisher<[AchievementBetween_DTO],Error> {
         
         var components = baseAPIComponents(.getAchievementsEarnedBetween)
         components.queryItems?.append(contentsOf: [
@@ -794,7 +794,7 @@ public extension RetroAPI {
     
     
     
-    static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date, completionHandler: @escaping (Achievement_DTO) -> Void) {
+    static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date, completionHandler: @escaping (AchievementBetween_DTO) -> Void) {
         var components = baseAPIComponents(.getAchievementsEarnedBetween)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
@@ -803,7 +803,7 @@ public extension RetroAPI {
         ])
         agent.makeRequest(components.url!) { data in
             do {
-                completionHandler(try JSONDecoder().decode(Achievement_DTO.self, from: data))
+                completionHandler(try JSONDecoder().decode(AchievementBetween_DTO.self, from: data))
             } catch {
                 print(error.localizedDescription)
             }

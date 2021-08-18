@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserSummary
 public struct UserSummary_DTO: Codable, Equatable {
-    public init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [UserSummary_DTO.Game_DTO]? = nil, memberSince: String? = nil, lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: GameExtended_DTO? = nil, contribCount: PHPHelper.JSONPrimitiveType? = nil, contribYield: PHPHelper.JSONPrimitiveType? = nil, totalPoints: PHPHelper.JSONPrimitiveType? = nil, totalTruePoints: PHPHelper.JSONPrimitiveType? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: [String : UserProgress_DTO]? = nil, recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
+    public init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [UserSummary_DTO.Game_DTO]? = nil, memberSince: String? = nil, lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: GameExtended_DTO? = nil, contribCount: PHPHelper.JSONPrimitiveType? = nil, contribYield: PHPHelper.JSONPrimitiveType? = nil, totalPoints: PHPHelper.JSONPrimitiveType? = nil, totalTruePoints: PHPHelper.JSONPrimitiveType? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: UserProgress_DTO? = nil, recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
         self.recentlyPlayedCount = recentlyPlayedCount
         self.recentlyPlayed = recentlyPlayed
         self.memberSince = memberSince
@@ -43,7 +43,7 @@ public struct UserSummary_DTO: Codable, Equatable {
     public var permissions, untracked, id, userWallActive: String?
     public var motto: String?
     public var rank: Int?
-    public var awarded: [String: UserProgress_DTO]?
+    public var awarded: UserProgress_DTO?
     public var recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]?
     public var points, userPic, totalRanked, status: String?
     

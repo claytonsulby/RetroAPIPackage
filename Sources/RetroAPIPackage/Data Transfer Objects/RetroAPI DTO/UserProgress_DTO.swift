@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserProgressElement_DTO
 public struct UserProgressElement_DTO: Codable, Equatable {
-    public init(numPossibleAchievements: PHPHelper.JSONPrimitiveType? = nil, possibleScore: PHPHelper.JSONPrimitiveType? = nil, numAchieved: PHPHelper.JSONPrimitiveType? = nil, scoreAchieved: PHPHelper.JSONPrimitiveType? = nil, numAchievedHardcore: PHPHelper.JSONPrimitiveType? = nil, scoreAchievedHardcore: PHPHelper.JSONPrimitiveType? = nil) {
+    public init(numPossibleAchievements: PHPHelper.PHPInt? = nil, possibleScore: PHPHelper.PHPInt? = nil, numAchieved: PHPHelper.PHPInt? = nil, scoreAchieved: PHPHelper.PHPInt? = nil, numAchievedHardcore: PHPHelper.PHPInt? = nil, scoreAchievedHardcore: PHPHelper.PHPInt? = nil) {
         self.numPossibleAchievements = numPossibleAchievements
         self.possibleScore = possibleScore
         self.numAchieved = numAchieved
@@ -16,8 +16,9 @@ public struct UserProgressElement_DTO: Codable, Equatable {
         self.scoreAchievedHardcore = scoreAchievedHardcore
     }
     
-    public var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONPrimitiveType?
-    public var numAchievedHardcore, scoreAchievedHardcore: PHPHelper.JSONPrimitiveType?
+
+    public var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.PHPInt?
+    public var numAchievedHardcore, scoreAchievedHardcore: PHPHelper.PHPInt?
 
     enum CodingKeys: String, CodingKey {
         case numPossibleAchievements = "NumPossibleAchievements"
@@ -36,6 +37,7 @@ public struct UserProgressElement_DTO: Codable, Equatable {
             lhs.numAchievedHardcore == rhs.numAchievedHardcore &&
             lhs.scoreAchievedHardcore == rhs.scoreAchievedHardcore
     }
+    
 }
 
 public typealias UserProgress_DTO = [String: UserProgressElement_DTO]
