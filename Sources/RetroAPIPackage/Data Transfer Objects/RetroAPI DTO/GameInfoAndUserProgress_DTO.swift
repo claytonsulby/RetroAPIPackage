@@ -101,3 +101,66 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
             lhs.userCompletionHardcore == rhs.userCompletionHardcore
     }
 }
+
+public extension GameInfoAndUserProgress_DTO {
+    
+    struct Achievement_DTO: Codable, Equatable {
+        public init(achievementID: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil, dateEarned: String? = nil) {
+            self.achievementID = achievementID
+            self.numAwarded = numAwarded
+            self.numAwardedHardcore = numAwardedHardcore
+            self.title = title
+            self.achievementDescription = achievementDescription
+            self.points = points
+            self.trueRatio = trueRatio
+            self.author = author
+            self.dateModified = dateModified
+            self.dateCreated = dateCreated
+            self.badgeName = badgeName
+            self.displayOrder = displayOrder
+            self.memAddr = memAddr
+            self.dateEarned = dateEarned
+        }
+        
+        public var achievementID, numAwarded, numAwardedHardcore, title: String?
+        public var achievementDescription, points, trueRatio: String?
+        public var author: String?
+        public var dateModified, dateCreated, badgeName, displayOrder: String?
+        public var memAddr, dateEarned: String?
+
+        enum CodingKeys: String, CodingKey {
+            case achievementID = "ID"
+            case numAwarded = "NumAwarded"
+            case numAwardedHardcore = "NumAwardedHardcore"
+            case title = "Title"
+            case achievementDescription = "Description"
+            case points = "Points"
+            case trueRatio = "TrueRatio"
+            case author = "Author"
+            case dateModified = "DateModified"
+            case dateCreated = "DateCreated"
+            case badgeName = "BadgeName"
+            case displayOrder = "DisplayOrder"
+            case memAddr = "MemAddr"
+            case dateEarned = "DateEarned"
+        }
+        
+        public static func == (lhs: GameInfoAndUserProgress_DTO.Achievement_DTO, rhs: GameInfoAndUserProgress_DTO.Achievement_DTO) -> Bool {
+            return lhs.achievementID == rhs.achievementID &&
+                lhs.numAwarded == rhs.numAwarded &&
+                lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
+                lhs.title == rhs.title &&
+                lhs.achievementDescription == rhs.achievementDescription &&
+                lhs.points == rhs.points &&
+                lhs.trueRatio == rhs.trueRatio &&
+                lhs.author == rhs.author &&
+                lhs.dateModified == rhs.dateModified &&
+                lhs.dateCreated == rhs.dateCreated &&
+                lhs.badgeName == rhs.badgeName &&
+                lhs.displayOrder == rhs.displayOrder &&
+                lhs.memAddr == rhs.memAddr &&
+                lhs.dateEarned == rhs.dateEarned
+        }
+    }
+    
+}

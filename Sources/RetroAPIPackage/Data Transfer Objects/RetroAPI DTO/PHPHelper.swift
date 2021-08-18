@@ -83,7 +83,7 @@ public enum PHPHelper {
     public enum AchievementMapper: Codable, Equatable  {
         
         case gameExtended([String: GameExtended_DTO.Achievement_DTO])
-        case gameInfoAndUserProgress([String: GameExtended_DTO.Achievement_DTO])
+        case gameInfoAndUserProgress([String: GameInfoAndUserProgress_DTO.Achievement_DTO])
         case userSummary([String:[String:UserSummary_DTO.Achievement_DTO]])
         case anythingArray([JSONAny])
 
@@ -93,7 +93,7 @@ public enum PHPHelper {
                 self = .gameExtended(x)
                 return
             }
-            if let x = try? container.decode([String: GameExtended_DTO.Achievement_DTO].self) {
+            if let x = try? container.decode([String: GameInfoAndUserProgress_DTO.Achievement_DTO].self) {
                 self = .gameInfoAndUserProgress(x)
                 return
             }
@@ -124,6 +124,7 @@ public enum PHPHelper {
         
         public static func == (lhs: PHPHelper.AchievementMapper, rhs: PHPHelper.AchievementMapper) -> Bool {
             return lhs.gameExtended == rhs.gameExtended ||
+                lhs.gameInfoAndUserProgesss == rhs.gameInfoAndUserProgesss ||
                 lhs.userSummary == rhs.userSummary
         }
         
@@ -135,8 +136,23 @@ public enum PHPHelper {
                     achievement
                 })
                 return achievements
+            case .gameInfoAndUserProgress(_):
+                return nil
+            case .userSummary(_):
+                return nil
+            case .anythingArray(_):
+                return []
+            }
+
+        }
+        
+        public var gameInfoAndUserProgesss:[GameInfoAndUserProgress_DTO.Achievement_DTO]? {
+            
+            switch self {
+            case .gameExtended(_):
+                return nil
             case .gameInfoAndUserProgress(let x):
-                let achievements = x.map({ (key:String, achievement: GameExtended_DTO.Achievement_DTO) -> GameExtended_DTO.Achievement_DTO in
+                let achievements = x.map({ (key:String, achievement: GameInfoAndUserProgress_DTO.Achievement_DTO) -> GameInfoAndUserProgress_DTO.Achievement_DTO in
                     achievement
                 })
                 return achievements
@@ -147,6 +163,7 @@ public enum PHPHelper {
             }
 
         }
+        
         
         public var userSummary:[UserSummary_DTO.Achievement_DTO]? {
 
