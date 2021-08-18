@@ -117,9 +117,9 @@ public extension UserSummary_DTO {
             self.hardcoreAchieved = hardcoreAchieved
         }
         
-        var achievementID, gameID, gameTitle, title: String?
-        var achievementDescription, points, badgeName, isAwarded: String?
-        var dateAwarded, hardcoreAchieved: String?
+        public var achievementID, gameID, gameTitle, title: String?
+        public var achievementDescription, points, badgeName, isAwarded: String?
+        public var dateAwarded, hardcoreAchieved: String?
 
         enum CodingKeys: String, CodingKey {
             case achievementID = "ID"
