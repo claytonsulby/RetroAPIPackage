@@ -84,7 +84,7 @@ public enum PHPHelper {
         
         case gameExtended([String: GameExtended_DTO.Achievement_DTO])
         case gameInfoAndUserProgress([String: GameInfoAndUserProgress_DTO.Achievement_DTO])
-        case userSummary([String:[String:UserSummary_DTO.Achievement_DTO]])
+        case userSummary([String:UserSummary_DTO.Achievement_DTO])
         case anythingArray([JSONAny])
 
         public init(from decoder: Decoder) throws {
@@ -97,7 +97,7 @@ public enum PHPHelper {
                 self = .gameInfoAndUserProgress(x)
                 return
             }
-            if let x = try? container.decode([String:[String:UserSummary_DTO.Achievement_DTO]].self) {
+            if let x = try? container.decode([String:UserSummary_DTO.Achievement_DTO].self) {
                 self = .userSummary(x)
                 return
             }
@@ -173,11 +173,9 @@ public enum PHPHelper {
             case .gameInfoAndUserProgress(_):
                 return nil
             case .userSummary(let x):
-                let achievements = x.map { (key:String, value: [String : UserSummary_DTO.Achievement_DTO]) in
-                    value.map { (key: String, value: UserSummary_DTO.Achievement_DTO) in
-                        value
-                    }
-                }.reduce([], +)
+                let achievements = x.map({ (key:String, achievement: UserSummary_DTO.Achievement_DTO) -> UserSummary_DTO.Achievement_DTO in
+                    achievement
+                })
                 return achievements
             case .anythingArray(_):
                 return []
