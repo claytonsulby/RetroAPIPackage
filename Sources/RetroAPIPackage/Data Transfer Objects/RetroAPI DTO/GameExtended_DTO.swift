@@ -5,19 +5,19 @@
 
 import Foundation
 
-public typealias ExtendedGamesInfo_DTO = [GameExtended_DTO]
-
 // MARK: - ExtendedGamesInfo_DTO
+/// - [Sucees](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
+/// - [Failure](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 public struct GameExtended_DTO: Codable, Equatable {
-    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: PHPHelper.JSONIntOrString? = nil, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString? = nil, achievements: ExtendedGamesInfo_Achievements_DTO? = nil) {
-        self.id = id
+    public init(gameID: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType? = nil, achievements: PHPHelper.AchievementMapper? = nil) {
+        self.gameID = gameID
         self.title = title
         self.consoleID = consoleID
         self.forumTopicID = forumTopicID
         self.flags = flags
         self.imageIcon = imageIcon
         self.imageTitle = imageTitle
-        self.imageIngame = imageIngame
+        self.imageInGame = imageInGame
         self.imageBoxArt = imageBoxArt
         self.publisher = publisher
         self.developer = developer
@@ -32,26 +32,84 @@ public struct GameExtended_DTO: Codable, Equatable {
         self.achievements = achievements
     }
     
-    public var id: Int?
+    ///Integer identifier for game
+    public var gameID: Int?
+    
+    ///Title of game
     public var title: String?
-    public var consoleID, forumTopicID, flags: Int?
-    public var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
-    public var publisher, developer, genre, released: String?
+    
+    ///ID Number string for console
+    public var consoleID: Int?
+    
+    ///ID Number string for topic page in forum
+    /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
+    public var forumTopicID: Int?
+    
+    /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
+    public var flags: Int?
+    
+    ///partial path string to icon image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    public var imageIcon: String?
+    
+    ///partial path struing to title screen image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    public var imageTitle: String?
+    
+    ///partial path string to gameplay screenshot image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    public var imageInGame: String?
+    
+    ///partial path string to box art image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    public var imageBoxArt: String?
+    
+    ///String of publisher for a game
+    /// - note: This is different for hacked games.
+    public var publisher: String?
+    
+    ///String of developer for a game
+    /// - note: This is different for hacked games.
+    public var developer: String?
+    
+    ///genre string for a game
+    /// - note: These genre's are not well maintained and are not consistent.
+    public var genre: String?
+    
+    ///release date string for a game
+    /// - note: The format of dates vary and often there are multiple.
+    public var released: String?
+    
+    /// - remark: I do not know what this means, but I assume it indicates if the game will continue to be editted.
     public var isFinal: Bool?
-    public var consoleName, richPresencePatch: String?
+    
+    ///String name for console
+    public var consoleName: String?
+    
+    /// - remark: I am not entirely sure what this signifies.
+    public var richPresencePatch: String?
+    
+    ///The number of achievements for the game.
     public var numAchievements: Int?
-    public var numDistinctPlayersCasual, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString?
-    public var achievements: ExtendedGamesInfo_Achievements_DTO?
-
+    
+    ///The sum total of players who have been awarded an achievement not in hardcore mode.
+    public var numDistinctPlayersCasual: PHPHelper.JSONPrimitiveType?
+    
+    ///The sum total of players who have been awarded an achievement in hardcore mode.
+    public var numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType?
+    
+    ///Array of achievements
+    public var achievements: PHPHelper.AchievementMapper?
+    
     enum CodingKeys: String, CodingKey {
-        case id = "ID"
+        case gameID = "ID"
         case title = "Title"
         case consoleID = "ConsoleID"
         case forumTopicID = "ForumTopicID"
         case flags = "Flags"
         case imageIcon = "ImageIcon"
         case imageTitle = "ImageTitle"
-        case imageIngame = "ImageIngame"
+        case imageInGame = "ImageIngame"
         case imageBoxArt = "ImageBoxArt"
         case publisher = "Publisher"
         case developer = "Developer"
@@ -67,14 +125,14 @@ public struct GameExtended_DTO: Codable, Equatable {
     }
     
     public static func == (lhs: GameExtended_DTO, rhs: GameExtended_DTO) -> Bool {
-        return lhs.id == rhs.id &&
+        return lhs.gameID == rhs.gameID &&
             lhs.title == rhs.title &&
             lhs.consoleID == rhs.consoleID &&
             lhs.forumTopicID == rhs.forumTopicID &&
             lhs.flags == rhs.flags &&
             lhs.imageIcon == rhs.imageIcon &&
             lhs.imageTitle == rhs.imageTitle &&
-            lhs.imageIngame == rhs.imageIngame &&
+            lhs.imageInGame == rhs.imageInGame &&
             lhs.imageBoxArt == rhs.imageBoxArt &&
             lhs.publisher == rhs.publisher &&
             lhs.developer == rhs.developer &&
@@ -90,49 +148,70 @@ public struct GameExtended_DTO: Codable, Equatable {
     }
 }
 
-public enum ExtendedGamesInfo_Achievements_DTO: Codable, Equatable {
-    case achievementMap([String: Achievement_DTO])
-    case anythingArray([JSONAny])
-
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode([JSONAny].self) {
-            self = .anythingArray(x)
-            return
-        }
-        if let x = try? container.decode([String: Achievement_DTO].self) {
-            self = .achievementMap(x)
-            return
-        }
-        throw DecodingError.typeMismatch(Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .achievementMap(let x):
-            try container.encode(x)
-        case .anythingArray(let x):
-            try container.encode(x)
-        }
-    }
+public extension GameExtended_DTO {
     
-    public static func == (lhs: ExtendedGamesInfo_Achievements_DTO, rhs: ExtendedGamesInfo_Achievements_DTO) -> Bool {
-        return lhs.array == rhs.array
-    }
-    
-    public var array:[Achievement_DTO] {
+    //TODO: quick help comments
+    struct Achievement_DTO: Codable, Equatable {
+        public init(achievementID: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil) {
+            self.achievementID = achievementID
+            self.numAwarded = numAwarded
+            self.numAwardedHardcore = numAwardedHardcore
+            self.title = title
+            self.achievementDescription = achievementDescription
+            self.points = points
+            self.trueRatio = trueRatio
+            self.author = author
+            self.dateModified = dateModified
+            self.dateCreated = dateCreated
+            self.badgeName = badgeName
+            self.displayOrder = displayOrder
+            self.memAddr = memAddr
+        }
         
-        switch self {
-        case .achievementMap(let x):
-            let achievements = x.map({ (key:String, achievement: Achievement_DTO) -> Achievement_DTO in
-                achievement
-            })
-            return achievements
-        case .anythingArray(_):
-            return []
+        public var achievementID: String?
+        public var numAwarded: String?
+        public var numAwardedHardcore: String?
+        public var title: String?
+        public var achievementDescription: String?
+        public var points: String?
+        public var trueRatio: String?
+        public var author: String?
+        public var dateModified: String?
+        public var dateCreated: String?
+        public var badgeName: String?
+        public var displayOrder: String?
+        public var memAddr: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case achievementID = "ID"
+            case numAwarded = "NumAwarded"
+            case numAwardedHardcore = "NumAwardedHardcore"
+            case title = "Title"
+            case achievementDescription = "Description"
+            case points = "Points"
+            case trueRatio = "TrueRatio"
+            case author = "Author"
+            case dateModified = "DateModified"
+            case dateCreated = "DateCreated"
+            case badgeName = "BadgeName"
+            case displayOrder = "DisplayOrder"
+            case memAddr = "MemAddr"
         }
-
+        
+        public static func == (lhs: GameExtended_DTO.Achievement_DTO, rhs: GameExtended_DTO.Achievement_DTO) -> Bool {
+            return lhs.achievementID == rhs.achievementID &&
+                lhs.numAwarded == rhs.numAwarded &&
+                lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
+                lhs.title == rhs.title &&
+                lhs.achievementDescription == rhs.achievementDescription &&
+                lhs.points == rhs.points &&
+                lhs.trueRatio == rhs.trueRatio &&
+                lhs.author == rhs.author &&
+                lhs.dateModified == rhs.dateModified &&
+                lhs.dateCreated == rhs.dateCreated &&
+                lhs.badgeName == rhs.badgeName &&
+                lhs.displayOrder == rhs.displayOrder &&
+                lhs.memAddr == rhs.memAddr
+        }
     }
-    
 }

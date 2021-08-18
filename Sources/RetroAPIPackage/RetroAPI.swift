@@ -117,7 +117,7 @@ public extension RetroAPI {
     /// - [Example](https://retroachievements.org/API/API_GetTopTenUsers.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
     /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetTopTenUsers.php)
     ///
-    /// - Returns: list of TopUsers_DTO objects containing username, points, and rank
+    /// - Returns: list of TopUsers_DTO objects containing username, RAPoints, TrueRAPoints in that order
     static func getTopTenUsers() -> AnyPublisher<TopUsers_DTO, Error> {
         
         let components = baseAPIComponents(.getTopTenUsers)

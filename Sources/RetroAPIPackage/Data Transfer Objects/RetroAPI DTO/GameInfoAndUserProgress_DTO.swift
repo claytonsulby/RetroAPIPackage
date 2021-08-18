@@ -7,8 +7,8 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: PHPHelper.JSONIntOrString? = nil, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString? = nil, achievements: PHPHelper.GameProgressAchievements_DTO? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, userCompletion: PHPHelper.JSONIntOrString? = nil, userCompletionHardcore: PHPHelper.JSONIntOrString? = nil) {
-        self.id = id
+    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersCasual: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType? = nil, achievements: PHPHelper.AchievementMapper? = nil, numAwardedToUser: PHPHelper.JSONPrimitiveType? = nil, numAwardedToUserHardcore: PHPHelper.JSONPrimitiveType? = nil, userCompletion: PHPHelper.JSONPrimitiveType? = nil, userCompletionHardcore: PHPHelper.JSONPrimitiveType? = nil) {
+        self.gameID = id
         self.title = title
         self.consoleID = consoleID
         self.forumTopicID = forumTopicID
@@ -34,21 +34,21 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         self.userCompletionHardcore = userCompletionHardcore
     }
     
-    public var id: Int?
+    public var gameID: Int?
     public var title: String?
     public var consoleID, forumTopicID, flags: Int?
     public var imageIcon, imageTitle, imageIngame, imageBoxArt: String?
     public var publisher, developer, genre, released: String?
     public var isFinal: Bool?
     public var consoleName, richPresencePatch: String?
-    public var numAchievements: Int?
-    public var numDistinctPlayersCasual, numDistinctPlayersHardcore: PHPHelper.JSONIntOrString?
-    public var achievements: PHPHelper.GameProgressAchievements_DTO?
-    public var numAwardedToUser, numAwardedToUserHardcore: Int?
-    public var userCompletion, userCompletionHardcore: PHPHelper.JSONIntOrString?
+    public var numAchievements: PHPHelper.JSONPrimitiveType?
+    public var numDistinctPlayersCasual, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType?
+    public var achievements: PHPHelper.AchievementMapper?
+    public var numAwardedToUser, numAwardedToUserHardcore: PHPHelper.JSONPrimitiveType?
+    public var userCompletion, userCompletionHardcore: PHPHelper.JSONPrimitiveType?
 
     enum CodingKeys: String, CodingKey {
-        case id = "ID"
+        case gameID = "ID"
         case title = "Title"
         case consoleID = "ConsoleID"
         case forumTopicID = "ForumTopicID"
@@ -75,7 +75,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     }
     
     public static func == (lhs: GameInfoAndUserProgress_DTO, rhs: GameInfoAndUserProgress_DTO) -> Bool {
-        return lhs.id == rhs.id &&
+        return lhs.gameID == rhs.gameID &&
             lhs.title == rhs.title &&
             lhs.consoleID == rhs.consoleID &&
             lhs.forumTopicID == rhs.forumTopicID &&

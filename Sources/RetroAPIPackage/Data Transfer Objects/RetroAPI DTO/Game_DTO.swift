@@ -1,17 +1,20 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
 //
-//  GameInfo.swift
-//  JSFun
-//
-//  Created by Clayton Sulby on 3/28/21.
-//
+//   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
 
 import Foundation
 
-public typealias GamesInfo_DTO = [Game_DTO]
-
-public struct Game_DTO : Codable, Equatable {
-    public init(name: String? = nil, forumTopicID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, flags: String? = nil, imageIcon: String? = nil, gameIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releaseYear: String? = nil, gameTitle: String? = nil, console: String? = nil) {
-        self.name = name
+// MARK: - Welcome
+///
+/// - [Success: Official Game](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
+/// - [Success: Hub](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=3090)
+/// - [Success: Hack](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10781)
+/// - [Failure:  gameID not provided](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
+/// - [Failure: gameID too large](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=1000000000)
+public struct Game_DTO: Codable, Equatable {
+    public init(title: String? = nil, forumTopicID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, flags: String? = nil, imageIcon: String? = nil, gameIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, gameTitle: String? = nil, console: String? = nil) {
+        self.title = title
         self.forumTopicID = forumTopicID
         self.consoleID = consoleID
         self.consoleName = consoleName
@@ -24,30 +27,77 @@ public struct Game_DTO : Codable, Equatable {
         self.publisher = publisher
         self.developer = developer
         self.genre = genre
-        self.releaseYear = releaseYear
+        self.released = released
         self.gameTitle = gameTitle
         self.console = console
     }
     
-    public var name:String?
-    public var forumTopicID:String?
-    public var consoleID:String?
-    public var consoleName:String?
-    public var flags:String?
-    public var imageIcon:String?
-    public var gameIcon:String?
-    public var imageTitle:String?
-    public var imageInGame:String?
-    public var imageBoxArt:String?
-    public var publisher:String?
-    public var developer:String?
-    public var genre:String?
-    public var releaseYear:String?
-    public var gameTitle:String?
-    public var console:String?
+    ///Title of game
+    /// - remark: So far this has been identical to ``gameTitle``
+    public var title: String?
+    
+    ///ID Number string for topic page in forum
+    /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
+    public var forumTopicID: String?
+    
+    ///ID Number string for console
+    public var consoleID: String?
+    
+    ///String name for console
+    /// - remark: So far this has been identical to ``console``
+    public var consoleName: String?
+    
+    /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
+    public var flags: String?
+    
+    ///partial path string to icon image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    /// - remark: So far this has been identical to ``gameIcon``
+    public var imageIcon: String?
+    
+    ///partial path string to icon image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    /// - remark: So far this has been identical to ``imageIcon``
+    public var gameIcon: String?
+    
+    ///partial path struing to title screen image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    public var imageTitle: String?
+    
+    ///partial path string to gameplay screenshot image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    public var imageInGame: String?
+    
+    ///partial path string to box art image for a game
+    /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
+    public var imageBoxArt: String?
+    
+    ///String of publisher for a game
+    /// - note: This is different for hacked games.
+    public var publisher: String?
+    
+    ///String of developer for a game
+    /// - note: This is different for hacked games.
+    public var developer: String?
+    
+    ///genre string for a game
+    /// - note: These genre's are not well maintained and are not consistent.
+    public var genre: String?
+    
+    ///release date string for a game
+    /// - note: The format of dates vary and often there are multiple.
+    public var released: String?
+    
+    ///Title of game
+    /// - remark: So far this has been identical to ``gameTitle``
+    public var gameTitle: String?
+    
+    ///String name for console
+    /// - remark: So far this has been identical to ``consoleName``
+    public var console: String?
     
     enum CodingKeys: String, CodingKey {
-        case name = "Title"
+        case title = "Title"
         case forumTopicID = "ForumTopicID"
         case consoleID = "ConsoleID"
         case consoleName = "ConsoleName"
@@ -60,13 +110,13 @@ public struct Game_DTO : Codable, Equatable {
         case publisher = "Publisher"
         case developer = "Developer"
         case genre = "Genre"
-        case releaseYear = "Released"
+        case released = "Released"
         case gameTitle = "GameTitle"
         case console = "Console"
     }
     
     public static func == (lhs: Game_DTO, rhs: Game_DTO) -> Bool {
-        return lhs.name == rhs.name &&
+        return lhs.title == rhs.title &&
             lhs.forumTopicID == rhs.forumTopicID &&
             lhs.consoleID == rhs.consoleID &&
             lhs.consoleName == rhs.consoleName &&
@@ -79,7 +129,7 @@ public struct Game_DTO : Codable, Equatable {
             lhs.publisher == rhs.publisher &&
             lhs.developer == rhs.developer &&
             lhs.genre == rhs.genre &&
-            lhs.releaseYear == rhs.releaseYear &&
+            lhs.released == rhs.released &&
             lhs.gameTitle == rhs.gameTitle &&
             lhs.console == rhs.console
     }

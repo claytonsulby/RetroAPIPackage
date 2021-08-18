@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserRecent_DTO: Codable, Equatable {
-    public init(gameID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, title: String? = nil, imageIcon: String? = nil, lastPlayed: String? = nil, myVote: String? = nil, numPossibleAchievements: PHPHelper.JSONIntOrString? = nil, possibleScore: PHPHelper.JSONIntOrString? = nil, numAchieved: PHPHelper.JSONIntOrString? = nil, scoreAchieved: PHPHelper.JSONIntOrString? = nil) {
+    public init(gameID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, title: String? = nil, imageIcon: String? = nil, lastPlayed: String? = nil, myVote: String? = nil, numPossibleAchievements: PHPHelper.JSONPrimitiveType? = nil, possibleScore: PHPHelper.JSONPrimitiveType? = nil, numAchieved: PHPHelper.JSONPrimitiveType? = nil, scoreAchieved: PHPHelper.JSONPrimitiveType? = nil) {
         self.gameID = gameID
         self.consoleID = consoleID
         self.consoleName = consoleName
@@ -24,7 +24,7 @@ public struct UserRecent_DTO: Codable, Equatable {
     public var gameID, consoleID, consoleName, title: String?
     public var imageIcon, lastPlayed: String?
     public var myVote: String?
-    public var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONIntOrString?
+    public var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.JSONPrimitiveType?
 
     enum CodingKeys: String, CodingKey {
         case gameID = "GameID"
