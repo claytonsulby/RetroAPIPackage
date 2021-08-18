@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserSummary
 public struct UserSummary_DTO: Codable, Equatable {
-    public init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [UserSummary_DTO.RecentlyPlayed_DTO]? = nil, memberSince: String? = nil, lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: GameExtended_DTO? = nil, contribCount: PHPHelper.JSONPrimitiveType? = nil, contribYield: PHPHelper.JSONPrimitiveType? = nil, totalPoints: PHPHelper.JSONPrimitiveType? = nil, totalTruePoints: PHPHelper.JSONPrimitiveType? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: [String : UserProgress_DTO]? = nil, recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
+    public init(recentlyPlayedCount: Int? = nil, recentlyPlayed: [UserSummary_DTO.Game_DTO]? = nil, memberSince: String? = nil, lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: String? = nil, lastGame: GameExtended_DTO? = nil, contribCount: PHPHelper.JSONPrimitiveType? = nil, contribYield: PHPHelper.JSONPrimitiveType? = nil, totalPoints: PHPHelper.JSONPrimitiveType? = nil, totalTruePoints: PHPHelper.JSONPrimitiveType? = nil, permissions: String? = nil, untracked: String? = nil, id: String? = nil, userWallActive: String? = nil, motto: String? = nil, rank: Int? = nil, awarded: [String : UserProgress_DTO]? = nil, recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]? = nil, points: String? = nil, userPic: String? = nil, totalRanked: String? = nil, status: String? = nil) {
         self.recentlyPlayedCount = recentlyPlayedCount
         self.recentlyPlayed = recentlyPlayed
         self.memberSince = memberSince
@@ -34,7 +34,7 @@ public struct UserSummary_DTO: Codable, Equatable {
     }
     
     public var recentlyPlayedCount: Int?
-    public var recentlyPlayed: [RecentlyPlayed_DTO]?
+    public var recentlyPlayed: [UserSummary_DTO.Game_DTO]?
     public var memberSince: String?
     public var lastActivity: LastActivity_DTO?
     public var richPresenceMsg, lastGameID: String?
@@ -102,56 +102,6 @@ public struct UserSummary_DTO: Codable, Equatable {
 
 public extension UserSummary_DTO {
     
-    // MARK: - RecentAchievement
-    public struct Achievement_DTO: Codable, Equatable {
-        public init(achievementID: String? = nil, gameID: String? = nil, gameTitle: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, badgeName: String? = nil, isAwarded: String? = nil, dateAwarded: String? = nil, hardcoreAchieved: String? = nil) {
-            self.achievementID = achievementID
-            self.gameID = gameID
-            self.gameTitle = gameTitle
-            self.title = title
-            self.achievementDescription = achievementDescription
-            self.points = points
-            self.badgeName = badgeName
-            self.isAwarded = isAwarded
-            self.dateAwarded = dateAwarded
-            self.hardcoreAchieved = hardcoreAchieved
-        }
-        
-        public var achievementID, gameID, gameTitle, title: String?
-        public var achievementDescription, points, badgeName, isAwarded: String?
-        public var dateAwarded, hardcoreAchieved: String?
-
-        enum CodingKeys: String, CodingKey {
-            case achievementID = "ID"
-            case gameID = "GameID"
-            case gameTitle = "GameTitle"
-            case title = "Title"
-            case achievementDescription = "Description"
-            case points = "Points"
-            case badgeName = "BadgeName"
-            case isAwarded = "IsAwarded"
-            case dateAwarded = "DateAwarded"
-            case hardcoreAchieved = "HardcoreAchieved"
-        }
-        
-        public static func == (lhs: UserSummary_DTO.Achievement_DTO, rhs: UserSummary_DTO.Achievement_DTO) -> Bool {
-            return lhs.achievementID == rhs.achievementID &&
-                lhs.gameID == rhs.gameID &&
-                lhs.gameTitle == rhs.gameTitle &&
-                lhs.title == rhs.title &&
-                lhs.achievementDescription == rhs.achievementDescription &&
-                lhs.points == rhs.points &&
-                lhs.badgeName == rhs.badgeName &&
-                lhs.isAwarded == rhs.isAwarded &&
-                lhs.dateAwarded == rhs.dateAwarded &&
-                lhs.hardcoreAchieved == rhs.hardcoreAchieved
-        }
-    }
-    
-}
-
-public extension UserSummary_DTO {
-    
     // MARK: - LastActivity
     struct LastActivity_DTO: Codable, Equatable {
         public init(id: String? = nil, timestamp: String? = nil, lastupdate: String? = nil, activitytype: String? = nil, user: String? = nil, data: String? = nil, data2: String? = nil) {
@@ -185,46 +135,4 @@ public extension UserSummary_DTO {
                 lhs.data2 == rhs.data2
         }
     }
-    
-    // MARK: - RecentlyPlayed
-    struct RecentlyPlayed_DTO: Codable, Equatable {
-        public init(gameID: String? = nil, consoleID: String? = nil, consoleName: String? = nil, title: String? = nil, imageIcon: String? = nil, lastPlayed: String? = nil, myVote: String? = nil) {
-            self.gameID = gameID
-            self.consoleID = consoleID
-            self.consoleName = consoleName
-            self.title = title
-            self.imageIcon = imageIcon
-            self.lastPlayed = lastPlayed
-            self.myVote = myVote
-        }
-        
-        public var gameID, consoleID, consoleName, title: String?
-        public var imageIcon, lastPlayed: String?
-        public var myVote: String? //FIXME: type mismatch
-        
-        enum CodingKeys: String, CodingKey {
-            case gameID = "GameID"
-            case consoleID = "ConsoleID"
-            case consoleName = "ConsoleName"
-            case title = "Title"
-            case imageIcon = "ImageIcon"
-            case lastPlayed = "LastPlayed"
-            case myVote = "MyVote"
-        }
-        
-        public static func == (lhs: RecentlyPlayed_DTO, rhs: RecentlyPlayed_DTO) -> Bool {
-            return lhs.gameID == rhs.gameID &&
-                lhs.consoleID == rhs.consoleID &&
-                lhs.consoleName == rhs.consoleName &&
-                lhs.title == rhs.title &&
-                lhs.imageIcon == rhs.imageIcon &&
-                lhs.lastPlayed == rhs.lastPlayed &&
-                lhs.myVote == rhs.myVote
-        }
-    }
-    
 }
-
-
-
-

@@ -10,6 +10,48 @@ import Foundation
 
 public enum PHPHelper {
     
+    public enum PHPInt: Codable, Equatable {
+        case integer(Int)
+        case string(String)
+        
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let x = try? container.decode(Int.self) {
+                self = .integer(x)
+                return
+            }
+            if let x = try? container.decode(String.self) {
+                self = .string(x)
+                return
+            }
+            throw DecodingError.typeMismatch(PHPInt.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for PHPInt"))
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .integer(let x):
+                try container.encode(x)
+            case .string(let x):
+                try container.encode(x)
+            }
+        }
+        
+        public var value:Int? {
+            switch self {
+            case .integer(let x):
+                return x
+            case .string(let x):
+                return Int(x)
+            }
+        }
+        
+        public static func == (lhs: PHPHelper.PHPInt, rhs: PHPHelper.PHPInt) -> Bool {
+            return lhs.value == rhs.value
+        }
+        
+    }
+    
     ///Can be an integer, string, or boolean.
     public enum JSONPrimitiveType: Codable, Equatable {
         case integer(Int)
@@ -30,7 +72,7 @@ public enum PHPHelper {
                 self = .bool(x)
                 return
             }
-            throw DecodingError.typeMismatch(JSONPrimitiveType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for NumAchieved"))
+            throw DecodingError.typeMismatch(JSONPrimitiveType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONPrimitiveType"))
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -61,7 +103,7 @@ public enum PHPHelper {
             case .integer(let x):
                 return x
             case .string(let x):
-                return Int(x) ?? 0
+                return Int(x)
             case .bool(_):
                 return nil
             }
@@ -80,111 +122,6 @@ public enum PHPHelper {
         
     }
     
-    public enum AchievementMapper: Codable, Equatable  {
-        
-        case gameExtended([String: GameExtended_DTO.Achievement_DTO])
-        case gameInfoAndUserProgress([String: GameInfoAndUserProgress_DTO.Achievement_DTO])
-        case userSummary([String:UserSummary_DTO.Achievement_DTO])
-        case anythingArray([JSONAny])
-
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            if let x = try? container.decode([String: GameExtended_DTO.Achievement_DTO].self) {
-                self = .gameExtended(x)
-                return
-            }
-            if let x = try? container.decode([String: GameInfoAndUserProgress_DTO.Achievement_DTO].self) {
-                self = .gameInfoAndUserProgress(x)
-                return
-            }
-            if let x = try? container.decode([String:UserSummary_DTO.Achievement_DTO].self) {
-                self = .userSummary(x)
-                return
-            }
-            if let x = try? container.decode([JSONAny].self) {
-                self = .anythingArray(x)
-                return
-            }
-            throw DecodingError.typeMismatch(GameExtended_DTO.Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            switch self {
-            case .gameExtended(let x):
-                try container.encode(x)
-            case .gameInfoAndUserProgress(let x):
-                try container.encode(x)
-            case .userSummary(let x):
-                try container.encode(x)
-            case .anythingArray(let x):
-                try container.encode(x)
-            }
-        }
-        
-        public static func == (lhs: PHPHelper.AchievementMapper, rhs: PHPHelper.AchievementMapper) -> Bool {
-            return lhs.gameExtended == rhs.gameExtended ||
-                lhs.gameInfoAndUserProgesss == rhs.gameInfoAndUserProgesss ||
-                lhs.userSummary == rhs.userSummary
-        }
-        
-        public var gameExtended:[GameExtended_DTO.Achievement_DTO]? {
-            
-            switch self {
-            case .gameExtended(let x):
-                let achievements = x.map({ (key:String, achievement: GameExtended_DTO.Achievement_DTO) -> GameExtended_DTO.Achievement_DTO in
-                    achievement
-                })
-                return achievements
-            case .gameInfoAndUserProgress(_):
-                return nil
-            case .userSummary(_):
-                return nil
-            case .anythingArray(_):
-                return []
-            }
-
-        }
-        
-        public var gameInfoAndUserProgesss:[GameInfoAndUserProgress_DTO.Achievement_DTO]? {
-            
-            switch self {
-            case .gameExtended(_):
-                return nil
-            case .gameInfoAndUserProgress(let x):
-                let achievements = x.map({ (key:String, achievement: GameInfoAndUserProgress_DTO.Achievement_DTO) -> GameInfoAndUserProgress_DTO.Achievement_DTO in
-                    achievement
-                })
-                return achievements
-            case .userSummary(_):
-                return nil
-            case .anythingArray(_):
-                return []
-            }
-
-        }
-        
-        
-        public var userSummary:[UserSummary_DTO.Achievement_DTO]? {
-
-            switch self {
-            case .gameExtended(_):
-                return nil
-            case .gameInfoAndUserProgress(_):
-                return nil
-            case .userSummary(let x):
-                let achievements = x.map({ (key:String, achievement: UserSummary_DTO.Achievement_DTO) -> UserSummary_DTO.Achievement_DTO in
-                    achievement
-                })
-                return achievements
-            case .anythingArray(_):
-                return []
-            }
-
-        }
-        
-    }
-
 }
 
 public class JSONCodingKey: CodingKey {
