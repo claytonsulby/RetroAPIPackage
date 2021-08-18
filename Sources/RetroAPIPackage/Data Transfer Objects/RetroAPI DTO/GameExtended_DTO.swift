@@ -9,7 +9,7 @@ import Foundation
 /// - [Sucees](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
 /// - [Failure](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 public struct GameExtended_DTO: Codable, Equatable {
-    public init(gameID: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType? = nil, achievements: PHPHelper.AchievementMapper? = nil) {
+    public init(gameID: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageInGame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: Int? = nil, numDistinctPlayersCasual: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType? = nil, achievements: [String: GameExtended_DTO.Achievement_DTO]? = nil) {
         self.gameID = gameID
         self.title = title
         self.consoleID = consoleID
@@ -99,7 +99,7 @@ public struct GameExtended_DTO: Codable, Equatable {
     public var numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType?
     
     ///Array of achievements
-    public var achievements: PHPHelper.AchievementMapper?
+    public var achievements: [String: GameExtended_DTO.Achievement_DTO]?
     
     enum CodingKeys: String, CodingKey {
         case gameID = "ID"

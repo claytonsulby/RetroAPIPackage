@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersCasual: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType? = nil, achievements: PHPHelper.AchievementMapper? = nil, numAwardedToUser: PHPHelper.JSONPrimitiveType? = nil, numAwardedToUserHardcore: PHPHelper.JSONPrimitiveType? = nil, userCompletion: PHPHelper.JSONPrimitiveType? = nil, userCompletionHardcore: PHPHelper.JSONPrimitiveType? = nil) {
+    public init(id: Int? = nil, title: String? = nil, consoleID: Int? = nil, forumTopicID: Int? = nil, flags: Int? = nil, imageIcon: String? = nil, imageTitle: String? = nil, imageIngame: String? = nil, imageBoxArt: String? = nil, publisher: String? = nil, developer: String? = nil, genre: String? = nil, released: String? = nil, isFinal: Bool? = nil, consoleName: String? = nil, richPresencePatch: String? = nil, numAchievements: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersCasual: PHPHelper.JSONPrimitiveType? = nil, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType? = nil, achievements: [String: GameInfoAndUserProgress_DTO.Achievement_DTO]? = nil, numAwardedToUser: PHPHelper.JSONPrimitiveType? = nil, numAwardedToUserHardcore: PHPHelper.JSONPrimitiveType? = nil, userCompletion: PHPHelper.JSONPrimitiveType? = nil, userCompletionHardcore: PHPHelper.JSONPrimitiveType? = nil) {
         self.gameID = id
         self.title = title
         self.consoleID = consoleID
@@ -43,7 +43,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     public var consoleName, richPresencePatch: String?
     public var numAchievements: PHPHelper.JSONPrimitiveType?
     public var numDistinctPlayersCasual, numDistinctPlayersHardcore: PHPHelper.JSONPrimitiveType?
-    public var achievements: PHPHelper.AchievementMapper?
+    public var achievements: [String: GameInfoAndUserProgress_DTO.Achievement_DTO]?
     public var numAwardedToUser, numAwardedToUserHardcore: PHPHelper.JSONPrimitiveType?
     public var userCompletion, userCompletionHardcore: PHPHelper.JSONPrimitiveType?
 
