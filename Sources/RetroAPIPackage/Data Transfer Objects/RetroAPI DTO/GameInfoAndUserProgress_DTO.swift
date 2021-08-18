@@ -104,7 +104,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
 
 public extension GameInfoAndUserProgress_DTO {
     
-    struct Achievement_DTO: Codable, Equatable {
+    public struct Achievement_DTO: Codable, Equatable {
         public init(achievementID: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil, dateEarned: String? = nil) {
             self.achievementID = achievementID
             self.numAwarded = numAwarded

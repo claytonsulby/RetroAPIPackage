@@ -151,7 +151,7 @@ public struct GameExtended_DTO: Codable, Equatable {
 public extension GameExtended_DTO {
     
     //TODO: quick help comments
-    struct Achievement_DTO: Codable, Equatable {
+    public struct Achievement_DTO: Codable, Equatable {
         public init(achievementID: String? = nil, numAwarded: String? = nil, numAwardedHardcore: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, trueRatio: String? = nil, author: String? = nil, dateModified: String? = nil, dateCreated: String? = nil, badgeName: String? = nil, displayOrder: String? = nil, memAddr: String? = nil) {
             self.achievementID = achievementID
             self.numAwarded = numAwarded

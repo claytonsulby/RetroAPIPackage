@@ -103,7 +103,7 @@ public struct UserSummary_DTO: Codable, Equatable {
 public extension UserSummary_DTO {
     
     // MARK: - RecentAchievement
-    struct Achievement_DTO: Codable, Equatable {
+    public struct Achievement_DTO: Codable, Equatable {
         public init(achievementID: String? = nil, gameID: String? = nil, gameTitle: String? = nil, title: String? = nil, achievementDescription: String? = nil, points: String? = nil, badgeName: String? = nil, isAwarded: String? = nil, dateAwarded: String? = nil, hardcoreAchieved: String? = nil) {
             self.achievementID = achievementID
             self.gameID = gameID
