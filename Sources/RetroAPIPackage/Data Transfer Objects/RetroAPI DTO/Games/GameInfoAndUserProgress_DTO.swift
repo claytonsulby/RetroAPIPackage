@@ -154,7 +154,7 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, GameImage, Console, A
         self.numDistinctPlayersHardcore_DTO!.value!
     }
     
-    public var achievements: Dictionary<String, Awarded> {
+    public var achievements: Dictionary<String, ImagedAwardedExtendedAchievementFromSet> {
         self.achievements_DTO!.value!
     }
     

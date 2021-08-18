@@ -58,7 +58,7 @@ public extension GameInfoAndUserProgress_DTO {
     
 }
 
-extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, FromSet, Awarded {
+extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAchievementFromSet {
     public var achievementID: Int {
         self.achievementID_DTO.value!
     }

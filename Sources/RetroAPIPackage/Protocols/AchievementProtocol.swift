@@ -7,6 +7,9 @@
 
 import Foundation
 
+public protocol ImagedAwardedExtendedAchievementFromSet: Achievement, ExtendedAchievement, AchievementImage, FromSet, Awarded {}
+public protocol ImagedAwardedExtendedAchievement: Achievement, ExtendedAchievement, AchievementImage, Awarded {}
+
 public protocol Achievement {
     
     var achievementID:Int { get }

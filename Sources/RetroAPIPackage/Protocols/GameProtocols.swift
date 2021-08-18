@@ -81,7 +81,7 @@ public protocol HasAchievements {
 }
 
 public protocol HasAchievementProgress {
-    var achievements:Dictionary<String,Awarded> { get }
+    var achievements:Dictionary<String,ImagedAwardedExtendedAchievementFromSet> { get }
 }
 
 public protocol GameImage {
