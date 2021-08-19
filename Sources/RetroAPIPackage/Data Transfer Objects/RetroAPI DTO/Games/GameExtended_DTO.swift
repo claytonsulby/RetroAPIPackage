@@ -103,7 +103,7 @@ public struct GameExtended_DTO: Codable, Equatable {
     }
 }
 
-extension GameExtended_DTO : Game, GameExtended, GameImage, Console, AchievementSet, HasAchievements {
+extension GameExtended_DTO : Game, GameExtended, GameImage, Console, AchievementSet {
     
     public var gameID: Int? {
         self.gameID_DTO!.value!
@@ -182,7 +182,7 @@ extension GameExtended_DTO : Game, GameExtended, GameImage, Console, Achievement
         self.numDistinctPlayersHardcore_DTO!.value!
     }
     
-    public var achievements: Dictionary<String, Achievement> {
+    public var achievements: Dictionary<String, GameExtended_DTO.Achievement_DTO> {
         self.achievements_DTO!.value!
     }
     

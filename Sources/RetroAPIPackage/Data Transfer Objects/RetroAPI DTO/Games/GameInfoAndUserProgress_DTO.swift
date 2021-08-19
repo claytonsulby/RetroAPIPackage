@@ -76,7 +76,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     }
 }
 
-extension GameInfoAndUserProgress_DTO: Game, GameExtended, GameImage, Console, AchievementSet, GameProgress, HasAchievementProgress  {
+extension GameInfoAndUserProgress_DTO: Game, GameExtended, GameImage, Console, AchievementSet, GameProgress  {
     public var gameID: Int? {
         self.gameID_DTO!.value!
     }
@@ -154,7 +154,7 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, GameImage, Console, A
         self.numDistinctPlayersHardcore_DTO!.value!
     }
     
-    public var achievements: Dictionary<String, ImagedAwardedExtendedAchievementFromSet> {
+    public var achievements: Dictionary<String, GameInfoAndUserProgress_DTO.Achievement_DTO> {
         self.achievements_DTO!.value!
     }
     
@@ -167,13 +167,13 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, GameImage, Console, A
     }
     
     public var possibleScore: Int? {
-        self.achievements.map { (key: String, value: Awarded) in
+        self.achievements.map { (key: String, value: GameInfoAndUserProgress_DTO.Achievement_DTO) in
             value.points
         }.reduce(0, +)
     }
     
     public var awardedScore: Int? {
-        self.achievements.compactMap { (key: String, value: Awarded) in
+        self.achievements.compactMap { (key: String, value: GameInfoAndUserProgress_DTO.Achievement_DTO) in
             if value.isAwarded {
                 return value.points
             } else {

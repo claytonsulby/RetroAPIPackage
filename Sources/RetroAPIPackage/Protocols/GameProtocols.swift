@@ -76,14 +76,6 @@ public protocol AchievementSet {
     //self.achievements = achievements
 }
 
-public protocol HasAchievements {
-    var achievements:Dictionary<String,Achievement> { get }
-}
-
-public protocol HasAchievementProgress {
-    var achievements:Dictionary<String,ImagedAwardedExtendedAchievementFromSet> { get }
-}
-
 public protocol GameImage {
     
     var imageIconURL:URL { get }
