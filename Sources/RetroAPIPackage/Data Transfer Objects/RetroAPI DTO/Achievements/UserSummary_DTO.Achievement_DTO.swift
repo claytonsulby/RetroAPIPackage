@@ -51,7 +51,7 @@ public extension UserSummary_DTO {
 extension UserSummary_DTO.Achievement_DTO : Achievement, Game, AchievementImage, Awarded {
 
     public var achievementID: Int {
-        self.achievementID_DTO.value!
+        self.achievementID_DTO.value ?? -1
     }
     
     public var title: String {
@@ -63,20 +63,20 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, Game, AchievementImage,
     }
     
     public var points: Int {
-        self.points_DTO.value!
+        self.points_DTO.value ?? -1
     }
     
     public var gameID: Int? {
-        self.gameID_DTO.value!
+        self.gameID_DTO.value ?? -1
     }
     
     public var gameTitle: String {
         self.gameTitle_DTO
     }
     
-    public var imageURL: URL {
+    public var imageURL: URL? {
         
-        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")!
+        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")
         
     }
     
@@ -100,7 +100,7 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, Game, AchievementImage,
     
     public var isAwardedHardcore: Bool {
         
-        Bool(exactly: Int(self.hardcoreAchieved_DTO)! as NSNumber)!
+        Bool(exactly: Int(self.hardcoreAchieved_DTO)! as NSNumber) ?? false
         
     }
     

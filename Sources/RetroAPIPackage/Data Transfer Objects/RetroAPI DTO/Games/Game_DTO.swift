@@ -123,55 +123,76 @@ extension Game_DTO: Game, Console, GameExtended {
     }
     
     public var title: String {
-        self.gameTitle_DTO!
+        self.gameTitle_DTO ?? ""
     }
     
     public var consoleID: Int? {
-        self.consoleID_DTO!.value!
+        self.consoleID_DTO?.value ?? -1
     }
     
     public var consoleName: String {
-        self.consoleName_DTO!
+        self.consoleName_DTO ?? ""
     }
     
     public var forumTopicID: Int {
-        self.forumTopicID_DTO!.value!
+        self.forumTopicID_DTO?.value ?? -1
     }
     
     public var flags: Int {
-        self.flags_DTO!.value!
+        self.flags_DTO?.value ?? -1
     }
     
-    public var imageIconURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageIcon_DTO!)!
+    public var imageIconURL: URL? {
+        
+        if let imageIconURL = self.imageIcon_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageIconURL)
+        } else {
+            return nil
+        }
     }
     
-    public var imageTitleURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageTitle_DTO!)!
+    public var imageTitleURL: URL? {
+        
+        if let imageTitleURL = self.imageTitle_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageTitleURL)
+        } else {
+            return nil
+        }
+        
     }
     
-    public var imageInGameURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageInGame_DTO!)!
+    public var imageInGameURL: URL? {
+        
+        if let imageInGameURL = self.imageInGame_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageInGameURL)
+        } else {
+            return nil
+        }
     }
     
-    public var imageBoxArtURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageBoxArt_DTO!)!
+    public var imageBoxArtURL: URL? {
+        
+        if let imageBoxArtURL = self.imageBoxArt_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageBoxArtURL)
+        } else {
+            return nil
+        }
     }
     
     public var publisher: String {
-        self.publisher_DTO!
+        self.publisher_DTO ?? ""
     }
     
     public var developer: String {
-        self.developer_DTO!
+        self.developer_DTO ?? ""
     }
     
     public var genre: String {
-        self.genre_DTO!
+        self.genre_DTO ?? ""
     }
     
     public var releaseDate: String {
-        self.released_DTO!
+        self.released_DTO ?? ""
     }
     
 }

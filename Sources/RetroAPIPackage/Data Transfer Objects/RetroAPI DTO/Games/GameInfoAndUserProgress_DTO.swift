@@ -76,94 +76,125 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     }
 }
 
-extension GameInfoAndUserProgress_DTO: Game, GameExtended, GameImage, Console, AchievementSet, GameProgress  {
+extension GameInfoAndUserProgress_DTO: Game, GameExtended, Console, AchievementSet, GameProgress  {
     public var gameID: Int? {
-        self.gameID_DTO!.value!
+        self.gameID_DTO?.value ?? -1
     }
     
     public var title: String {
-        self.title_DTO!
+        self.title_DTO ?? ""
     }
     
     public var consoleID: Int? {
-        self.consoleID_DTO!.value!
+        self.consoleID_DTO?.value ?? -1
     }
     
     public var consoleName: String {
-        self.consoleName_DTO!
+        self.consoleName_DTO ?? ""
     }
     
     public var forumTopicID: Int {
-        self.forumTopicID_DTO!.value!
+        self.forumTopicID_DTO?.value ?? -1
     }
     
     public var flags: Int {
-        self.flags_DTO!.value!
+        self.flags_DTO?.value ?? -1
     }
     
-    public var imageIconURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageIcon_DTO!)!
+    public var imageIconURL: URL? {
+        
+        if let imageIconURL = self.imageIcon_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageIconURL)
+        } else {
+            return nil
+        }
     }
     
-    public var imageTitleURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageTitle_DTO!)!
+    public var imageTitleURL: URL? {
+        
+        if let imageTitleURL = self.imageTitle_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageTitleURL)
+        } else {
+            return nil
+        }
+        
     }
     
-    public var imageInGameURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageInGame_DTO!)!
+    public var imageInGameURL: URL? {
+        
+        if let imageInGameURL = self.imageInGame_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageInGameURL)
+        } else {
+            return nil
+        }
     }
     
-    public var imageBoxArtURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageBoxArt_DTO!)!
+    public var imageBoxArtURL: URL? {
+        
+        if let imageBoxArtURL = self.imageBoxArt_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageBoxArtURL)
+        } else {
+            return nil
+        }
     }
     
     public var publisher: String {
-        self.publisher_DTO!
+        self.publisher_DTO ?? ""
     }
     
     public var developer: String {
-        self.developer_DTO!
+        self.developer_DTO ?? ""
     }
     
     public var genre: String {
-        self.genre_DTO!
+        self.genre_DTO ?? ""
     }
     
     public var releaseDate: String {
-        self.released_DTO!
+        self.released_DTO ?? ""
     }
     
     public var isFinal: Bool {
-        Bool(exactly: self.isFinal_DTO! as NSNumber)!
+        Bool(exactly: self.isFinal_DTO! as NSNumber) ?? false
         
     }
     
     public var richPresencePatch: String {
-        self.richPresencePatch_DTO!
+        self.richPresencePatch_DTO ?? ""
     }
     
     public var numAchievements: Int {
-        self.numAchievements_DTO!.value!
+        self.numAchievements_DTO?.value ?? -1
     }
     
     public var numDistinctPlayers: Int {
-        self.numDistinctPlayersCasual_DTO!.value!
+        self.numDistinctPlayersCasual_DTO?.value ?? -1
     }
     
     public var numDistinctPlayersHardcore: Int {
-        self.numDistinctPlayersHardcore_DTO!.value!
+        self.numDistinctPlayersHardcore_DTO?.value ?? -1
     }
     
     public var achievements: Dictionary<String, GameInfoAndUserProgress_DTO.Achievement_DTO> {
-        self.achievements_DTO!.value!
+        self.achievements_DTO?.value ?? [:]
     }
     
     public var userCompletionPercentage: Double? {
-        Double(self.userCompletion_DTO!.replacingOccurrences(of: "%", with: ""))! / 100
+        
+        if let userCompletion = self.userCompletion_DTO {
+            return Double(userCompletion.replacingOccurrences(of: "%", with: "")) ?? 0 / 100
+        } else {
+            return nil
+        }
     }
     
     public var userCompletionHardcorePercentage: Double? {
-        Double(self.userCompletionHardcore_DTO!.replacingOccurrences(of: "%", with: ""))! / 100
+        
+        if let userCompletionHardcore = self.userCompletionHardcore_DTO {
+            return Double(userCompletionHardcore.replacingOccurrences(of: "%", with: "")) ?? 0 / 100
+        } else {
+            return nil
+        }
     }
     
     public var possibleScore: Int? {
@@ -183,11 +214,11 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, GameImage, Console, A
     }
     
     public var numAwardedAchievements: Int {
-        self.numAwardedToUser_DTO!.value!
+        self.numAwardedToUser_DTO?.value ?? -1
     }
     
     public var numPossibleAchievements: Int? {
-        self.numAchievements_DTO!.value!
+        self.numAchievements_DTO?.value ?? -1
     }
     
     public var hardcoreModeEnabled: Bool? {

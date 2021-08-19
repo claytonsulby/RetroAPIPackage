@@ -60,7 +60,7 @@ public extension GameInfoAndUserProgress_DTO {
 
 extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAchievementFromSet {
     public var achievementID: Int {
-        self.achievementID_DTO.value!
+        self.achievementID_DTO.value ?? -1
     }
     
     public var title: String {
@@ -72,11 +72,11 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     }
     
     public var points: Int {
-        self.points_DTO.value!
+        self.points_DTO.value ?? -1
     }
     
     public var trueRatio: Int {
-        self.trueRatio_DTO.value!
+        self.trueRatio_DTO.value ?? -1
     }
     
     public var author: String {
@@ -85,25 +85,25 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     
     public var dateModified: Date {
         
-        return DateFormatter.standardFormat(from: self.dateModified_DTO)!
+        return DateFormatter.standardFormat(from: self.dateModified_DTO) ?? Date(timeIntervalSince1970: 0)
         
     }
     
     public var dateCreated: Date {
         
-        return DateFormatter.standardFormat(from: self.dateCreated_DTO)!
+        return DateFormatter.standardFormat(from: self.dateCreated_DTO) ?? Date(timeIntervalSince1970: 0)
         
     }
     
-    public var imageURL: URL {
+    public var imageURL: URL? {
     
-        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")!
+        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")
         
     }
     
     public var displayOrder: Int {
         
-        self.displayOrder_DTO.value!
+        self.displayOrder_DTO.value ?? -1
     
     }
     
@@ -115,13 +115,13 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     
     public var numAwarded: Int {
     
-        self.numAwarded_DTO.value!
+        self.numAwarded_DTO.value ?? -1
         
     }
     
     public var numAwardedHardcore: Int {
         
-        self.numAwardedHardcore_DTO.value!
+        self.numAwardedHardcore_DTO.value ?? -1
     }
     
     public var dateAwarded: Date? {

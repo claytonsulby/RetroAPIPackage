@@ -40,7 +40,7 @@ public extension AchievementUnlocks_DTO {
 
 extension AchievementUnlocks_DTO.Achievement_DTO : Achievement, ExtendedAchievement {
     public var achievementID: Int {
-        self.achievementID_DTO.value!
+        self.achievementID_DTO.value ?? -1
     }
     
     public var title: String {
@@ -52,11 +52,11 @@ extension AchievementUnlocks_DTO.Achievement_DTO : Achievement, ExtendedAchievem
     }
     
     public var points: Int {
-        self.points_DTO.value!
+        self.points_DTO.value ?? -1
     }
     
     public var trueRatio: Int {
-        self.trueRatio_DTO.value!
+        self.trueRatio_DTO.value ?? -1
     }
     
     public var author: String {
@@ -65,12 +65,12 @@ extension AchievementUnlocks_DTO.Achievement_DTO : Achievement, ExtendedAchievem
     
     public var dateModified: Date {
         
-        DateFormatter.standardFormat(from: self.dateModified_DTO)!
+        DateFormatter.standardFormat(from: self.dateModified_DTO) ?? Date(timeIntervalSince1970: 0)
         
     }
     
     public var dateCreated: Date {
-        DateFormatter.standardFormat(from: self.dateCreated_DTO)!
+        DateFormatter.standardFormat(from: self.dateCreated_DTO) ?? Date(timeIntervalSince1970: 0)
     }
     
     

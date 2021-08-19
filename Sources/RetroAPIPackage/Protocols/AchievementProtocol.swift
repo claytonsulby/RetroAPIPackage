@@ -38,7 +38,7 @@ public protocol ExtendedAchievement {
 
 public protocol AchievementImage {
     
-    var imageURL:URL { get }
+    var imageURL:URL? { get }
     
     //public var badgeName: String?
 }

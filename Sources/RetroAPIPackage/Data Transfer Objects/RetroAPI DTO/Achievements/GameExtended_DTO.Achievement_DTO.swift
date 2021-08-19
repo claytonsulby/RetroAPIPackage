@@ -62,7 +62,7 @@ public extension GameExtended_DTO {
 
 extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, FromSet {
     public var achievementID: Int {
-        self.achievementID_DTO.value!
+        self.achievementID_DTO.value ?? -1
     }
     
     public var title: String {
@@ -74,11 +74,11 @@ extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, A
     }
     
     public var points: Int {
-        self.points_DTO.value!
+        self.points_DTO.value ?? -1
     }
     
     public var trueRatio: Int {
-        self.trueRatio_DTO.value!
+        self.trueRatio_DTO.value ?? -1
     }
     
     public var author: String {
@@ -87,23 +87,21 @@ extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, A
     
     public var dateModified: Date {
         
-        return DateFormatter.standardFormat(from: self.dateModified_DTO)!
+        return DateFormatter.standardFormat(from: self.dateModified_DTO) ?? Date(timeIntervalSince1970: 0)
     }
     
     public var dateCreated: Date {
 
-        return DateFormatter.standardFormat(from: self.dateCreated_DTO)!
+        return DateFormatter.standardFormat(from: self.dateCreated_DTO) ?? Date(timeIntervalSince1970: 0)
         
     }
     
-    public var imageURL: URL {
-        
-        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")!
-        
+    public var imageURL: URL? {
+        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")
     }
     
     public var displayOrder: Int {
-        self.displayOrder_DTO.value!
+        self.displayOrder_DTO.value ?? -1
     }
     
     public var memAddr: String {
@@ -111,11 +109,11 @@ extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, A
     }
     
     public var numAwarded: Int {
-        self.numAwarded_DTO.value!
+        self.numAwarded_DTO.value ?? -1
     }
     
     public var numAwardedHardcore: Int {
-        self.numAwardedHardcore_DTO.value!
+        self.numAwardedHardcore_DTO.value ?? -1
     }
 }
  

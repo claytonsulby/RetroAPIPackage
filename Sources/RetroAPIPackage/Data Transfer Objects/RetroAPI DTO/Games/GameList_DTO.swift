@@ -22,25 +22,30 @@ public struct GameListElement_DTO: Codable {
 
 public typealias GameList_DTO = [GameListElement_DTO]
 
-extension GameListElement_DTO : Game, GameImage, Console {
+extension GameListElement_DTO : Game, GameIcon, Console {
     public var gameID: Int? {
-        self.gameID_DTO!.value!
+        self.gameID_DTO?.value ?? -1
     }
     
     public var title: String {
-        self.title_DTO!
+        self.title_DTO ?? ""
     }
     
-    public var imageIconURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageIcon_DTO!)!
+    public var imageIconURL: URL? {
+        
+        if let imageIconURL = self.imageIcon_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageIconURL)
+        } else {
+            return nil
+        }
     }
     
     public var consoleID: Int? {
-        self.consoleID_DTO!.value!
+        self.consoleID_DTO?.value ?? -1
     }
     
     public var consoleName: String {
-        self.consoleName_DTO!
+        self.consoleName_DTO ?? ""
     }
     
     

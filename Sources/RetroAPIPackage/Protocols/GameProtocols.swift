@@ -33,14 +33,14 @@ public protocol Console {
     //           consoleName,
 }
 
-public protocol GameExtended {
+public protocol GameExtended : GameIcon {
     
     var forumTopicID:Int { get }
     var flags:Int { get }
-    var imageIconURL:URL { get }
-    var imageTitleURL:URL { get }
-    var imageInGameURL:URL { get }
-    var imageBoxArtURL:URL { get }
+    var imageIconURL:URL? { get }
+    var imageTitleURL:URL? { get }
+    var imageInGameURL:URL? { get }
+    var imageBoxArtURL:URL? { get }
     var publisher:String { get }
     var developer:String { get }
     var genre:String { get }
@@ -76,9 +76,9 @@ public protocol AchievementSet {
     //self.achievements = achievements
 }
 
-public protocol GameImage {
+public protocol GameIcon {
     
-    var imageIconURL:URL { get }
+    var imageIconURL:URL? { get }
     //self.imageIcon = imageIcon
 }
 

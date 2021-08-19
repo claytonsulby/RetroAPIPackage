@@ -27,17 +27,22 @@ public struct UserCompletedGame_DTO: Codable {
 
 public typealias UserCompletedGames_DTO = [UserCompletedGame_DTO]
 
-extension UserCompletedGame_DTO: Game, GameImage, Console, GameProgress {
+extension UserCompletedGame_DTO: Game, GameIcon, Console, GameProgress {
     public var gameID: Int? {
-        self.gameID_DTO!.value!
+        self.gameID_DTO?.value ?? -1
     }
     
     public var title: String {
-        self.title_DTO!
+        self.title_DTO ?? ""
     }
     
-    public var imageIconURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageIcon_DTO!)!
+    public var imageIconURL: URL? {
+        
+        if let imageIconURL = self.imageIcon_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageIconURL)
+        } else {
+            return nil
+        }
     }
     
     public var consoleID: Int? {
@@ -45,20 +50,30 @@ extension UserCompletedGame_DTO: Game, GameImage, Console, GameProgress {
     }
     
     public var consoleName: String {
-        self.consoleName_DTO!
+        self.consoleName_DTO ?? ""
     }
     
     public var userCompletionPercentage: Double? {
-        if hardcoreModeEnabled! {
-            return nil
+        
+        if let hardcoreModeEnabled = self.hardcoreModeEnabled {
+            if hardcoreModeEnabled {
+                return nil
+            } else {
+                return Double(self.pctWon_DTO!)!
+            }
         } else {
-            return Double(self.pctWon_DTO!)!
+            return nil
         }
     }
     
     public var userCompletionHardcorePercentage: Double? {
-        if hardcoreModeEnabled! {
-            return Double(self.pctWon_DTO!)!
+        
+        if let hardcoreModeEnabled = self.hardcoreModeEnabled {
+            if hardcoreModeEnabled {
+                return Double(self.pctWon_DTO!)!
+            } else {
+                return nil
+            }
         } else {
             return nil
         }
@@ -73,19 +88,40 @@ extension UserCompletedGame_DTO: Game, GameImage, Console, GameProgress {
     }
     
     public var numAwardedAchievements: Int {
-        self.numAwarded_DTO!.value!
+        self.numAwarded_DTO?.value ?? -1
     }
     
     public var numPossibleAchievements: Int? {
-        if hardcoreModeEnabled! {
-            return Int((Double(numAwardedAchievements) * userCompletionHardcorePercentage!).rounded(.up))
+        
+        if let hardcoreModeEnabled = self.hardcoreModeEnabled {
+            if hardcoreModeEnabled {
+                
+                if let userCompletionHardcorePercentage = self.userCompletionHardcorePercentage {
+                    return Int((Double(numAwardedAchievements) * userCompletionHardcorePercentage).rounded(.up))
+                } else {
+                    return nil
+                }
+                
+                
+            } else {
+                
+                if let userCompletionPercentage = self.userCompletionPercentage {
+                    return Int((Double(numAwardedAchievements) * userCompletionPercentage).rounded(.up))
+                } else {
+                    return nil
+                }
+                
+                
+            }
         } else {
-            return Int((Double(numAwardedAchievements) * userCompletionPercentage!).rounded(.up))
+            return nil
         }
+        
+
     }
     
     public var hardcoreModeEnabled: Bool? {
-        Bool(exactly: Int(self.hardcoreMode_DTO!)! as NSNumber)!
+        Bool(exactly: Int(self.hardcoreMode_DTO!)! as NSNumber)
     }
     
     

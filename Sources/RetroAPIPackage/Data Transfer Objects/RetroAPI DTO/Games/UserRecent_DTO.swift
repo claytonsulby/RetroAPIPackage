@@ -31,41 +31,61 @@ public struct UserRecent_DTO: Codable {
 
 public typealias UserRecents_DTO = [UserRecent_DTO]
 
-extension UserRecent_DTO: Game, Console, GameImage, RecentlyPlayed, GameProgress {
+extension UserRecent_DTO: Game, Console, GameIcon, RecentlyPlayed, GameProgress {
     public var gameID: Int? {
-        self.gameID_DTO!.value!
+        self.gameID_DTO?.value ?? -1
     }
     
     public var title: String {
-        self.title_DTO!
+        self.title_DTO ?? ""
     }
     
     public var consoleID: Int? {
-        self.consoleID_DTO!.value!
+        self.consoleID_DTO?.value ?? -1
     }
     
     public var consoleName: String {
-        self.consoleName_DTO!
+        self.consoleName_DTO ?? ""
     }
     
-    public var imageIconURL: URL {
-        URL(string: RetroAPI.baseImageURL + self.imageIcon_DTO!)!
+    public var imageIconURL: URL? {
+        
+        if let imageIconURL = self.imageIcon_DTO {
+            return URL(string: RetroAPI.baseImageURL + imageIconURL)
+        } else {
+            return nil
+        }
     }
     
     public var lastPlayed: Date {
-        return DateFormatter.standardFormat(from: self.lastPlayed_DTO!)!
+        
+        if let lastPlayed = self.lastPlayed_DTO {
+            return DateFormatter.standardFormat(from: lastPlayed) ?? Date(timeIntervalSince1970: 0)
+        } else {
+            return Date(timeIntervalSince1970: 0)
+        }
+
     }
     
     public var userSubmittedRating: Int? {
         if let myVote = self.myVote_DTO {
-            return myVote.value!
+            return myVote.value ?? -1
         } else {
             return nil
         }
     }
     
     public var userCompletionPercentage: Double? {
-        Double(self.numAwardedAchievements) / Double(self.numPossibleAchievements!)
+        
+        if let numPossibleAchievements = self.numPossibleAchievements {
+            if numPossibleAchievements > 0 {
+                return Double(self.numAwardedAchievements) / Double(numPossibleAchievements)
+            } else {
+                return 0
+            }
+        } else {
+            return nil
+        }
     }
     
     public var userCompletionHardcorePercentage: Double? {
@@ -81,11 +101,11 @@ extension UserRecent_DTO: Game, Console, GameImage, RecentlyPlayed, GameProgress
     }
     
     public var numAwardedAchievements: Int {
-        (self.numAchieved_DTO?.value!)!
+        self.numAchieved_DTO?.value ?? -1
     }
     
     public var numPossibleAchievements: Int? {
-        self.numPossibleAchievements_DTO?.value!
+        self.numPossibleAchievements_DTO?.value ?? -1
     }
     
     public var hardcoreModeEnabled: Bool? {

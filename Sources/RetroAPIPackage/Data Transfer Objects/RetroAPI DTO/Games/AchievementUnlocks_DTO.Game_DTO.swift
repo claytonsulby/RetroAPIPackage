@@ -23,7 +23,7 @@ public extension AchievementUnlocks_DTO {
 
 extension AchievementUnlocks_DTO.Game_DTO : Game {
     public var gameID: Int? {
-        self.gameID_DTO.value!
+        self.gameID_DTO.value ?? -1
     }
     
     public var title: String {
