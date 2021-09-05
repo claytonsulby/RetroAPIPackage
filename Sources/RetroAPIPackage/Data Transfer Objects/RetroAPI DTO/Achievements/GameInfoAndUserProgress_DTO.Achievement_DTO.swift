@@ -59,7 +59,12 @@ public extension GameInfoAndUserProgress_DTO {
     
 }
 
-extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAchievementFromSet {
+extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, Awarded, AchievementRow {
+    
+    public var displayOrder: Int? {
+        Int(self.displayOrder_DTO ?? "") ?? -1
+    }
+    
     public var achievementID: Int {
         Int(self.achievementID_DTO ?? "") ?? -1
     }
@@ -100,12 +105,6 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     
         URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")
         
-    }
-    
-    public var displayOrder: Int {
-        
-        Int(self.displayOrder_DTO ?? "") ?? -1
-    
     }
     
     public var memAddr: String {

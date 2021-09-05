@@ -7,8 +7,10 @@
 
 import Foundation
 
-public protocol ImagedAwardedExtendedAchievementFromSet: Achievement, ExtendedAchievement, AchievementImage, FromSet, Awarded {}
 public protocol ImagedAwardedExtendedAchievement: Achievement, ExtendedAchievement, AchievementImage, Awarded {}
+public protocol AchievementRow: Achievement, AchievementImage, Awarded {
+    var displayOrder:Int? { get }
+}
 
 public protocol Achievement {
     
