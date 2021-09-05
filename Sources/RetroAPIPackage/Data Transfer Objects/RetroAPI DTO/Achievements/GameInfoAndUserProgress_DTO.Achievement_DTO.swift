@@ -16,7 +16,8 @@ public extension GameInfoAndUserProgress_DTO {
         private var achievementDescription_DTO: String
         private var author_DTO: String
         private var dateModified_DTO, dateCreated_DTO, badgeName_DTO: String
-        private var memAddr_DTO, dateEarned_DTO, dateEarnedHardcore_DTO: String
+        private var memAddr_DTO: String
+        private var dateEarned_DTO, dateEarnedHardcore_DTO: String?
 
         enum CodingKeys: String, CodingKey {
             case achievementID_DTO = "ID"
@@ -126,13 +127,13 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     
     public var dateAwarded: Date? {
         
-        DateFormatter.standardFormat(from: self.dateEarned_DTO)
+        DateFormatter.standardFormat(from: self.dateEarned_DTO ?? "")
 
     }
     
     public var dateAwardedHardcore: Date? {
         
-        DateFormatter.standardFormat(from: self.dateEarnedHardcore_DTO)
+        DateFormatter.standardFormat(from: self.dateEarnedHardcore_DTO ?? "")
         
     }
     
