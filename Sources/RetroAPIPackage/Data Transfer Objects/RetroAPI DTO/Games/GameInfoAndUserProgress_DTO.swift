@@ -246,7 +246,7 @@ public extension GameInfoAndUserProgress_DTO {
                 self = .anythingArray(x)
                 return
             }
-            throw DecodingError.typeMismatch([String: GameInfoAndUserProgress_DTO.Achievement_DTO].self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
+            throw DecodingError.typeMismatch(GameInfoAndUserProgress_DTO.Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
         }
 
         public func encode(to encoder: Encoder) throws {
