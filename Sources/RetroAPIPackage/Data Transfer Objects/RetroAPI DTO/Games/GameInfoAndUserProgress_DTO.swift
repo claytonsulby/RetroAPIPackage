@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(gameID_DTO: PHPHelper.PHPInt? = nil, title_DTO: String? = nil, consoleID_DTO: PHPHelper.PHPInt? = nil, forumTopicID_DTO: PHPHelper.PHPInt? = nil, flags_DTO: PHPHelper.PHPInt? = nil, imageIcon_DTO: String? = nil, imageTitle_DTO: String? = nil, imageInGame_DTO: String? = nil, imageBoxArt_DTO: String? = nil, publisher_DTO: String? = nil, developer_DTO: String? = nil, genre_DTO: String? = nil, released_DTO: String? = nil, isFinal_DTO: Bool? = nil, consoleName_DTO: String? = nil, richPresencePatch_DTO: String? = nil, numAchievements_DTO: PHPHelper.PHPInt? = nil, numDistinctPlayersCasual_DTO: PHPHelper.PHPInt? = nil, numDistinctPlayersHardcore_DTO: PHPHelper.PHPInt? = nil, achievements_DTO: GameInfoAndUserProgress_DTO.DictOrEmptyArray? = nil, numAwardedToUser_DTO: PHPHelper.PHPInt? = nil, numAwardedToUserHardcore_DTO: PHPHelper.PHPInt? = nil, userCompletion_DTO: String? = nil, userCompletionHardcore_DTO: String? = nil) {
+    public init(gameID_DTO: Int? = nil, title_DTO: String? = nil, consoleID_DTO: Int? = nil, forumTopicID_DTO: Int? = nil, flags_DTO: Int? = nil, imageIcon_DTO: String? = nil, imageTitle_DTO: String? = nil, imageInGame_DTO: String? = nil, imageBoxArt_DTO: String? = nil, publisher_DTO: String? = nil, developer_DTO: String? = nil, genre_DTO: String? = nil, released_DTO: String? = nil, isFinal_DTO: Bool? = nil, consoleName_DTO: String? = nil, richPresencePatch_DTO: String? = nil, numAchievements_DTO: Int? = nil, numDistinctPlayersCasual_DTO: Int? = nil, numDistinctPlayersHardcore_DTO: Int? = nil, achievements_DTO: GameInfoAndUserProgress_DTO.DictOrEmptyArray? = nil, numAwardedToUser_DTO: Int? = nil, numAwardedToUserHardcore_DTO: Int? = nil, userCompletion_DTO: String? = nil, userCompletionHardcore_DTO: String? = nil) {
         self.gameID_DTO = gameID_DTO
         self.title_DTO = title_DTO
         self.consoleID_DTO = consoleID_DTO
@@ -35,17 +35,17 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     }
     
 
-    private var gameID_DTO: PHPHelper.PHPInt?
+    private var gameID_DTO: Int?
     private var title_DTO: String?
-    private var consoleID_DTO, forumTopicID_DTO, flags_DTO: PHPHelper.PHPInt?
+    private var consoleID_DTO, forumTopicID_DTO, flags_DTO: Int?
     private var imageIcon_DTO, imageTitle_DTO, imageInGame_DTO, imageBoxArt_DTO: String?
     private var publisher_DTO, developer_DTO, genre_DTO, released_DTO: String?
     private var isFinal_DTO: Bool?
     private var consoleName_DTO, richPresencePatch_DTO: String?
-    private var numAchievements_DTO: PHPHelper.PHPInt?
-    private var numDistinctPlayersCasual_DTO, numDistinctPlayersHardcore_DTO: PHPHelper.PHPInt?
+    private var numAchievements_DTO: Int?
+    private var numDistinctPlayersCasual_DTO, numDistinctPlayersHardcore_DTO: Int?
     private var achievements_DTO: GameInfoAndUserProgress_DTO.DictOrEmptyArray?
-    private var numAwardedToUser_DTO, numAwardedToUserHardcore_DTO: PHPHelper.PHPInt?
+    private var numAwardedToUser_DTO, numAwardedToUserHardcore_DTO: Int?
     private var userCompletion_DTO, userCompletionHardcore_DTO: String?
 
     enum CodingKeys: String, CodingKey {
@@ -78,7 +78,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
 
 extension GameInfoAndUserProgress_DTO: Game, GameExtended, Console, AchievementSet, GameProgress  {
     public var gameID: Int? {
-        self.gameID_DTO?.value ?? -1
+        self.gameID_DTO ?? -1
     }
     
     public var title: String {
@@ -86,7 +86,7 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, Console, AchievementS
     }
     
     public var consoleID: Int? {
-        self.consoleID_DTO?.value ?? -1
+        self.consoleID_DTO ?? -1
     }
     
     public var consoleName: String {
@@ -94,11 +94,11 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, Console, AchievementS
     }
     
     public var forumTopicID: Int {
-        self.forumTopicID_DTO?.value ?? -1
+        self.forumTopicID_DTO ?? -1
     }
     
     public var flags: Int {
-        self.flags_DTO?.value ?? -1
+        self.flags_DTO ?? -1
     }
     
     public var imageIconURL: URL? {
@@ -164,15 +164,15 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, Console, AchievementS
     }
     
     public var numAchievements: Int {
-        self.numAchievements_DTO?.value ?? -1
+        self.numAchievements_DTO ?? -1
     }
     
     public var numDistinctPlayers: Int {
-        self.numDistinctPlayersCasual_DTO?.value ?? -1
+        self.numDistinctPlayersCasual_DTO ?? -1
     }
     
     public var numDistinctPlayersHardcore: Int {
-        self.numDistinctPlayersHardcore_DTO?.value ?? -1
+        self.numDistinctPlayersHardcore_DTO ?? -1
     }
     
     public var achievements: Dictionary<String, GameInfoAndUserProgress_DTO.Achievement_DTO> {
@@ -214,11 +214,11 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, Console, AchievementS
     }
     
     public var numAwardedAchievements: Int {
-        self.numAwardedToUser_DTO?.value ?? -1
+        self.numAwardedToUser_DTO ?? -1
     }
     
     public var numPossibleAchievements: Int? {
-        self.numAchievements_DTO?.value ?? -1
+        self.numAchievements_DTO ?? -1
     }
     
     public var hardcoreModeEnabled: Bool? {
