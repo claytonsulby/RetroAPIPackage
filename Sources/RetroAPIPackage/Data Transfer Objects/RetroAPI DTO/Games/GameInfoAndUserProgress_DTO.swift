@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(gameID_DTO: Int? = nil, title_DTO: String? = nil, consoleID_DTO: Int? = nil, forumTopicID_DTO: Int? = nil, flags_DTO: Int? = nil, imageIcon_DTO: String? = nil, imageTitle_DTO: String? = nil, imageInGame_DTO: String? = nil, imageBoxArt_DTO: String? = nil, publisher_DTO: String? = nil, developer_DTO: String? = nil, genre_DTO: String? = nil, released_DTO: String? = nil, isFinal_DTO: Bool? = nil, consoleName_DTO: String? = nil, richPresencePatch_DTO: String? = nil, numAchievements_DTO: Int? = nil, numDistinctPlayersCasual_DTO: Int? = nil, numDistinctPlayersHardcore_DTO: Int? = nil, achievements_DTO: GameInfoAndUserProgress_DTO.DictOrEmptyArray? = nil, numAwardedToUser_DTO: Int? = nil, numAwardedToUserHardcore_DTO: Int? = nil, userCompletion_DTO: String? = nil, userCompletionHardcore_DTO: String? = nil) {
+    public init(gameID_DTO: Int? = nil, title_DTO: String? = nil, consoleID_DTO: Int? = nil, forumTopicID_DTO: Int? = nil, flags_DTO: Int? = nil, imageIcon_DTO: String? = nil, imageTitle_DTO: String? = nil, imageInGame_DTO: String? = nil, imageBoxArt_DTO: String? = nil, publisher_DTO: String? = nil, developer_DTO: String? = nil, genre_DTO: String? = nil, released_DTO: String? = nil, isFinal_DTO: Bool? = nil, consoleName_DTO: String? = nil, richPresencePatch_DTO: String? = nil, numAchievements_DTO: Int? = nil, numDistinctPlayersCasual_DTO: String? = nil, numDistinctPlayersHardcore_DTO: String? = nil, achievements_DTO: GameInfoAndUserProgress_DTO.DictOrEmptyArray? = nil, numAwardedToUser_DTO: Int? = nil, numAwardedToUserHardcore_DTO: Int? = nil, userCompletion_DTO: String? = nil, userCompletionHardcore_DTO: String? = nil) {
         self.gameID_DTO = gameID_DTO
         self.title_DTO = title_DTO
         self.consoleID_DTO = consoleID_DTO
@@ -43,7 +43,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     private var isFinal_DTO: Bool?
     private var consoleName_DTO, richPresencePatch_DTO: String?
     private var numAchievements_DTO: Int?
-    private var numDistinctPlayersCasual_DTO, numDistinctPlayersHardcore_DTO: Int?
+    private var numDistinctPlayersCasual_DTO, numDistinctPlayersHardcore_DTO: String?
     private var achievements_DTO: GameInfoAndUserProgress_DTO.DictOrEmptyArray?
     private var numAwardedToUser_DTO, numAwardedToUserHardcore_DTO: Int?
     private var userCompletion_DTO, userCompletionHardcore_DTO: String?
@@ -168,11 +168,11 @@ extension GameInfoAndUserProgress_DTO: Game, GameExtended, Console, AchievementS
     }
     
     public var numDistinctPlayers: Int {
-        self.numDistinctPlayersCasual_DTO ?? -1
+        Int(self.numDistinctPlayersCasual_DTO ?? "") ?? -1
     }
     
     public var numDistinctPlayersHardcore: Int {
-        self.numDistinctPlayersHardcore_DTO ?? -1
+        Int(self.numDistinctPlayersHardcore_DTO ?? "") ?? -1
     }
     
     public var achievements: Dictionary<String, GameInfoAndUserProgress_DTO.Achievement_DTO> {
