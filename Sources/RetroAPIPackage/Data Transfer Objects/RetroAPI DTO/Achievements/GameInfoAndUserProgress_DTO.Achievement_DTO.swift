@@ -11,7 +11,7 @@ public extension GameInfoAndUserProgress_DTO {
     
     public struct Achievement_DTO: Codable, Equatable {
 
-        private var achievementID_DTO, numAwarded_DTO, numAwardedHardcore_DTO, points_DTO, trueRatio_DTO, displayOrder_DTO: PHPHelper.PHPInt
+        private var achievementID_DTO, numAwarded_DTO, numAwardedHardcore_DTO, points_DTO, trueRatio_DTO, displayOrder_DTO: String
         private var title_DTO: String
         private var achievementDescription_DTO: String
         private var author_DTO: String
@@ -60,7 +60,7 @@ public extension GameInfoAndUserProgress_DTO {
 
 extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAchievementFromSet {
     public var achievementID: Int {
-        self.achievementID_DTO.value ?? -1
+        Int(self.achievementID_DTO ?? "") ?? -1
     }
     
     public var title: String {
@@ -72,11 +72,11 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     }
     
     public var points: Int {
-        self.points_DTO.value ?? -1
+        Int(self.points_DTO ?? "") ?? -1
     }
     
     public var trueRatio: Int {
-        self.trueRatio_DTO.value ?? -1
+        Int(self.trueRatio_DTO ?? "") ?? -1
     }
     
     public var author: String {
@@ -103,7 +103,7 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     
     public var displayOrder: Int {
         
-        self.displayOrder_DTO.value ?? -1
+        Int(self.displayOrder_DTO ?? "") ?? -1
     
     }
     
@@ -115,13 +115,13 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : ImagedAwardedExtendedAch
     
     public var numAwarded: Int {
     
-        self.numAwarded_DTO.value ?? -1
+        Int(self.numAwarded_DTO ?? "") ?? -1
         
     }
     
     public var numAwardedHardcore: Int {
         
-        self.numAwardedHardcore_DTO.value ?? -1
+        Int(self.numAwardedHardcore_DTO ?? "") ?? -1
     }
     
     public var dateAwarded: Date? {
