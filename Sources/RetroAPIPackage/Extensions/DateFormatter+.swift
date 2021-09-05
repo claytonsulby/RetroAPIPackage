@@ -25,7 +25,7 @@ public extension DateFormatter {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let date = dateFormatter.date(from: date)
         
-        return date!
+        return date
         
     }
     
