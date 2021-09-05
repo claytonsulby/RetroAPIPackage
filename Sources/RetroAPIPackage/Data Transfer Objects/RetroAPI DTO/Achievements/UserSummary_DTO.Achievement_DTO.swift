@@ -48,7 +48,7 @@ public extension UserSummary_DTO {
 }
 
 // MARK: - Achievement Protocol Conformance
-extension UserSummary_DTO.Achievement_DTO : Achievement, Game, AchievementImage, Awarded, AchievementRow {
+extension UserSummary_DTO.Achievement_DTO : Achievement, Game, AchievementImage, Awarded, AchievementRowProtocol {
     public var displayOrder: Int? {
         nil
     }

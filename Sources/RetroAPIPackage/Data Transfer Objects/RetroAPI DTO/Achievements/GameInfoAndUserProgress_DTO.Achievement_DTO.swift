@@ -59,7 +59,7 @@ public extension GameInfoAndUserProgress_DTO {
     
 }
 
-extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, Awarded, AchievementRow {
+extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, Awarded, AchievementRowProtocol {
     
     public var displayOrder: Int? {
         Int(self.displayOrder_DTO ?? "") ?? -1

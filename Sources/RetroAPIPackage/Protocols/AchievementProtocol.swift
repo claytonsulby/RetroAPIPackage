@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol ImagedAwardedExtendedAchievement: Achievement, ExtendedAchievement, AchievementImage, Awarded {}
-public protocol AchievementRow: Achievement, AchievementImage, Awarded {
+public protocol AchievementRowProtocol: Achievement, AchievementImage, Awarded {
     var displayOrder:Int? { get }
 }
 
