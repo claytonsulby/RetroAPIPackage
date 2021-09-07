@@ -11,6 +11,7 @@ public protocol ImagedAwardedExtendedAchievement: Achievement, ExtendedAchieveme
 public protocol AchievementRowProtocol: Achievement, AchievementImage, Awarded {
     var displayOrder:Int? { get }
 }
+public protocol FeaturableAchievement: Achievement, ExtendedAchievement, AchievementImage, Awarded, FromSet {}
 
 public protocol Achievement {
     
