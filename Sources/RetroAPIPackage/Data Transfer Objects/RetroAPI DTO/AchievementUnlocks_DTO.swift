@@ -48,4 +48,6 @@ public extension AchievementUnlocks_DTO {
     }
 }
 
-
+extension AchievementUnlocks_DTO.Unlock_DTO : Hashable {
+    
+}
