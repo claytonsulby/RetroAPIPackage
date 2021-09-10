@@ -7,6 +7,33 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
+    internal init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int = 0, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool = false, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: StringCodableMap<Int> = StringCodableMap(-1), _numDistinctPlayersHardcore: StringCodableMap<Int> = StringCodableMap(-1), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), _released: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: NilConditionalDecode<String> = NilConditionalDecode(""), _userCompletionHardcore: NilConditionalDecode<String> = NilConditionalDecode("")) {
+        self.gameID = gameID
+        self.title = title
+        self.forumTopicID = forumTopicID
+        self.flags = flags
+        self.consoleID = consoleID
+        self.consoleName = consoleName
+        self.publisher = publisher
+        self.developer = developer
+        self.genre = genre
+        self.isFinal = isFinal
+        self.richPresencePatch = richPresencePatch
+        self.numAchievements = numAchievements
+        self.numAwardedToUser = numAwardedToUser
+        self.numAwardedToUserHardcore = numAwardedToUserHardcore
+        self._numDistinctPlayersCasual = _numDistinctPlayersCasual
+        self._numDistinctPlayersHardcore = _numDistinctPlayersHardcore
+        self._achievements = _achievements
+        self._released = _released
+        self._imageIcon = _imageIcon
+        self._imageTitle = _imageTitle
+        self._imageInGame = _imageInGame
+        self._imageBoxArt = _imageBoxArt
+        self._userCompletion = _userCompletion
+        self._userCompletionHardcore = _userCompletionHardcore
+    }
+    
 
     public var gameID: Int
     public var title: String
