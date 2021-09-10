@@ -11,9 +11,11 @@ public extension GameInfoAndUserProgress_DTO {
     
     public struct Achievement_DTO: Codable, Equatable {
 
+        //Private StringCodableMap wrapped variables
         private var _achievementID, _numAwarded, _numAwardedHardcore, _points, _displayOrder: StringCodableMap<Int>
         private var _trueRatio: StringCodableMap<Double>
         
+        //Public get/set computed properties for wrapped variables
         public var achievementID:Int {
             get { return _achievementID.decoded }
             set { _achievementID.decoded = newValue }
@@ -44,13 +46,13 @@ public extension GameInfoAndUserProgress_DTO {
             set { _trueRatio.decoded = newValue }
         }
         
-        public var title: String
-        public var achievementDescription: String
-        public var author: String
-        
+        //Private variables replaced by computed properties for ease of use /s type conversion
         private var _dateModified, _dateCreated, badgeName: String
         private var _dateEarned, _dateEarnedHardcore: String?
         
+        public var title: String
+        public var achievementDescription: String
+        public var author: String
         public var memAddr: String
         
 
@@ -72,6 +74,7 @@ public extension GameInfoAndUserProgress_DTO {
             case _dateEarnedHardcore = "DateEarnedHardcore"
         }
         
+        // NOTE: equitable conformance depends on public computed properties
         public static func == (lhs: GameInfoAndUserProgress_DTO.Achievement_DTO, rhs: GameInfoAndUserProgress_DTO.Achievement_DTO) -> Bool {
             return
                 lhs.achievementID == rhs.achievementID &&
@@ -139,94 +142,5 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAch
         self.dateAwardedHardcore != nil
 
     }
-    
-//
-//    public var displayOrder: Int? {
-//        Int(self.displayOrder_DTO ?? "") ?? -1
-//    }
-//
-//    public var achievementID: Int {
-//        Int(self.achievementID_DTO ?? "") ?? -1
-//    }
-//
-//    public var title: String {
-//        self.title_DTO
-//    }
-//
-//    public var achievementDescription: String {
-//        self.achievementDescription_DTO
-//    }
-//
-//    public var points: Int {
-//        Int(self.points_DTO ?? "") ?? -1
-//    }
-//
-//    public var trueRatio: Int {
-//        Int(self.trueRatio_DTO ?? "") ?? -1
-//    }
-//
-//    public var author: String {
-//        self.author_DTO
-//    }
-//
-//    public var dateModified: Date {
-//
-//        return DateFormatter.standardFormat(from: self.dateModified_DTO) ?? Date(timeIntervalSince1970: 0)
-//
-//    }
-//
-//    public var dateCreated: Date {
-//
-//        return DateFormatter.standardFormat(from: self.dateCreated_DTO) ?? Date(timeIntervalSince1970: 0)
-//
-//    }
-//
-//    public var imageURL: URL? {
-//
-//        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")
-//
-//    }
-//
-//    public var memAddr: String {
-//
-//        self.memAddr_DTO
-//
-//    }
-//
-//    public var numAwarded: Int {
-//
-//        Int(self.numAwarded_DTO ?? "") ?? -1
-//
-//    }
-//
-//    public var numAwardedHardcore: Int {
-//
-//        Int(self.numAwardedHardcore_DTO ?? "") ?? -1
-//    }
-//
-//    public var dateAwarded: Date? {
-//
-//        DateFormatter.standardFormat(from: self.dateEarned_DTO ?? "")
-//
-//    }
-//
-//    public var dateAwardedHardcore: Date? {
-//
-//        DateFormatter.standardFormat(from: self.dateEarnedHardcore_DTO ?? "")
-//
-//    }
-//
-//    public var isAwarded: Bool {
-//
-//        self.dateAwarded != nil
-//
-//    }
-//
-//    public var isAwardedHardcore: Bool {
-//
-//        self.dateAwardedHardcore != nil
-//
-//    }
-    
     
 }
