@@ -28,7 +28,7 @@ public protocol Achievement {
 
 public protocol ExtendedAchievement {
     
-    var trueRatio:Int { get }
+    var trueRatio:Double { get }
     var author:String { get }
     var dateModified:Date { get }
     var dateCreated:Date { get }

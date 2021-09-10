@@ -55,8 +55,9 @@ extension AchievementOfTheWeek_DTO.Achievement_DTO : Achievement, ExtendedAchiev
         self.points_DTO.value ?? -1
     }
     
-    public var trueRatio: Int {
-        self.trueRatio_DTO.value ?? -1
+    public var trueRatio: Double {
+//        self.trueRatio_DTO.value ?? -1.0
+        -1.0
     }
     
     public var author: String {

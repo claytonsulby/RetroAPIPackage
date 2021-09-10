@@ -77,8 +77,9 @@ extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, A
         self.points_DTO.value ?? -1
     }
     
-    public var trueRatio: Int {
-        self.trueRatio_DTO.value ?? -1
+    public var trueRatio: Double {
+//        self.trueRatio_DTO.value ?? -1
+        -1.0
     }
     
     public var author: String {
