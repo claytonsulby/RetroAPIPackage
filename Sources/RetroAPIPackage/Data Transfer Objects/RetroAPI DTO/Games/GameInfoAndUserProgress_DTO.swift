@@ -165,24 +165,42 @@ extension GameInfoAndUserProgress_DTO {
 
     public var imageIconURL: URL? {
 
-        URL(string: RetroAPI.baseImageURL + _imageIcon)
+        if _imageTitle == "/Images/000001.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageTitle)
+        }
         
     }
 
     public var imageTitleURL: URL? {
 
-        URL(string: RetroAPI.baseImageURL + _imageTitle)
+        if _imageTitle == "/Images/000002.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageTitle)
+        }
 
     }
 
     public var imageInGameURL: URL? {
 
-        URL(string: RetroAPI.baseImageURL + _imageInGame)
+        if _imageTitle == "/Images/000002.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageInGame)
+        }
+        
     }
 
     public var imageBoxArtURL: URL? {
 
-        URL(string: RetroAPI.baseImageURL + _imageBoxArt)
+        if _imageTitle == "/Images/000002.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageBoxArt)
+        }
+        
     }
     
     public var releaseDate: String? {
