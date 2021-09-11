@@ -7,20 +7,12 @@
 
 import Foundation
 
-public struct NilConditionalDecode<Decoded : Codable & LosslessStringConvertible> : Codable, LosslessStringConvertible {
-    public init?(_ description: String) {
-        self.decoded = Decoded(description)
-        self.description = description
-    }
-    
-    public var description: String
-    
+public struct NilConditionalDecode<Decoded : Codable> : Codable {
 
     var decoded: Decoded?
 
     public init(_ decoded: Decoded) {
         self.decoded = decoded
-        self.description = String(describing: decoded)
     }
 
     public init(from decoder: Decoder) throws {
@@ -38,7 +30,6 @@ public struct NilConditionalDecode<Decoded : Codable & LosslessStringConvertible
         }
 
         self.decoded = decodedValue
-        self.description = String(describing: decodedValue)
     }
 
     public func encode(to encoder: Encoder) throws {
