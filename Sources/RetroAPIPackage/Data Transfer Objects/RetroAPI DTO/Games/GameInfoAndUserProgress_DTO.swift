@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int = 0, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool = false, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: StringCodableMap<Int> = StringCodableMap(-1), _numDistinctPlayersHardcore: StringCodableMap<Int> = StringCodableMap(-1), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), _released: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: NilConditionalDecode<String> = NilConditionalDecode(""), _userCompletionHardcore: NilConditionalDecode<String> = NilConditionalDecode("")) {
+    public init(gameID: Int, title: String, forumTopicID: Int, flags: Int, consoleID: Int, consoleName: String, publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool, richPresencePatch: String, numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: StringCodableMap<NilConditionalDecode<Int>>, _numDistinctPlayersHardcore: StringCodableMap<NilConditionalDecode<Int>>, _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray, _released: String? = nil, _imageIcon: String, _imageTitle: String, _imageInGame: String, _imageBoxArt: String, _userCompletion: NilConditionalDecode<String>, _userCompletionHardcore: NilConditionalDecode<String>) {
         self.gameID = gameID
         self.title = title
         self.forumTopicID = forumTopicID
@@ -33,7 +33,6 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         self._userCompletion = _userCompletion
         self._userCompletionHardcore = _userCompletionHardcore
     }
-    
 
     public var gameID: Int
     public var title: String
@@ -49,17 +48,17 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     //Privatized for Type change
     //FIXME: is string on succeed (and converted to int), is int if fail. Need to convert int decode to failure or catch type mismatch and return nil
     //Example: https://retroachievements.org/game/1126
-    private var _numDistinctPlayersCasual, _numDistinctPlayersHardcore: StringCodableMap<Int>
+    private var _numDistinctPlayersCasual, _numDistinctPlayersHardcore: StringCodableMap<NilConditionalDecode<Int>>
     
     
     public var numDistinctPlayers: Int {
-        get { return _numDistinctPlayersCasual.decoded }
-        set { _numDistinctPlayersCasual.decoded = newValue }
+        get { return _numDistinctPlayersCasual.decoded.decoded ?? -1 }
+        set { _numDistinctPlayersCasual.decoded.decoded = newValue }
     }
     
     public var numDistinctPlayersHardcore: Int {
-        get { return _numDistinctPlayersHardcore.decoded }
-        set { _numDistinctPlayersHardcore.decoded = newValue }
+        get { return _numDistinctPlayersHardcore.decoded.decoded ?? -1 }
+        set { _numDistinctPlayersHardcore.decoded.decoded = newValue }
     }
     
     //Privatized for Ease of use
