@@ -47,6 +47,8 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     public var numAwardedToUser, numAwardedToUserHardcore: Int?
     
     //Privatized for Type change
+    //FIXME: is string on succeed (and converted to int), is int if fail. Need to convert int decode to failure or catch type mismatch and return nil
+    //Example: https://retroachievements.org/game/1126
     private var _numDistinctPlayersCasual, _numDistinctPlayersHardcore: StringCodableMap<Int>
     
     
@@ -68,7 +70,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         set { _achievements = .anythingDict(newValue ?? [:]) }
     }
     
-    private var _released:String
+    private var _released:String?
     private var _imageIcon, _imageTitle, _imageInGame, _imageBoxArt: String
     
     //String when success, Int when fail (0)
@@ -403,3 +405,4 @@ public extension GameInfoAndUserProgress_DTO {
     }
     
 }
+
