@@ -62,6 +62,12 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     
     //Privatized for Ease of use
     private var _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray
+    
+    public var achievements:[String: GameInfoAndUserProgress_DTO.Achievement_DTO]? {
+        get { return _achievements.value }
+        set { _achievements = .anythingDict(newValue ?? [:]) }
+    }
+    
     private var _released:String
     private var _imageIcon, _imageTitle, _imageInGame, _imageBoxArt: String
     
