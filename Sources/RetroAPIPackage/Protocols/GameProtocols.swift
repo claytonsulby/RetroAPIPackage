@@ -40,7 +40,7 @@ public protocol GameMetadata {
 
 public extension GameMetadata {
     
-    var metadata : [String:Any] {
+    public var metadata : [String:Any] {
       let mirror = Mirror(reflecting: self)
       let dict = Dictionary(uniqueKeysWithValues: mirror.children.lazy.map({ (label:String?, value:Any) -> (String, Any)? in
         guard let label = label else { return nil }
