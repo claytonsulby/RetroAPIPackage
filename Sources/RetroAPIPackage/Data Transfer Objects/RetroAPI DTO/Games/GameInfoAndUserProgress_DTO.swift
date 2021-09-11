@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(gameID: Int, title: String, forumTopicID: Int, flags: Int, consoleID: Int, consoleName: String, publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool, richPresencePatch: String, numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: StringCodableMap<NilConditionalDecode<Int>>, _numDistinctPlayersHardcore: StringCodableMap<NilConditionalDecode<Int>>, _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray, _released: String? = nil, _imageIcon: String, _imageTitle: String, _imageInGame: String, _imageBoxArt: String, _userCompletion: NilConditionalDecode<String>, _userCompletionHardcore: NilConditionalDecode<String>) {
+    public init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int = 0, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool = false, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: StringCodableMap<NilConditionalDecode<Int>> = StringCodableMap(NilConditionalDecode(-1)), _numDistinctPlayersHardcore: StringCodableMap<NilConditionalDecode<Int>> = StringCodableMap(NilConditionalDecode(-1)), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), _released: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: NilConditionalDecode<String> = NilConditionalDecode(""), _userCompletionHardcore: NilConditionalDecode<String> = NilConditionalDecode("")) {
         self.gameID = gameID
         self.title = title
         self.forumTopicID = forumTopicID
@@ -33,6 +33,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         self._userCompletion = _userCompletion
         self._userCompletionHardcore = _userCompletionHardcore
     }
+    
 
     public var gameID: Int
     public var title: String
