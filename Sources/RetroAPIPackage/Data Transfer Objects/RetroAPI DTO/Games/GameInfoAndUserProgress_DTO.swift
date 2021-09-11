@@ -168,7 +168,7 @@ extension GameInfoAndUserProgress_DTO {
         if _imageTitle == "/Images/000001.png" {
             return nil
         } else {
-            return URL(string: RetroAPI.baseImageURL + _imageTitle)
+            return URL(string: RetroAPI.baseImageURL + _imageIcon)
         }
         
     }
