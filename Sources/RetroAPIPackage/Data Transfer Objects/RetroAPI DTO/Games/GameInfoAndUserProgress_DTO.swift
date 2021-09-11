@@ -161,7 +161,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
 
 }
 
-extension GameInfoAndUserProgress_DTO {
+extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageIconURL: URL? {
 

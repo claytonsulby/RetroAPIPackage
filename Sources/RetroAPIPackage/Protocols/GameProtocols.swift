@@ -7,6 +7,37 @@
 
 import Foundation
 
+public protocol GameMetadata {
+    
+    var gameID:Int { get }
+    
+    var forumTopicID:Int { get }
+    var flags:Int { get }
+    var publisher:String? { get }
+    var developer:String? { get }
+    var genre:String? { get }
+    
+    /// - remark: This field is a String and not a Date. The released dates are often not formatted in a way in which they can be parsed into a Date easily.
+    var releaseDate:String? { get }
+    
+    var consoleID:Int { get }
+    var consoleName:String { get }
+    
+    var isFinal:Bool { get }
+    var numDistinctPlayers:Int { get }
+    var numDistinctPlayersHardcore:Int { get }
+    
+    ///Percentage of achievements awarded to user
+    var userCompletion:Double? { get }
+    
+    ///Percentage of achievements awarded to user in hardcore mode
+    var userCompletionHardcore:Double? { get }
+    
+    var possibleScore:Int? { get }
+    var awardedScore:Int? { get }
+    
+}
+
 public protocol Game {
     
     var gameID:Int? { get }
