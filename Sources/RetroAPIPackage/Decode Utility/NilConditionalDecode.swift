@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct NilConditionalDecode<Decoded : Codable> : Codable {
+public struct NilConditionalDecode<Decoded : Codable> : Codable {
 
     var decoded: Decoded?
 
-    init(_ decoded: Decoded) {
+    public init(_ decoded: Decoded) {
         self.decoded = decoded
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
 
         var decodedValue:Decoded?
         
@@ -32,7 +32,7 @@ struct NilConditionalDecode<Decoded : Codable> : Codable {
         self.decoded = decodedValue
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(decoded)
     }
