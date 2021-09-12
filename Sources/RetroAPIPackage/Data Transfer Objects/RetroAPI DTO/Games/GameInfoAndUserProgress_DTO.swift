@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(gameID: Int = 0, title: String = "", _forumTopicID: Int = 0, flags: Int = 0, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool = false, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), _released: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: DecodeNilUnless<String> = DecodeNilUnless(""), _userCompletionHardcore: DecodeNilUnless<String> = DecodeNilUnless("")) {
+    public init(gameID: Int = 0, title: String = "", _forumTopicID: Int = 0, flags: Int = 0, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool = false, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), releaseDate: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: DecodeNilUnless<String> = DecodeNilUnless(""), _userCompletionHardcore: DecodeNilUnless<String> = DecodeNilUnless("")) {
         self.gameID = gameID
         self.title = title
         self._forumTopicID = _forumTopicID
@@ -25,7 +25,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         self._numDistinctPlayersCasual = _numDistinctPlayersCasual
         self._numDistinctPlayersHardcore = _numDistinctPlayersHardcore
         self._achievements = _achievements
-        self._released = _released
+        self.releaseDate = releaseDate
         self._imageIcon = _imageIcon
         self._imageTitle = _imageTitle
         self._imageInGame = _imageInGame
@@ -80,7 +80,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         set { _achievements = .anythingDict(newValue ?? [:]) }
     }
     
-    private var _released:String?
+    public var releaseDate:String?
     private var _imageIcon, _imageTitle, _imageInGame, _imageBoxArt: String
     
     //String when success, Int when fail (0)
@@ -128,7 +128,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         case publisher = "Publisher"
         case developer = "Developer"
         case genre = "Genre"
-        case _released = "Released"
+        case releaseDate = "Released"
         case isFinal = "IsFinal"
         case consoleName = "ConsoleName"
         case richPresencePatch = "RichPresencePatch"
@@ -160,7 +160,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
             lhs.numDistinctPlayers == rhs.numDistinctPlayers &&
             lhs.numDistinctPlayersHardcore == rhs.numDistinctPlayersHardcore &&
             lhs._achievements == rhs._achievements &&
-            lhs._released == rhs._released &&
+            lhs.releaseDate == rhs.releaseDate &&
             lhs._imageIcon == rhs._imageIcon &&
             lhs._imageTitle == rhs._imageTitle &&
             lhs._imageInGame == rhs._imageInGame &&
@@ -212,11 +212,6 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
         }
         
     }
-    
-    public var releaseDate: String? {
-        self._released
-    }
-    
     public var possibleScore: Int? {
         self._achievements.value?.compactMap { (key: String, value: GameInfoAndUserProgress_DTO.Achievement_DTO) in
             value.points
@@ -232,157 +227,6 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
             }
         }.reduce(0, +)
     }
-    
-//
-//    public var gameID: Int? {
-//        self.gameID_DTO ?? -1
-//    }
-//
-//    public var title: String {
-//        self.title_DTO ?? ""
-//    }
-//
-//    public var consoleID: Int? {
-//        self.consoleID_DTO ?? -1
-//    }
-//
-//    public var consoleName: String {
-//        self.consoleName_DTO ?? ""
-//    }
-//
-//    public var forumTopicID: Int {
-//        self.forumTopicID_DTO ?? -1
-//    }
-//
-//    public var flags: Int {
-//        self.flags_DTO ?? -1
-//    }
-//
-//    public var imageIconURL: URL? {
-//
-//        if let imageIconURL = self.imageIcon_DTO {
-//            return URL(string: RetroAPI.baseImageURL + imageIconURL)
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    public var imageTitleURL: URL? {
-//
-//        if let imageTitleURL = self.imageTitle_DTO {
-//            return URL(string: RetroAPI.baseImageURL + imageTitleURL)
-//        } else {
-//            return nil
-//        }
-//
-//    }
-//
-//    public var imageInGameURL: URL? {
-//
-//        if let imageInGameURL = self.imageInGame_DTO {
-//            return URL(string: RetroAPI.baseImageURL + imageInGameURL)
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    public var imageBoxArtURL: URL? {
-//
-//        if let imageBoxArtURL = self.imageBoxArt_DTO {
-//            return URL(string: RetroAPI.baseImageURL + imageBoxArtURL)
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    public var publisher: String {
-//        self.publisher_DTO ?? ""
-//    }
-//
-//    public var developer: String {
-//        self.developer_DTO ?? ""
-//    }
-//
-//    public var genre: String {
-//        self.genre_DTO ?? ""
-//    }
-//
-//    public var releaseDate: String {
-//        self.released_DTO ?? ""
-//    }
-//
-//    public var isFinal: Bool {
-//        Bool(exactly: self.isFinal_DTO! as NSNumber) ?? false
-//
-//    }
-//
-//    public var richPresencePatch: String {
-//        self.richPresencePatch_DTO ?? ""
-//    }
-//
-//    public var numAchievements: Int {
-//        self.numAchievements_DTO ?? -1
-//    }
-//
-//    public var numDistinctPlayers: Int {
-//        Int(self.numDistinctPlayersCasual_DTO ?? "") ?? -1
-//    }
-//
-//    public var numDistinctPlayersHardcore: Int {
-//        Int(self.numDistinctPlayersHardcore_DTO ?? "") ?? -1
-//    }
-//
-//    public var achievements: Dictionary<String, GameInfoAndUserProgress_DTO.Achievement_DTO> {
-//        self.achievements_DTO?.value ?? [:]
-//    }
-//
-//    public var userCompletionPercentage: Double? {
-//
-//        if let userCompletion = self.userCompletion_DTO {
-//            return Double(userCompletion.replacingOccurrences(of: "%", with: "")) ?? 0 / 100
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    public var userCompletionHardcorePercentage: Double? {
-//
-//        if let userCompletionHardcore = self.userCompletionHardcore_DTO {
-//            return Double(userCompletionHardcore.replacingOccurrences(of: "%", with: "")) ?? 0 / 100
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    public var possibleScore: Int? {
-//        self.achievements.map { (key: String, value: GameInfoAndUserProgress_DTO.Achievement_DTO) in
-//            value.points
-//        }.reduce(0, +)
-//    }
-//
-//    public var awardedScore: Int? {
-//        self.achievements.compactMap { (key: String, value: GameInfoAndUserProgress_DTO.Achievement_DTO) in
-//            if value.isAwarded {
-//                return value.points
-//            } else {
-//                return nil
-//            }
-//        }.reduce(0, +)
-//    }
-//
-//    public var numAwardedAchievements: Int {
-//        self.numAwardedToUser_DTO ?? -1
-//    }
-//
-//    public var numPossibleAchievements: Int? {
-//        self.numAchievements_DTO ?? -1
-//    }
-//
-//    public var hardcoreModeEnabled: Bool? {
-//        nil
-//    }
-//
-    
 }
 
 

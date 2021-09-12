@@ -99,7 +99,7 @@ public extension GameInfoAndUserProgress_DTO {
 }
 
 
-extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, Awarded, AchievementRowProtocol {
+extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, Awarded, ExtendedAchievementRowProtocol {
 
     public var dateModified: Date {
 
