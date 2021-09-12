@@ -6,123 +6,73 @@
 import Foundation
 
 // MARK: - WelcomeElement
-public struct UserCompletedGame_DTO: Codable {
+public struct UserCompletedGame_DTO: Codable, Equatable {
+    public init(_gameID: StringMapTo<Int> = StringMapTo(0), _numAwarded: StringMapTo<Int> = StringMapTo(0), _maxPossible: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", title: String = "", imageIcon: String = "", _pctWon: StringMapTo<Double> = StringMapTo(0), _hardcoreMode: String = "") {
+        self._gameID = _gameID
+        self._numAwarded = _numAwarded
+        self._maxPossible = _maxPossible
+        self.consoleName = consoleName
+        self.title = title
+        self.imageIcon = imageIcon
+        self._pctWon = _pctWon
+        self._hardcoreMode = _hardcoreMode
+    }
     
-    private var gameID_DTO, numAwarded_DTO, maxPossible_DTO: PHPHelper.PHPInt?
-    private var consoleName_DTO, imageIcon_DTO, title_DTO: String?
-    private var pctWon_DTO, hardcoreMode_DTO: String?
+    
+    private var _gameID, _numAwarded, _maxPossible: StringMapTo<Int>
+    private var consoleName, title: String
+    private var imageIcon : String
+    private var _pctWon: StringMapTo<Double>
+    private var _hardcoreMode: String
+    
+    public var gameID: Int {
+        get { return _gameID.decoded  }
+        set { _gameID.decoded = newValue }
+    }
+    
+    public var numAwardedToUser: Int {
+        get { return _numAwarded.decoded  }
+        set { _numAwarded.decoded = newValue }
+    }
+    
+    public var numAchievements: Int {
+        get { return _maxPossible.decoded  }
+        set { _maxPossible.decoded = newValue }
+    }
+    
+    public var userCompletion: Double {
+        get { return _pctWon.decoded  }
+        set { _pctWon.decoded = newValue }
+    }
+    
+    public var hardcoreMode: Bool {
+        get { return ( _hardcoreMode == "1" ? true : false )  }
+        set { _hardcoreMode = (newValue == true ? "1" : "0") }
+    }
 
     enum CodingKeys: String, CodingKey {
-        case gameID_DTO = "GameID"
-        case consoleName_DTO = "ConsoleName"
-        case imageIcon_DTO = "ImageIcon"
-        case title_DTO = "Title"
-        case numAwarded_DTO = "NumAwarded"
-        case maxPossible_DTO = "MaxPossible"
-        case pctWon_DTO = "PctWon"
-        case hardcoreMode_DTO = "HardcoreMode"
+        case _gameID = "GameID"
+        case consoleName = "ConsoleName"
+        case imageIcon = "ImageIcon"
+        case title = "Title"
+        case _numAwarded = "NumAwarded"
+        case _maxPossible = "MaxPossible"
+        case _pctWon = "PctWon"
+        case _hardcoreMode = "HardcoreMode"
+    }
+    
+    //FIXME: add equitable conformance for the wrapper types
+    public static func == (lhs: UserCompletedGame_DTO, rhs: UserCompletedGame_DTO) -> Bool {
+        return lhs.gameID == rhs.gameID &&
+//            lhs._numAwarded == rhs._numAwarded &&
+//            lhs._maxPossible == rhs._maxPossible &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.title == rhs.title &&
+            lhs.imageIcon == rhs.imageIcon &&
+//            lhs._pctWon == rhs._pctWon &&
+            lhs._hardcoreMode == rhs._hardcoreMode
     }
 
 }
 
 public typealias UserCompletedGames_DTO = [UserCompletedGame_DTO]
-
-extension UserCompletedGame_DTO: Game, GameIcon, Console, GameProgress {
-    public var gameID: Int? {
-        self.gameID_DTO?.value ?? -1
-    }
-    
-    public var title: String {
-        self.title_DTO ?? ""
-    }
-    
-    public var imageIconURL: URL? {
-        
-        if let imageIconURL = self.imageIcon_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageIconURL)
-        } else {
-            return nil
-        }
-    }
-    
-    public var consoleID: Int? {
-        nil
-    }
-    
-    public var consoleName: String {
-        self.consoleName_DTO ?? ""
-    }
-    
-    public var userCompletionPercentage: Double? {
-        
-        if let hardcoreModeEnabled = self.hardcoreModeEnabled {
-            if hardcoreModeEnabled {
-                return nil
-            } else {
-                return Double(self.pctWon_DTO!)!
-            }
-        } else {
-            return nil
-        }
-    }
-    
-    public var userCompletionHardcorePercentage: Double? {
-        
-        if let hardcoreModeEnabled = self.hardcoreModeEnabled {
-            if hardcoreModeEnabled {
-                return Double(self.pctWon_DTO!)!
-            } else {
-                return nil
-            }
-        } else {
-            return nil
-        }
-    }
-    
-    public var possibleScore: Int? {
-        nil
-    }
-    
-    public var awardedScore: Int? {
-        nil
-    }
-    
-    public var numAwardedAchievements: Int {
-        self.numAwarded_DTO?.value ?? -1
-    }
-    
-    public var numPossibleAchievements: Int? {
-        
-        if let hardcoreModeEnabled = self.hardcoreModeEnabled {
-            if hardcoreModeEnabled {
-                
-                if let userCompletionHardcorePercentage = self.userCompletionHardcorePercentage {
-                    return Int((Double(numAwardedAchievements) * userCompletionHardcorePercentage).rounded(.up))
-                } else {
-                    return nil
-                }
-                
-                
-            } else {
-                
-                if let userCompletionPercentage = self.userCompletionPercentage {
-                    return Int((Double(numAwardedAchievements) * userCompletionPercentage).rounded(.up))
-                } else {
-                    return nil
-                }
-                
-                
-            }
-        } else {
-            return nil
-        }
-        
-
-    }
-    
-    public var hardcoreModeEnabled: Bool? {
-        Bool(exactly: Int(self.hardcoreMode_DTO!)! as NSNumber)
-    }
-    
-    
-}

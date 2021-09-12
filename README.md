@@ -21,7 +21,12 @@ For instance, you could include it in your App struct as follows:
 struct RetroAPIExample: App {
 
     @Environment(\.scenePhase) private var scenePhase
-    let viewModel = RetroAPIViewModel()
+    let viewModel = RetroAPIViewModel() //A possible view model instance
+    
+    init() {
+        //Option #1:
+        RetroAPI.setUserAndKey("your-username-here", "your-key-here") //replace your username and key
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -29,6 +34,7 @@ struct RetroAPIExample: App {
         }.onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
+                //Option #2:
                 RetroAPI.setUserAndKey("your-username-here", "your-key-here") //replace your username and key
                 break
             case .inactive:

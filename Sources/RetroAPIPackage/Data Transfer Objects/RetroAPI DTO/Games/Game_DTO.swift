@@ -13,186 +13,189 @@ import Foundation
 /// - [Failure:  gameID not provided](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 /// - [Failure: gameID too large](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=1000000000)
 public struct Game_DTO: Codable, Equatable {
+    public init(title: String = "", _forumTopicID: StringMapTo<Int>? = nil, _consoleID: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", _flags: StringMapTo<Int> = StringMapTo(0), _imageIcon: String = "", _gameIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, gameTitle: String = "", console: String = "") {
+        self.title = title
+        self._forumTopicID = _forumTopicID
+        self._consoleID = _consoleID
+        self.consoleName = consoleName
+        self._flags = _flags
+        self._imageIcon = _imageIcon
+        self._gameIcon = _gameIcon
+        self._imageTitle = _imageTitle
+        self._imageInGame = _imageInGame
+        self._imageBoxArt = _imageBoxArt
+        self.publisher = publisher
+        self.developer = developer
+        self.genre = genre
+        self._released = _released
+        self.gameTitle = gameTitle
+        self.console = console
+    }
+    
     
     ///Title of game
     /// - remark: So far this has been identical to ``gameTitle``
-    private var title_DTO : String?
+    public var title : String
     
     ///ID Number string for topic page in forum
     /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
-    private var forumTopicID_DTO : PHPHelper.PHPInt?
+    private var _forumTopicID : StringMapTo<Int>?
+    
+    public var forumTopicID: Int? {
+        get { return _forumTopicID?.decoded }
+        set { _forumTopicID?.decoded = newValue ?? 0 }
+    }
     
     ///ID Number string for console
-    private var consoleID_DTO : PHPHelper.PHPInt?
+    private var _consoleID : StringMapTo<Int>
+    
+    public var consoleID: Int {
+        get { return _consoleID.decoded }
+        set { _consoleID.decoded = newValue }
+    }
     
     ///String name for console
     /// - remark: So far this has been identical to ``console``
-    private var consoleName_DTO : String?
+    public var consoleName : String
     
     /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
-    private var flags_DTO : PHPHelper.PHPInt?
+    private var _flags : StringMapTo<Int>
+    
+    public var flags: Int {
+        get { return _flags.decoded }
+        set { _flags.decoded = newValue }
+    }
     
     ///partial path string to icon image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
     /// - remark: So far this has been identical to ``gameIcon``
-    private var imageIcon_DTO : String?
+    private var _imageIcon : String
     
-    ///partial path string to icon image for a game
+    ///partial path string to icon image for a game. Unused in favor of imageIcon
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
     /// - remark: So far this has been identical to ``imageIcon``
-    private var gameIcon_DTO : String?
+    private var _gameIcon : String
     
     ///partial path struing to title screen image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var imageTitle_DTO : String?
+    private var _imageTitle : String
     
     ///partial path string to gameplay screenshot image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var imageInGame_DTO : String?
+    private var _imageInGame : String
     
     ///partial path string to box art image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var imageBoxArt_DTO : String?
+    private var _imageBoxArt : String
     
     ///String of publisher for a game
     /// - note: This is different for hacked games.
-    private var publisher_DTO : String?
+    public var publisher : String?
     
     ///String of developer for a game
     /// - note: This is different for hacked games.
-    private var developer_DTO : String?
+    public var developer : String?
     
     ///genre string for a game
     /// - note: These genre's are not well maintained and are not consistent.
-    private var genre_DTO : String?
+    public var genre : String?
     
     ///release date string for a game
     /// - note: The format of dates vary and often there are multiple.
-    private var released_DTO : String?
+    private var _released : String?
+    
+    public var releaseDate: String? {
+        self._released
+    }
     
     ///Title of game
     /// - remark: So far this has been identical to ``gameTitle``
-    private var gameTitle_DTO : String?
+    private var gameTitle : String
     
-    ///String name for console
+    ///String name for console. Unused in favor of consoleName
     /// - remark: So far this has been identical to ``consoleName``
-    private var console_DTO : String?
+    private var console : String
     
     enum CodingKeys: String, CodingKey {
-        case title_DTO = "Title"
-        case forumTopicID_DTO = "ForumTopicID"
-        case consoleID_DTO = "ConsoleID"
-        case consoleName_DTO = "ConsoleName"
-        case flags_DTO = "Flags"
-        case imageIcon_DTO = "ImageIcon"
-        case gameIcon_DTO = "GameIcon"
-        case imageTitle_DTO = "ImageTitle"
-        case imageInGame_DTO = "ImageIngame"
-        case imageBoxArt_DTO = "ImageBoxArt"
-        case publisher_DTO = "Publisher"
-        case developer_DTO = "Developer"
-        case genre_DTO = "Genre"
-        case released_DTO = "Released"
-        case gameTitle_DTO = "GameTitle"
-        case console_DTO = "Console"
+        case title = "Title"
+        case _forumTopicID = "ForumTopicID"
+        case _consoleID = "ConsoleID"
+        case consoleName = "ConsoleName"
+        case _flags = "Flags"
+        case _imageIcon = "ImageIcon"
+        case _gameIcon = "GameIcon"
+        case _imageTitle = "ImageTitle"
+        case _imageInGame = "ImageIngame"
+        case _imageBoxArt = "ImageBoxArt"
+        case publisher = "Publisher"
+        case developer = "Developer"
+        case genre = "Genre"
+        case _released = "Released"
+        case gameTitle = "GameTitle"
+        case console = "Console"
     }
     
     public static func == (lhs: Game_DTO, rhs: Game_DTO) -> Bool {
-        return lhs.title_DTO == rhs.title_DTO &&
-            lhs.forumTopicID_DTO == rhs.forumTopicID_DTO &&
-            lhs.consoleID_DTO == rhs.consoleID_DTO &&
-            lhs.consoleName_DTO == rhs.consoleName_DTO &&
-            lhs.flags_DTO == rhs.flags_DTO &&
-            lhs.imageIcon_DTO == rhs.imageIcon_DTO &&
-            lhs.gameIcon_DTO == rhs.gameIcon_DTO &&
-            lhs.imageTitle_DTO == rhs.imageTitle_DTO &&
-            lhs.imageInGame_DTO == rhs.imageInGame_DTO &&
-            lhs.imageBoxArt_DTO == rhs.imageBoxArt_DTO &&
-            lhs.publisher_DTO == rhs.publisher_DTO &&
-            lhs.developer_DTO == rhs.developer_DTO &&
-            lhs.genre_DTO == rhs.genre_DTO &&
-            lhs.released_DTO == rhs.released_DTO &&
-            lhs.gameTitle_DTO == rhs.gameTitle_DTO &&
-            lhs.console_DTO == rhs.console_DTO
+        return lhs.title == rhs.title &&
+            lhs.forumTopicID == rhs.forumTopicID &&
+            lhs.consoleID == rhs.consoleID &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.flags == rhs.flags &&
+            lhs._imageIcon == rhs._imageIcon &&
+            lhs._gameIcon == rhs._gameIcon &&
+            lhs._imageTitle == rhs._imageTitle &&
+            lhs._imageInGame == rhs._imageInGame &&
+            lhs._imageBoxArt == rhs._imageBoxArt &&
+            lhs.publisher == rhs.publisher &&
+            lhs.developer == rhs.developer &&
+            lhs.genre == rhs.genre &&
+            lhs._released == rhs._released &&
+            lhs.gameTitle == rhs.gameTitle &&
+            lhs.console == rhs.console
     }
+
 }
 
-extension Game_DTO: Game, Console, GameExtended {
-    public var gameID: Int? {
-        nil
-    }
-    
-    public var title: String {
-        self.gameTitle_DTO ?? ""
-    }
-    
-    public var consoleID: Int? {
-        self.consoleID_DTO?.value ?? -1
-    }
-    
-    public var consoleName: String {
-        self.consoleName_DTO ?? ""
-    }
-    
-    public var forumTopicID: Int {
-        self.forumTopicID_DTO?.value ?? -1
-    }
-    
-    public var flags: Int {
-        self.flags_DTO?.value ?? -1
-    }
+extension Game_DTO {
     
     public var imageIconURL: URL? {
-        
-        if let imageIconURL = self.imageIcon_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageIconURL)
-        } else {
+
+        if _imageIcon == "/Images/000001.png" {
             return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageIcon)
         }
+        
     }
-    
+
     public var imageTitleURL: URL? {
-        
-        if let imageTitleURL = self.imageTitle_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageTitleURL)
-        } else {
+
+        if _imageTitle == "/Images/000002.png" {
             return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageTitle)
         }
-        
+
     }
-    
+
     public var imageInGameURL: URL? {
-        
-        if let imageInGameURL = self.imageInGame_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageInGameURL)
-        } else {
+
+        if _imageInGame == "/Images/000002.png" {
             return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageInGame)
         }
+        
     }
-    
+
     public var imageBoxArtURL: URL? {
-        
-        if let imageBoxArtURL = self.imageBoxArt_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageBoxArtURL)
-        } else {
+
+        if _imageBoxArt == "/Images/000002.png" {
             return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageBoxArt)
         }
-    }
-    
-    public var publisher: String {
-        self.publisher_DTO ?? ""
-    }
-    
-    public var developer: String {
-        self.developer_DTO ?? ""
-    }
-    
-    public var genre: String {
-        self.genre_DTO ?? ""
-    }
-    
-    public var releaseDate: String {
-        self.released_DTO ?? ""
+        
     }
     
 }

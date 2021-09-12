@@ -7,10 +7,10 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
-    public init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int = 0, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool = false, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: NilConditionalDecode<String> = NilConditionalDecode(""), _numDistinctPlayersHardcore: NilConditionalDecode<String> = NilConditionalDecode(""), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), _released: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: NilConditionalDecode<String> = NilConditionalDecode(""), _userCompletionHardcore: NilConditionalDecode<String> = NilConditionalDecode("")) {
+    public init(gameID: Int = 0, title: String = "", _forumTopicID: Int = 0, flags: Int = 0, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool = false, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), _released: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: DecodeNilUnless<String> = DecodeNilUnless(""), _userCompletionHardcore: DecodeNilUnless<String> = DecodeNilUnless("")) {
         self.gameID = gameID
         self.title = title
-        self.forumTopicID = forumTopicID
+        self._forumTopicID = _forumTopicID
         self.flags = flags
         self.consoleID = consoleID
         self.consoleName = consoleName
@@ -37,7 +37,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
 
     public var gameID: Int
     public var title: String
-    public var forumTopicID, flags: Int
+    public var flags: Int
     public var consoleID: Int
     public var consoleName: String
     public var publisher, developer, genre: String?
@@ -46,19 +46,29 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     public var numAchievements: Int?
     public var numAwardedToUser, numAwardedToUserHardcore: Int?
     
+    private var _forumTopicID: Int
+    
+    public var forumTopicID: Int? {
+        if _forumTopicID == 0 {
+            return nil
+        } else {
+            return _forumTopicID
+        }
+    }
+    
     //Privatized for Type change
     //FIXME: is string on succeed (and converted to int), is int if fail. Need to convert int decode to failure or catch type mismatch and return nil
     //Example: https://retroachievements.org/game/1126
-    private var _numDistinctPlayersCasual, _numDistinctPlayersHardcore: NilConditionalDecode<String>
+    private var _numDistinctPlayersCasual, _numDistinctPlayersHardcore: DecodeNilUnless<String>
     
     
     public var numDistinctPlayers: Int {
-        get { return Int(_numDistinctPlayersCasual.decoded ?? "") ?? -1 }
+        get { return Int(_numDistinctPlayersCasual.decoded ?? "") ?? 0 }
         set { _numDistinctPlayersCasual.decoded = String(newValue) }
     }
     
     public var numDistinctPlayersHardcore: Int {
-        get { return Int(_numDistinctPlayersHardcore.decoded ?? "") ?? -1  }
+        get { return Int(_numDistinctPlayersHardcore.decoded ?? "") ?? 0  }
         set { _numDistinctPlayersHardcore.decoded = String(newValue) }
     }
     
@@ -74,7 +84,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     private var _imageIcon, _imageTitle, _imageInGame, _imageBoxArt: String
     
     //String when success, Int when fail (0)
-    private var _userCompletion, _userCompletionHardcore: NilConditionalDecode<String>
+    private var _userCompletion, _userCompletionHardcore: DecodeNilUnless<String>
     
     public var userCompletion: Double? {
 
@@ -109,7 +119,7 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
         case gameID = "ID"
         case title = "Title"
         case consoleID = "ConsoleID"
-        case forumTopicID = "ForumTopicID"
+        case _forumTopicID = "ForumTopicID"
         case flags = "Flags"
         case _imageIcon = "ImageIcon"
         case _imageTitle = "ImageTitle"
@@ -165,7 +175,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageIconURL: URL? {
 
-        if _imageTitle == "/Images/000001.png" {
+        if _imageIcon == "/Images/000001.png" {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageIcon)
@@ -185,7 +195,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageInGameURL: URL? {
 
-        if _imageTitle == "/Images/000002.png" {
+        if _imageInGame == "/Images/000002.png" {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageInGame)
@@ -195,7 +205,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageBoxArtURL: URL? {
 
-        if _imageTitle == "/Images/000002.png" {
+        if _imageBoxArt == "/Images/000002.png" {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageBoxArt)

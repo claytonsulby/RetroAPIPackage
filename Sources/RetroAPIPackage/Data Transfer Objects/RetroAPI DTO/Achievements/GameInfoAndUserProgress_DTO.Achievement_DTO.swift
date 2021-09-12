@@ -12,8 +12,8 @@ public extension GameInfoAndUserProgress_DTO {
     public struct Achievement_DTO: Codable, Equatable {
 
         //Private StringCodableMap wrapped variables
-        private var _achievementID, _numAwarded, _numAwardedHardcore, _points, _displayOrder: StringCodableMap<Int>
-        private var _trueRatio: StringCodableMap<Double>
+        private var _achievementID, _numAwarded, _numAwardedHardcore, _points, _displayOrder: StringMapTo<Int>
+        private var _trueRatio: StringMapTo<Double>
         
         //Public get/set computed properties for wrapped variables
         public var achievementID:Int {

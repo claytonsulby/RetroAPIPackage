@@ -11,22 +11,18 @@ public extension AchievementUnlocks_DTO {
     
     // MARK: - Console
     public struct Game_DTO: Codable {
-        private var gameID_DTO: PHPHelper.PHPInt
-        private var title_DTO: String
+        private var _gameID: StringMapTo<Int>
+        
+        public var gameID: Int {
+            get { return _gameID.decoded }
+            set { _gameID.decoded = newValue }
+        }
+        
+        public var title: String
         
         enum CodingKeys: String, CodingKey {
-            case gameID_DTO = "ID"
-            case title_DTO = "Title"
+            case _gameID = "ID"
+            case title = "Title"
         }
-    }
-}
-
-extension AchievementUnlocks_DTO.Game_DTO : Game {
-    public var gameID: Int? {
-        self.gameID_DTO.value ?? -1
-    }
-    
-    public var title: String {
-        self.title_DTO
     }
 }

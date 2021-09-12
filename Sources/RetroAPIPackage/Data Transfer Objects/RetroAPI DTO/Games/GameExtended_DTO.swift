@@ -9,202 +9,221 @@ import Foundation
 /// - [Sucees](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
 /// - [Failure](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 public struct GameExtended_DTO: Codable, Equatable {
+    public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int = 0, flags: Int = 0, _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, isFinal: Bool = false, consoleName: String = "", richPresencePatch: String = "", numAchievements: Int = 0, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameExtended_DTO.DictOrEmptyArray = .anythingArray([])) {
+        self.gameID = gameID
+        self.title = title
+        self.consoleID = consoleID
+        self.forumTopicID = forumTopicID
+        self.flags = flags
+        self._imageIcon = _imageIcon
+        self._imageTitle = _imageTitle
+        self._imageInGame = _imageInGame
+        self._imageBoxArt = _imageBoxArt
+        self.publisher = publisher
+        self.developer = developer
+        self.genre = genre
+        self._released = _released
+        self.isFinal = isFinal
+        self.consoleName = consoleName
+        self.richPresencePatch = richPresencePatch
+        self.numAchievements = numAchievements
+        self._numDistinctPlayersCasual = _numDistinctPlayersCasual
+        self._numDistinctPlayersHardcore = _numDistinctPlayersHardcore
+        self._achievements = _achievements
+    }
+    
     
     ///Integer identifier for game
-    private var gameID_DTO: PHPHelper.PHPInt?
+    public var gameID: Int
     
     ///Title of game
-    private var title_DTO: String?
+    public var title: String
     
     ///ID Number string for console
-    private var consoleID_DTO: PHPHelper.PHPInt?
+    public var consoleID: Int
     
     ///ID Number string for topic page in forum
     /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
-    private var forumTopicID_DTO: PHPHelper.PHPInt?
+    public var forumTopicID: Int
     
     /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
-    private var flags_DTO: PHPHelper.PHPInt?
+    public var flags: Int
     
     ///partial path string to icon image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var imageIcon_DTO: String?
+    private var _imageIcon: String
     
     ///partial path struing to title screen image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var imageTitle_DTO: String?
+    private var _imageTitle: String
     
     ///partial path string to gameplay screenshot image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var imageInGame_DTO: String?
+    private var _imageInGame: String
     
     ///partial path string to box art image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var imageBoxArt_DTO: String?
+    private var _imageBoxArt: String
     
     ///String of publisher for a game
     /// - note: This is different for hacked games.
-    private var publisher_DTO: String?
+    public var publisher: String?
     
     ///String of developer for a game
     /// - note: This is different for hacked games.
-    private var developer_DTO: String?
+    public var developer: String?
     
     ///genre string for a game
     /// - note: These genre's are not well maintained and are not consistent.
-    private var genre_DTO: String?
+    public var genre: String?
     
     ///release date string for a game
     /// - note: The format of dates vary and often there are multiple.
-    private var released_DTO: String?
+    private var _released: String?
     
     /// - remark: I do not know what this means, but I assume it indicates if the game will continue to be editted.
-    private var isFinal_DTO: Bool?
+    public var isFinal: Bool
     
     ///String name for console
-    private var consoleName_DTO: String?
+    public var consoleName: String
     
     /// - remark: I am not entirely sure what this signifies.
-    private var richPresencePatch_DTO: String?
+    public var richPresencePatch: String
     
     ///The number of achievements for the game.
-    private var numAchievements_DTO: PHPHelper.PHPInt?
+    public var numAchievements: Int
     
     ///The sum total of players who have been awarded an achievement not in hardcore mode.
-    private var numDistinctPlayersCasual_DTO: PHPHelper.PHPInt?
+    private var _numDistinctPlayersCasual: DecodeNilUnless<String>
     
     ///The sum total of players who have been awarded an achievement in hardcore mode.
-    private var numDistinctPlayersHardcore_DTO: PHPHelper.PHPInt?
-    
-    ///Array of achievements
-    private var achievements_DTO: GameExtended_DTO.DictOrEmptyArray?
-    
-    enum CodingKeys: String, CodingKey {
-        case gameID_DTO = "ID"
-        case title_DTO = "Title"
-        case consoleID_DTO = "ConsoleID"
-        case forumTopicID_DTO = "ForumTopicID"
-        case flags_DTO = "Flags"
-        case imageIcon_DTO = "ImageIcon"
-        case imageTitle_DTO = "ImageTitle"
-        case imageInGame_DTO = "ImageIngame"
-        case imageBoxArt_DTO = "ImageBoxArt"
-        case publisher_DTO = "Publisher"
-        case developer_DTO = "Developer"
-        case genre_DTO = "Genre"
-        case released_DTO = "Released"
-        case isFinal_DTO = "IsFinal"
-        case consoleName_DTO = "ConsoleName"
-        case richPresencePatch_DTO = "RichPresencePatch"
-        case numAchievements_DTO = "NumAchievements"
-        case numDistinctPlayersCasual_DTO = "NumDistinctPlayersCasual"
-        case numDistinctPlayersHardcore_DTO = "NumDistinctPlayersHardcore"
-        case achievements_DTO = "Achievements"
-    }
-}
-
-extension GameExtended_DTO : Game, GameExtended, Console, AchievementSet {
-    
-    public var gameID: Int? {
-        self.gameID_DTO?.value ?? -1
-    }
-    
-    public var title: String {
-        self.title_DTO ?? ""
-    }
-    
-    public var forumTopicID: Int {
-        self.forumTopicID_DTO?.value ?? -1
-    }
-    
-    public var flags: Int {
-        self.flags_DTO?.value ?? -1
-    }
-    
-    public var imageIconURL: URL? {
-        
-        if let imageIconURL = self.imageIcon_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageIconURL)
-        } else {
-            return nil
-        }
-    }
-    
-    public var imageTitleURL: URL? {
-        
-        if let imageTitleURL = self.imageTitle_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageTitleURL)
-        } else {
-            return nil
-        }
-        
-    }
-    
-    public var imageInGameURL: URL? {
-        
-        if let imageInGameURL = self.imageInGame_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageInGameURL)
-        } else {
-            return nil
-        }
-    }
-    
-    public var imageBoxArtURL: URL? {
-        
-        if let imageBoxArtURL = self.imageBoxArt_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageBoxArtURL)
-        } else {
-            return nil
-        }
-    }
-    
-    public var publisher: String {
-        self.publisher_DTO ?? ""
-    }
-    
-    public var developer: String {
-        self.developer_DTO ?? ""
-    }
-    
-    public var genre: String {
-        self.genre_DTO ?? ""
-    }
-    
-    public var releaseDate: String {
-        self.released_DTO ?? ""
-    }
-    
-    public var consoleID: Int? {
-        self.consoleID_DTO?.value ?? -1
-    }
-    
-    public var consoleName: String {
-        self.consoleName_DTO ?? ""
-    }
-    
-    public var isFinal: Bool {
-        Bool(exactly: self.isFinal_DTO! as NSNumber) ?? false
-        
-    }
-    
-    public var richPresencePatch: String {
-        self.richPresencePatch_DTO ?? ""
-    }
-    
-    public var numAchievements: Int {
-        self.numAchievements_DTO?.value ?? -1
-    }
+    private var _numDistinctPlayersHardcore: DecodeNilUnless<String>
     
     public var numDistinctPlayers: Int {
-        self.numDistinctPlayersCasual_DTO?.value ?? -1
+        get { return Int(_numDistinctPlayersCasual.decoded ?? "") ?? 0 }
+        set { _numDistinctPlayersCasual.decoded = String(newValue) }
     }
     
     public var numDistinctPlayersHardcore: Int {
-        self.numDistinctPlayersHardcore_DTO?.value ?? -1
+        get { return Int(_numDistinctPlayersHardcore.decoded ?? "") ?? 0  }
+        set { _numDistinctPlayersHardcore.decoded = String(newValue) }
     }
     
-    public var achievements: Dictionary<String, GameExtended_DTO.Achievement_DTO> {
-        self.achievements_DTO?.value ?? [:]
+    ///Array of achievements
+    private var _achievements: GameExtended_DTO.DictOrEmptyArray
+    
+    public var achievements:[String: GameExtended_DTO.Achievement_DTO]? {
+        get { return _achievements.value }
+        set { _achievements = .anythingDict(newValue ?? [:]) }
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case gameID = "ID"
+        case title = "Title"
+        case consoleID = "ConsoleID"
+        case forumTopicID = "ForumTopicID"
+        case flags = "Flags"
+        case _imageIcon = "ImageIcon"
+        case _imageTitle = "ImageTitle"
+        case _imageInGame = "ImageIngame"
+        case _imageBoxArt = "ImageBoxArt"
+        case publisher = "Publisher"
+        case developer = "Developer"
+        case genre = "Genre"
+        case _released = "Released"
+        case isFinal = "IsFinal"
+        case consoleName = "ConsoleName"
+        case richPresencePatch = "RichPresencePatch"
+        case numAchievements = "NumAchievements"
+        case _numDistinctPlayersCasual = "NumDistinctPlayersCasual"
+        case _numDistinctPlayersHardcore = "NumDistinctPlayersHardcore"
+        case _achievements = "Achievements"
+    }
+    
+    public static func == (lhs: GameExtended_DTO, rhs: GameExtended_DTO) -> Bool {
+        return lhs.gameID == rhs.gameID &&
+            lhs.title == rhs.title &&
+            lhs.consoleID == rhs.consoleID &&
+            lhs.forumTopicID == rhs.forumTopicID &&
+            lhs.flags == rhs.flags &&
+            lhs._imageIcon == rhs._imageIcon &&
+            lhs._imageTitle == rhs._imageTitle &&
+            lhs._imageInGame == rhs._imageInGame &&
+            lhs._imageBoxArt == rhs._imageBoxArt &&
+            lhs.publisher == rhs.publisher &&
+            lhs.developer == rhs.developer &&
+            lhs.genre == rhs.genre &&
+            lhs._released == rhs._released &&
+            lhs.isFinal == rhs.isFinal &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.richPresencePatch == rhs.richPresencePatch &&
+            lhs.numAchievements == rhs.numAchievements &&
+            lhs.numDistinctPlayers == rhs.numDistinctPlayers &&
+            lhs.numDistinctPlayersHardcore == rhs.numDistinctPlayersHardcore &&
+            lhs.achievements == rhs.achievements
+    }
+}
+
+extension GameExtended_DTO : AchievementSet {
+    
+    public var imageIconURL: URL? {
+
+        if _imageIcon == "/Images/000001.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageIcon)
+        }
+        
+    }
+
+    public var imageTitleURL: URL? {
+
+        if _imageTitle == "/Images/000002.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageTitle)
+        }
+
+    }
+
+    public var imageInGameURL: URL? {
+
+        if _imageInGame == "/Images/000002.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageInGame)
+        }
+        
+    }
+
+    public var imageBoxArtURL: URL? {
+
+        if _imageBoxArt == "/Images/000002.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageBoxArt)
+        }
+        
+    }
+    
+    public var releaseDate: String? {
+        self._released
+    }
+    
+    public var possibleScore: Int? {
+        self._achievements.value?.compactMap { (key: String, value: GameExtended_DTO.Achievement_DTO) in
+            value.points
+        }.reduce(0, +)
+    }
+
+    public var awardedScore: Int? {
+        self._achievements.value?.compactMap { (key: String, value: GameExtended_DTO.Achievement_DTO) in
+            if value.isAwarded {
+                return value.points
+            } else {
+                return nil
+            }
+        }.reduce(0, +)
     }
     
 }

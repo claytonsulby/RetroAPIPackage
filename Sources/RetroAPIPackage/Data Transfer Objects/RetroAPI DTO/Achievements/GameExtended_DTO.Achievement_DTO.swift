@@ -7,114 +7,129 @@
 
 import Foundation
 
+//FIXME: this is the same as gameinfoanduserprogress achievement, but only missing dateEarned/dateEarnedHardcore
 public extension GameExtended_DTO {
     
     //TODO: quick help comments
     public struct Achievement_DTO: Codable, Equatable {
         
-        private var achievementID_DTO: PHPHelper.PHPInt
-        private var numAwarded_DTO: PHPHelper.PHPInt
-        private var numAwardedHardcore_DTO: PHPHelper.PHPInt
-        private var title_DTO: String
-        private var achievementDescription_DTO: String
-        private var points_DTO: PHPHelper.PHPInt
-        private var trueRatio_DTO: PHPHelper.PHPInt
-        private var author_DTO: String
-        private var dateModified_DTO: String
-        private var dateCreated_DTO: String
-        private var badgeName_DTO: String
-        private var displayOrder_DTO: PHPHelper.PHPInt
-        private var memAddr_DTO: String
+        private var _achievementID: StringMapTo<Int>
+        private var _numAwarded:  StringMapTo<Int>
+        private var _numAwardedHardcore:  StringMapTo<Int>
+        private var _displayOrder:  StringMapTo<Int>
+        private var _points:  StringMapTo<Int>
+        private var _trueRatio:  StringMapTo<Double>
         
+        //Public get/set computed properties for wrapped variables
+        public var achievementID:Int {
+            get { return _achievementID.decoded }
+            set { _achievementID.decoded = newValue }
+        }
+        
+        public var numAwarded:Int {
+            get { return _numAwarded.decoded }
+            set { _numAwarded.decoded = newValue }
+        }
+        
+        public var numAwardedHardcore:Int {
+            get { return _numAwardedHardcore.decoded }
+            set { _numAwardedHardcore.decoded = newValue }
+        }
+        
+        public var points:Int {
+            get { return _points.decoded }
+            set { _points.decoded = newValue }
+        }
+        
+        public var displayOrder:Int? {
+            get { return _displayOrder.decoded }
+            set { _displayOrder.decoded = newValue ?? -1 }
+        }
+        
+        public var trueRatio:Double {
+            get { return _trueRatio.decoded }
+            set { _trueRatio.decoded = newValue }
+        }
+        
+        public var title: String
+        public var achievementDescription: String
+        public var author: String
+        public var memAddr: String
+        
+        private var _dateModified: String
+        private var _dateCreated: String
+        private var badgeName: String
+
         enum CodingKeys: String, CodingKey {
-            case achievementID_DTO = "ID"
-            case numAwarded_DTO = "NumAwarded"
-            case numAwardedHardcore_DTO = "NumAwardedHardcore"
-            case title_DTO = "Title"
-            case achievementDescription_DTO = "Description"
-            case points_DTO = "Points"
-            case trueRatio_DTO = "TrueRatio"
-            case author_DTO = "Author"
-            case dateModified_DTO = "DateModified"
-            case dateCreated_DTO = "DateCreated"
-            case badgeName_DTO = "BadgeName"
-            case displayOrder_DTO = "DisplayOrder"
-            case memAddr_DTO = "MemAddr"
+            case _achievementID = "ID"
+            case _numAwarded = "NumAwarded"
+            case _numAwardedHardcore = "NumAwardedHardcore"
+            case title = "Title"
+            case achievementDescription = "Description"
+            case _points = "Points"
+            case _trueRatio = "TrueRatio"
+            case author = "Author"
+            case _dateModified = "DateModified"
+            case _dateCreated = "DateCreated"
+            case badgeName = "BadgeName"
+            case _displayOrder = "DisplayOrder"
+            case memAddr = "MemAddr"
         }
         
         public static func == (lhs: GameExtended_DTO.Achievement_DTO, rhs: GameExtended_DTO.Achievement_DTO) -> Bool {
-            return lhs.achievementID_DTO == rhs.achievementID_DTO &&
-                lhs.numAwarded_DTO == rhs.numAwarded_DTO &&
-                lhs.numAwardedHardcore_DTO == rhs.numAwardedHardcore_DTO &&
-                lhs.title_DTO == rhs.title_DTO &&
-                lhs.achievementDescription_DTO == rhs.achievementDescription_DTO &&
-                lhs.points_DTO == rhs.points_DTO &&
-                lhs.trueRatio_DTO == rhs.trueRatio_DTO &&
-                lhs.author_DTO == rhs.author_DTO &&
-                lhs.dateModified_DTO == rhs.dateModified_DTO &&
-                lhs.dateCreated_DTO == rhs.dateCreated_DTO &&
-                lhs.badgeName_DTO == rhs.badgeName_DTO &&
-                lhs.displayOrder_DTO == rhs.displayOrder_DTO &&
-                lhs.memAddr_DTO == rhs.memAddr_DTO
+            return lhs.achievementID == rhs.achievementID &&
+                lhs.numAwarded == rhs.numAwarded &&
+                lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
+                lhs.displayOrder == rhs.displayOrder &&
+                lhs.points == rhs.points &&
+                lhs.trueRatio == rhs.trueRatio &&
+                lhs.title == rhs.title &&
+                lhs.achievementDescription == rhs.achievementDescription &&
+                lhs.author == rhs.author &&
+                lhs.memAddr == rhs.memAddr &&
+                lhs._dateModified == rhs._dateModified &&
+                lhs._dateCreated == rhs._dateCreated &&
+                lhs.badgeName == rhs.badgeName
         }
+
     }
 }
 
-extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, FromSet {
-    public var achievementID: Int {
-        self.achievementID_DTO.value ?? -1
+extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementImage, AchievementRowProtocol {
+    
+    public var dateAwarded: Date? {
+        nil
     }
     
-    public var title: String {
-        self.title_DTO
+    public var dateAwardedHardcore: Date? {
+        nil
     }
     
-    public var achievementDescription: String {
-        self.achievementDescription_DTO
+    public var isAwarded: Bool {
+        false
     }
     
-    public var points: Int {
-        self.points_DTO.value ?? -1
+    public var isAwardedHardcore: Bool {
+        false
     }
-    
-    public var trueRatio: Double {
-//        self.trueRatio_DTO.value ?? -1
-        -1.0
-    }
-    
-    public var author: String {
-        self.author_DTO
-    }
-    
+
     public var dateModified: Date {
-        
-        return DateFormatter.standardFormat(from: self.dateModified_DTO) ?? Date(timeIntervalSince1970: 0)
+
+        return DateFormatter.standardFormat(from: self._dateModified) ?? Date(timeIntervalSince1970: 0)
+
     }
-    
+
     public var dateCreated: Date {
 
-        return DateFormatter.standardFormat(from: self.dateCreated_DTO) ?? Date(timeIntervalSince1970: 0)
-        
+        return DateFormatter.standardFormat(from: self._dateCreated) ?? Date(timeIntervalSince1970: 0)
+
     }
-    
+
     public var imageURL: URL? {
-        URL(string: RetroAPI.baseBadgeURL + self.badgeName_DTO + ".png")
+
+        URL(string: RetroAPI.baseBadgeURL + self.badgeName + ".png")
+
     }
     
-    public var displayOrder: Int {
-        self.displayOrder_DTO.value ?? -1
-    }
-    
-    public var memAddr: String {
-        self.memAddr_DTO
-    }
-    
-    public var numAwarded: Int {
-        self.numAwarded_DTO.value ?? -1
-    }
-    
-    public var numAwardedHardcore: Int {
-        self.numAwardedHardcore_DTO.value ?? -1
-    }
 }
  

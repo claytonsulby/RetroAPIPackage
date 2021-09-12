@@ -11,7 +11,7 @@ public protocol GameMetadata {
     
     var gameID:Int { get }
     
-    var forumTopicID:Int { get }
+    var forumTopicID:Int? { get }
     var flags:Int { get }
     var publisher:String? { get }
     var developer:String? { get }
@@ -35,19 +35,6 @@ public protocol GameMetadata {
     
     var possibleScore:Int? { get }
     var awardedScore:Int? { get }
-    
-}
-
-public extension GameMetadata {
-    
-    public var metadata : [String:Any] {
-      let mirror = Mirror(reflecting: self)
-      let dict = Dictionary(uniqueKeysWithValues: mirror.children.lazy.map({ (label:String?, value:Any) -> (String, Any)? in
-        guard let label = label else { return nil }
-        return (label, value)
-      }).compactMap { $0 })
-      return dict
-    }
     
 }
 

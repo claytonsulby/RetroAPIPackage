@@ -6,47 +6,55 @@
 import Foundation
 
 // MARK: - GameListElement_DTO
-public struct GameListElement_DTO: Codable {
+public struct GameListElement_DTO: Codable, Equatable {
+    public init(title: String = "", consoleName: String = "", _gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _imageIcon: String = "") {
+        self.title = title
+        self.consoleName = consoleName
+        self._gameID = _gameID
+        self._consoleID = _consoleID
+        self._imageIcon = _imageIcon
+    }
     
-    private var gameID_DTO, consoleID_DTO: PHPHelper.PHPInt?
-    private var title_DTO, imageIcon_DTO, consoleName_DTO: String?
+    
+    public var title, consoleName:String
+    private var _gameID, _consoleID: StringMapTo<Int>
+    private var _imageIcon: String
+    
+    public var gameID: Int {
+        get { return _gameID.decoded }
+        set { _gameID.decoded = newValue }
+    }
+    
+    public var consoleID: Int {
+        get { return _consoleID.decoded }
+        set { _consoleID.decoded = newValue }
+    }
+    
+    public var imageIconURL: URL? {
+
+        if _imageIcon == "/Images/000001.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageIcon)
+        }
+        
+    }
 
     enum CodingKeys: String, CodingKey {
-        case title_DTO = "Title"
-        case gameID_DTO = "ID"
-        case consoleID_DTO = "ConsoleID"
-        case imageIcon_DTO = "ImageIcon"
-        case consoleName_DTO = "ConsoleName"
+        case title = "Title"
+        case _gameID = "ID"
+        case _consoleID = "ConsoleID"
+        case _imageIcon = "ImageIcon"
+        case consoleName = "ConsoleName"
+    }
+    
+    public static func == (lhs: GameListElement_DTO, rhs: GameListElement_DTO) -> Bool {
+        return lhs.title == rhs.title &&
+            lhs.consoleName == rhs.consoleName &&
+            lhs.gameID == rhs.gameID &&
+            lhs.consoleID == rhs.consoleID &&
+            lhs._imageIcon == rhs._imageIcon
     }
 }
 
 public typealias GameList_DTO = [GameListElement_DTO]
-
-extension GameListElement_DTO : Game, GameIcon, Console {
-    public var gameID: Int? {
-        self.gameID_DTO?.value ?? -1
-    }
-    
-    public var title: String {
-        self.title_DTO ?? ""
-    }
-    
-    public var imageIconURL: URL? {
-        
-        if let imageIconURL = self.imageIcon_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageIconURL)
-        } else {
-            return nil
-        }
-    }
-    
-    public var consoleID: Int? {
-        self.consoleID_DTO?.value ?? -1
-    }
-    
-    public var consoleName: String {
-        self.consoleName_DTO ?? ""
-    }
-    
-    
-}

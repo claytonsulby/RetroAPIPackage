@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct NilConditionalDecode<Decoded : Codable & LosslessStringConvertible> : Codable, LosslessStringConvertible {
+public struct DecodeNilUnless<Decoded : Codable & LosslessStringConvertible> : Codable, LosslessStringConvertible {
     public init?(_ description: String) {
         self.decoded = Decoded(description)
         self.description = description

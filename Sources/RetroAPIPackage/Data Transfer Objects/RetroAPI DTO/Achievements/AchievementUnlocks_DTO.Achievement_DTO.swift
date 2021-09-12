@@ -7,72 +7,68 @@
 
 import Foundation
 
+//FIXME: this is the same struct as AchievementOfTheWeek_DTO, consider generalizing
 public extension AchievementUnlocks_DTO {
     
     // MARK: - Achievement
     public struct Achievement_DTO: Codable, Equatable {
-        private var achievementID_DTO, points_DTO, trueRatio_DTO: PHPHelper.PHPInt
-        private var author_DTO, dateCreated_DTO, dateModified_DTO, title_DTO, achievementDescription_DTO: String
+        private var _achievementID, _points: StringMapTo<Int>
+        private var _trueRatio: StringMapTo<Double>
+        private var _dateCreated, _dateModified: String
+        
+        public var achievementID:Int {
+            get { return _achievementID.decoded }
+            set { _achievementID.decoded = newValue }
+        }
 
+        public var points:Int {
+            get { return _points.decoded }
+            set { _points.decoded = newValue }
+        }
+
+        public var trueRatio:Double {
+            get { return _trueRatio.decoded }
+            set { _trueRatio.decoded = newValue }
+        }
+        
+        public var dateModified: Date {
+            get { return DateFormatter.standardFormat(from: self._dateModified) ?? Date(timeIntervalSince1970: 0) }
+            set { _dateModified = newValue.string }
+        }
+
+        public var dateCreated: Date {
+            get { return DateFormatter.standardFormat(from: self._dateCreated) ?? Date(timeIntervalSince1970: 0) }
+            set { _dateCreated = newValue.string }
+        }
+        
+        public var title, achievementDescription: String
+        public var author: String
+
+        
         enum CodingKeys: String, CodingKey {
-            case achievementID_DTO = "ID"
-            case title_DTO = "Title"
-            case achievementDescription_DTO = "Description"
-            case points_DTO = "Points"
-            case trueRatio_DTO = "TrueRatio"
-            case author_DTO = "Author"
-            case dateCreated_DTO = "DateCreated"
-            case dateModified_DTO = "DateModified"
+            case _achievementID = "ID"
+            case title = "Title"
+            case achievementDescription = "Description"
+            case _points = "Points"
+            case _trueRatio = "TrueRatio"
+            case author = "Author"
+            case _dateCreated = "DateCreated"
+            case _dateModified = "DateModified"
         }
         
         public static func == (lhs: AchievementUnlocks_DTO.Achievement_DTO, rhs: AchievementUnlocks_DTO.Achievement_DTO) -> Bool {
-            return lhs.achievementID_DTO == rhs.achievementID_DTO &&
-                lhs.title_DTO == rhs.title_DTO &&
-                lhs.achievementDescription_DTO == rhs.achievementDescription_DTO &&
-                lhs.points_DTO == rhs.points_DTO &&
-                lhs.trueRatio_DTO == rhs.trueRatio_DTO &&
-                lhs.author_DTO == rhs.author_DTO &&
-                lhs.dateCreated_DTO == rhs.dateCreated_DTO &&
-                lhs.dateModified_DTO == rhs.dateModified_DTO
+            return lhs.achievementID == rhs.achievementID &&
+                lhs.points == rhs.points &&
+                lhs.trueRatio == rhs.trueRatio &&
+                lhs.dateCreated == rhs.dateCreated &&
+                lhs.dateModified == rhs.dateModified &&
+                lhs.title == rhs.title &&
+                lhs.achievementDescription == rhs.achievementDescription &&
+                lhs.author == rhs.author
         }
     }
 }
 
 extension AchievementUnlocks_DTO.Achievement_DTO : Achievement, ExtendedAchievement {
-    public var achievementID: Int {
-        self.achievementID_DTO.value ?? -1
-    }
-    
-    public var title: String {
-        self.title_DTO
-    }
-    
-    public var achievementDescription: String {
-        self.achievementDescription_DTO
-    }
-    
-    public var points: Int {
-        self.points_DTO.value ?? -1
-    }
-    
-    public var trueRatio: Double {
-//        self.trueRatio_DTO.value ?? -1.0
-        1.0
-    }
-    
-    public var author: String {
-        self.author_DTO
-    }
-    
-    public var dateModified: Date {
-        
-        DateFormatter.standardFormat(from: self.dateModified_DTO) ?? Date(timeIntervalSince1970: 0)
-        
-    }
-    
-    public var dateCreated: Date {
-        DateFormatter.standardFormat(from: self.dateCreated_DTO) ?? Date(timeIntervalSince1970: 0)
-    }
-    
     
 }
