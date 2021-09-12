@@ -175,7 +175,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageIconURL: URL? {
 
-        if _imageIcon == "/Images/000001.png" {
+        if _imageIcon.hasSuffix("000001.png") {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageIcon)
@@ -185,7 +185,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageTitleURL: URL? {
 
-        if _imageTitle == "/Images/000002.png" {
+        if _imageTitle.hasSuffix("000002.png") {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageTitle)
@@ -195,7 +195,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageInGameURL: URL? {
 
-        if _imageInGame == "/Images/000002.png" {
+        if _imageInGame.hasSuffix("000002.png") {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageInGame)
@@ -205,7 +205,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
     public var imageBoxArtURL: URL? {
 
-        if _imageBoxArt == "/Images/000002.png" {
+        if _imageBoxArt.hasSuffix("000002.png") {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageBoxArt)
