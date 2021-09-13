@@ -54,4 +54,14 @@ struct Agent {
 
     }
     
+    @available(iOS 15.0, *)
+    func async<T: Decodable>(_ url: URL, _ decoder: JSONDecoder = JSONDecoder()) async throws -> T {
+        
+        let (data,_) = try await URLSession.shared.data(from: url)
+        
+        let value = try decoder.decode(T.self, from: data)
+        
+        return value
+    }
+    
 }
