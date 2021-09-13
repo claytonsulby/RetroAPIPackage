@@ -11,75 +11,73 @@ public extension UserSummary_DTO {
     
     // MARK: - RecentlyPlayed
     struct Game_DTO: Codable, Equatable {
+        public init(consoleName: String? = nil, title: String? = nil, _imageIcon: String = "", _lastPlayed: String = "", _gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _myVote: String? = nil) {
+            self.consoleName = consoleName
+            self.title = title
+            self._imageIcon = _imageIcon
+            self._lastPlayed = _lastPlayed
+            self._gameID = _gameID
+            self._consoleID = _consoleID
+            self._myVote = _myVote
+        }
+        
 
-        private var consoleName_DTO, title_DTO: String?
-        private var imageIcon_DTO, lastPlayed_DTO: String?
-        private var gameID_DTO, consoleID_DTO, myVote_DTO: PHPHelper.PHPInt?
+        public var consoleName, title: String?
+        
+        private var _imageIcon, _lastPlayed: String
+        private var _gameID, _consoleID: StringMapTo<Int>
+        private var _myVote:String?
+        
+        public var gameID:Int {
+            get { return _gameID.decoded }
+            set { _gameID.decoded = newValue }
+        }
+        
+        public var consoleID:Int {
+            get { return _consoleID.decoded }
+            set { _consoleID.decoded = newValue }
+        }
+        
+        public var imageIconURL: URL? {
+
+            if _imageIcon == "/Images/000001.png" {
+                return nil
+            } else {
+                return URL(string: RetroAPI.baseImageURL + _imageIcon)
+            }
+            
+        }
+        
+        public var lastPlayed: Date? {
+            DateFormatter.standardFormat(from: self._lastPlayed)
+        }
+        
+        public var myVote:Int? {
+            if let myVote = _myVote {
+                return Int(myVote)
+            } else {
+                return nil
+            }
+        }
         
         enum CodingKeys: String, CodingKey {
-            case gameID_DTO = "GameID"
-            case consoleID_DTO = "ConsoleID"
-            case consoleName_DTO = "ConsoleName"
-            case title_DTO = "Title"
-            case imageIcon_DTO = "ImageIcon"
-            case lastPlayed_DTO = "LastPlayed"
-            case myVote_DTO = "MyVote"
+            case _gameID = "GameID"
+            case _consoleID = "ConsoleID"
+            case consoleName = "ConsoleName"
+            case title = "Title"
+            case _imageIcon = "ImageIcon"
+            case _lastPlayed = "LastPlayed"
+            case _myVote = "MyVote"
         }
         
         public static func == (lhs: UserSummary_DTO.Game_DTO, rhs: UserSummary_DTO.Game_DTO) -> Bool {
-            return lhs.gameID_DTO == rhs.gameID_DTO &&
-                lhs.consoleID_DTO == rhs.consoleID_DTO &&
-                lhs.consoleName_DTO == rhs.consoleName_DTO &&
-                lhs.title_DTO == rhs.title_DTO &&
-                lhs.imageIcon_DTO == rhs.imageIcon_DTO &&
-                lhs.lastPlayed_DTO == rhs.lastPlayed_DTO &&
-                lhs.myVote_DTO == rhs.myVote_DTO
-        }
-    }
-    
-}
-
-extension UserSummary_DTO.Game_DTO: Game, Console, GameIcon, RecentlyPlayed {
-    public var gameID: Int? {
-        self.gameID_DTO?.value ?? -1
-    }
-    
-    public var title: String {
-        self.title_DTO ?? ""
-    }
-    
-    public var consoleID: Int? {
-        self.consoleID_DTO?.value ?? -1
-    }
-    
-    public var consoleName: String {
-        self.consoleName_DTO ?? ""
-    }
-    
-    public var imageIconURL: URL? {
-        
-        if let imageIconURL = self.imageIcon_DTO {
-            return URL(string: RetroAPI.baseImageURL + imageIconURL)
-        } else {
-            return nil
-        }
-    }
-    
-    public var lastPlayed: Date {
-        
-        if let lastPlayed = self.lastPlayed_DTO {
-            return DateFormatter.standardFormat(from: lastPlayed) ?? Date(timeIntervalSince1970: 0)
-        } else {
-            return Date(timeIntervalSince1970: 0)
-        }
-
-    }
-    
-    public var userSubmittedRating: Int? {
-        if let myVote = self.myVote_DTO {
-            return myVote.value ?? -1
-        } else {
-            return nil
+            return lhs.consoleName == rhs.consoleName &&
+                lhs.title == rhs.title &&
+//                lhs.imageIcon == rhs.imageIcon &&
+                lhs.lastPlayed == rhs.lastPlayed &&
+                lhs.gameID == rhs.gameID &&
+                lhs.consoleID == rhs.consoleID &&
+                lhs.myVote == rhs.myVote
         }
     }
     
