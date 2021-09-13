@@ -223,7 +223,9 @@ public extension UserSummary_DTO {
 
         enum CodingKeys: String, CodingKey {
             case _id = "ID"
-            case _timestamp, _lastupdate, _activitytype
+            case _timestamp = "timestamp"
+            case _lastupdate = "lastupdate"
+            case _activitytype = "activitytype"
             case user = "User"
             case data, data2
         }
