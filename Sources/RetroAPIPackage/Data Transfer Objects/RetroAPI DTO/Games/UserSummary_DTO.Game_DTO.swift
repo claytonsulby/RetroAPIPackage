@@ -11,7 +11,7 @@ public extension UserSummary_DTO {
     
     // MARK: - RecentlyPlayed
     struct Game_DTO: Codable, Equatable {
-        public init(consoleName: String? = nil, title: String? = nil, _imageIcon: String = "", _lastPlayed: String = "", _gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _myVote: String? = nil) {
+        public init(consoleName: String = "", title: String = "", _imageIcon: String = "", _lastPlayed: String = "", _gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _myVote: String? = nil) {
             self.consoleName = consoleName
             self.title = title
             self._imageIcon = _imageIcon
