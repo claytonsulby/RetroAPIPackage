@@ -22,7 +22,7 @@ public extension UserSummary_DTO {
         }
         
 
-        public var consoleName, title: String?
+        public var consoleName, title: String
         
         private var _imageIcon, _lastPlayed: String
         private var _gameID, _consoleID: StringMapTo<Int>
