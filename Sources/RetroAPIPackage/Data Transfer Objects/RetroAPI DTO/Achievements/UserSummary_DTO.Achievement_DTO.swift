@@ -33,7 +33,7 @@ public extension UserSummary_DTO {
         
         private var badgeName:String
         private var _isAwarded, hardcoreAchieved: String
-        private var _dateAwarded: String
+        private var _dateAwarded: String?
 
         enum CodingKeys: String, CodingKey {
             case _achievementID = "ID"
@@ -75,7 +75,7 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     
     public var dateAwarded: Date? {
         if isAwarded {
-            return DateFormatter.standardFormat(from: self._dateAwarded)
+            return DateFormatter.standardFormat(from: self._dateAwarded ?? "")
         } else {
             return nil
         }
@@ -84,7 +84,7 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     public var dateAwardedHardcore: Date? {
 
         if isAwardedHardcore {
-            return DateFormatter.standardFormat(from: self._dateAwarded)
+            return DateFormatter.standardFormat(from: self._dateAwarded ?? "")
         } else {
             return nil
         }
