@@ -93,17 +93,35 @@ public extension RetroAPI {
         
     }
     
-    private static func baseAPIComponents(_ page:APIPages) -> URLComponents {
+    private static func baseAPIComponents(_ page:APIPages, username:String? = RetroAPI.user, APIKey:String? = RetroAPI.key) -> URLComponents {
         
         var components = URLComponents()
         components.scheme = "https"
         components.host = "retroachievements.org"
         components.path = "/API/" + page.rawValue + ".php"
-        components.queryItems = [URLQueryItem(name: "z", value: RetroAPI.user), URLQueryItem(name: "y", value: RetroAPI.key)]
+        components.queryItems = [URLQueryItem(name: "z", value: username), URLQueryItem(name: "y", value: APIKey)]
         
         return components
         
     }
+
+}
+
+@available(iOS 13.0, *)
+public extension RetroAPI {
+    
+    static func validateAPIKey(username: String, APIKey:String) -> AnyPublisher<TopUser_DTO, Error> {
+        
+        let components = baseAPIComponents(.getTopTenUsers, username: username, APIKey: APIKey)
+        
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
+    
 }
 
 
