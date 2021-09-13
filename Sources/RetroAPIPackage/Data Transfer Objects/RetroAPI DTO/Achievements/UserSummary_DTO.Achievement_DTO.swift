@@ -32,7 +32,8 @@ public extension UserSummary_DTO {
         }
         
         private var badgeName:String
-        private var _isAwarded, hardcoreAchieved: String
+        private var _isAwarded: String
+        private var _hardcoreAchieved: String?
         private var _dateAwarded: String?
 
         enum CodingKeys: String, CodingKey {
@@ -45,7 +46,7 @@ public extension UserSummary_DTO {
             case badgeName = "BadgeName"
             case _isAwarded = "IsAwarded"
             case _dateAwarded = "DateAwarded"
-            case hardcoreAchieved = "HardcoreAchieved"
+            case _hardcoreAchieved = "HardcoreAchieved"
         }
         
         public static func == (lhs: UserSummary_DTO.Achievement_DTO, rhs: UserSummary_DTO.Achievement_DTO) -> Bool {
@@ -57,7 +58,7 @@ public extension UserSummary_DTO {
                 lhs.points == rhs.points &&
                 lhs.badgeName == rhs.badgeName &&
                 lhs.isAwarded == rhs.isAwarded &&
-                lhs.hardcoreAchieved == rhs.hardcoreAchieved &&
+                lhs._hardcoreAchieved == rhs._hardcoreAchieved &&
                 lhs.dateAwarded == rhs.dateAwarded
         }
 
@@ -96,7 +97,7 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     }
     
     public var isAwardedHardcore: Bool {
-        Bool(hardcoreAchieved) ?? false
+        Bool(_hardcoreAchieved ?? "") ?? false
     }
     
     public var displayOrder: Int? {
