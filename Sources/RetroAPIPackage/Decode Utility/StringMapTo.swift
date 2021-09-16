@@ -10,7 +10,7 @@
 import Foundation
 
 /// [Stack Overflow](https://stackoverflow.com/questions/44594652/swift-4-json-decodable-simplest-way-to-decode-type-change)
-public struct StringMapTo<Decoded : LosslessStringConvertible & Equatable> : Codable, Equatable {
+public struct StringMapTo<Decoded : LosslessStringConvertible & Equatable & Hashable> : Codable, Equatable, Hashable {
 
     var decoded: Decoded
 

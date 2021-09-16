@@ -119,4 +119,7 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     
 }
 
+extension UserSummary_DTO.Achievement_DTO : Hashable {
+    
+}
 
