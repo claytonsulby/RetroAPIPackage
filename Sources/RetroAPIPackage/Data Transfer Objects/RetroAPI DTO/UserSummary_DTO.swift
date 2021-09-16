@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - UserSummary
 public struct UserSummary_DTO: Codable, Equatable {
-    public init(recentlyPlayedCount: Int = 0, recentlyPlayed: [UserSummary_DTO.Game_DTO] = [], lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGame: UserSummary_DTO.LastGame_DTO? = nil, motto: String = "", rank: Int = 0, awarded: UserProgress_DTO? = nil, status: String = "", _contribCount: StringMapTo<Int> = StringMapTo(0), _contribYield: StringMapTo<Int> = StringMapTo(0), _totalPoints: StringMapTo<Int> = StringMapTo(0), _lastGameID: StringMapTo<Int> = StringMapTo(0), _totalTruePoints: String? = nil, _memberSince: String = "", _permissions: StringMapTo<Int> = StringMapTo(0), _untracked: StringMapTo<Int> = StringMapTo(0), _id: StringMapTo<Int> = StringMapTo(0), _userWallActive: StringMapTo<Int> = StringMapTo(0), _points: StringMapTo<Int> = StringMapTo(0), _totalRanked: StringMapTo<Int> = StringMapTo(0), _userPic: String = "", recentAchievements: [String : [String : UserSummary_DTO.Achievement_DTO]]? = nil) {
+    public init(recentlyPlayedCount: Int = 0, recentlyPlayed: [UserSummary_DTO.Game_DTO] = [], lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGame: UserSummary_DTO.LastGame_DTO? = nil, motto: String = "", rank: Int = 0, awarded: UserProgress_DTO? = nil, status: String = "", _contribCount: StringMapTo<Int> = StringMapTo(0), _contribYield: StringMapTo<Int> = StringMapTo(0), _totalPoints: StringMapTo<Int> = StringMapTo(0), _lastGameID: StringMapTo<Int> = StringMapTo(0), _totalTruePoints: String? = nil, _memberSince: String = "", _permissions: StringMapTo<Int> = StringMapTo(0), _untracked: StringMapTo<Int> = StringMapTo(0), _id: StringMapTo<Int> = StringMapTo(0), _userWallActive: StringMapTo<Int> = StringMapTo(0), _points: StringMapTo<Int> = StringMapTo(0), _totalRanked: StringMapTo<Int> = StringMapTo(0), _userPic: String = "", _recentAchievements: [String : [String : UserSummary_DTO.Achievement_DTO]]? = nil) {
         self.recentlyPlayedCount = recentlyPlayedCount
         self.recentlyPlayed = recentlyPlayed
         self.lastActivity = lastActivity
@@ -30,7 +30,7 @@ public struct UserSummary_DTO: Codable, Equatable {
         self._points = _points
         self._totalRanked = _totalRanked
         self._userPic = _userPic
-        self.recentAchievements = recentAchievements
+        self._recentAchievements = _recentAchievements
     }
     
     
@@ -49,7 +49,7 @@ public struct UserSummary_DTO: Codable, Equatable {
     private var _memberSince: String //to date
     private var _permissions, _untracked, _id, _userWallActive, _points, _totalRanked: StringMapTo<Int>
     private var _userPic:String //to url
-    public var recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]? //to unwapped dict
+    private var _recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]? //to unwapped dict
 
     public var contribCount:Int {
         get { return _contribCount.decoded }
@@ -121,13 +121,13 @@ public struct UserSummary_DTO: Codable, Equatable {
         return URL(string: RetroAPI.baseImageURL + _userPic)
     }
     
-//    public var recentAchievements:[UserSummary_DTO.Achievement_DTO] {
-//        if let recentAchievements = _recentAchievements {
-//            return recentAchievements.values.map({ $0.values }).reduce([], +)
-//        } else {
-//            return []
-//        }
-//    }
+    public var achievements:[UserSummary_DTO.Achievement_DTO] {
+        if let recentAchievements = _recentAchievements {
+            return recentAchievements.values.map({ $0.values }).reduce([], +)
+        } else {
+            return []
+        }
+    }
     
     enum CodingKeys: String, CodingKey {
         case recentlyPlayedCount = "RecentlyPlayedCount"
@@ -148,7 +148,7 @@ public struct UserSummary_DTO: Codable, Equatable {
         case motto = "Motto"
         case rank = "Rank"
         case awarded = "Awarded"
-        case recentAchievements = "RecentAchievements"
+        case _recentAchievements = "RecentAchievements"
         case _points = "Points"
         case _userPic = "UserPic"
         case _totalRanked = "TotalRanked"
@@ -178,7 +178,7 @@ public struct UserSummary_DTO: Codable, Equatable {
             lhs.points == rhs.points &&
             lhs.totalRanked == rhs.totalRanked &&
 //            lhs._userPic == rhs._userPic &&
-            lhs.recentAchievements == rhs.recentAchievements
+            lhs._recentAchievements == rhs._recentAchievements
     }
 }
 
