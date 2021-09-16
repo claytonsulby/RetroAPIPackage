@@ -53,15 +53,15 @@ public extension UserSummary_DTO {
             return lhs.title == rhs.title &&
                 lhs.gameTitle == rhs.gameTitle &&
                 lhs.achievementDescription == rhs.achievementDescription &&
-                lhs.gameID == rhs.gameID &&
-                lhs.achievementID == rhs.achievementID &&
-                lhs.points == rhs.points &&
+                lhs._gameID == rhs._gameID &&
+                lhs._achievementID == rhs._achievementID &&
+                lhs._points == rhs._points &&
                 lhs.badgeName == rhs.badgeName &&
-                lhs.isAwarded == rhs.isAwarded &&
+                lhs._isAwarded == rhs._isAwarded &&
                 lhs._hardcoreAchieved == rhs._hardcoreAchieved &&
-                lhs.dateAwarded == rhs.dateAwarded
+                lhs._dateAwarded == rhs._dateAwarded
         }
-
+        
     }
     
 }
