@@ -5,8 +5,6 @@
 //  Created by Clayton Sulby on 3/30/21.
 //
 
-
-
 import Foundation
 import Combine
 
@@ -110,7 +108,7 @@ public extension RetroAPI {
 @available(iOS 13.0, *)
 public extension RetroAPI {
     
-    static func validateAPIKey(username: String, APIKey:String) -> AnyPublisher<TopUser_DTO, Error> {
+    static func validateAPIKey(username: String, APIKey:String) -> AnyPublisher<TopUsers_DTO, Error> {
         
         let components = baseAPIComponents(.getTopTenUsers, username: username, APIKey: APIKey)
         
@@ -119,7 +117,7 @@ public extension RetroAPI {
         return agent.run(request)
             .map{$0.value}
             .eraseToAnyPublisher()
-        
+
     }
     
 }

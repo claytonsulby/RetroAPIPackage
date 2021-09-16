@@ -93,11 +93,23 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     }
     
     public var isAwarded: Bool {
-        Bool(_isAwarded) ?? false
+        if _isAwarded == "0" {
+            return false
+        } else {
+            return true
+        }
     }
     
     public var isAwardedHardcore: Bool {
-        Bool(_hardcoreAchieved ?? "") ?? false
+        if let _hardcoreAchieved = _hardcoreAchieved {
+            if _hardcoreAchieved == "0" {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return false
+        }
     }
     
     public var displayOrder: Int? {
