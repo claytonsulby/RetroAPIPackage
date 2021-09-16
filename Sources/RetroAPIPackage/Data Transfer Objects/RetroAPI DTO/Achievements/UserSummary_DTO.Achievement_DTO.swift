@@ -119,7 +119,11 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     
 }
 
-extension UserSummary_DTO.Achievement_DTO : Hashable {
+extension UserSummary_DTO.Achievement_DTO : Hashable, Identifiable {
+    public var id: ObjectIdentifier {
+        ObjectIdentifier(UserSummary_DTO.Achievement_DTO.self)
+    }
+    
     
 }
 
