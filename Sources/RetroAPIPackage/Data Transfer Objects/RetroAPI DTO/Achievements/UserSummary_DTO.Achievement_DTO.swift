@@ -76,7 +76,8 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     
     public var dateAwarded: Date? {
         if isAwarded {
-            return DateFormatter.standardFormat(from: self._dateAwarded ?? "")
+            return DateFormatter().format("yyyy-MM-dd HH:mm:ss", from: _dateAwarded ?? "")
+//            standardFormat(from: self._dateAwarded ?? "")
         } else {
             return nil
         }
@@ -85,7 +86,7 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     public var dateAwardedHardcore: Date? {
 
         if isAwardedHardcore {
-            return DateFormatter.standardFormat(from: self._dateAwarded ?? "")
+            return DateFormatter().format("yyyy-MM-dd HH:mm:ss", from: _dateAwarded ?? "")
         } else {
             return nil
         }
