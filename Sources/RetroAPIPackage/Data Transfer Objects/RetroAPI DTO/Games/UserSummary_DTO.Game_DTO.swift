@@ -82,3 +82,7 @@ public extension UserSummary_DTO {
     }
     
 }
+
+extension UserSummary_DTO.Game_DTO : Hashable {
+    
+}
