@@ -55,15 +55,16 @@ public extension AchievementOfTheWeek_DTO {
         }
         
         public static func == (lhs: AchievementOfTheWeek_DTO.Achievement_DTO, rhs: AchievementOfTheWeek_DTO.Achievement_DTO) -> Bool {
-            return lhs.achievementID == rhs.achievementID &&
-                lhs.points == rhs.points &&
-                lhs.trueRatio == rhs.trueRatio &&
-                lhs.dateCreated == rhs.dateCreated &&
-                lhs.dateModified == rhs.dateModified &&
-                lhs.title == rhs.title &&
-                lhs.achievementDescription == rhs.achievementDescription &&
-                lhs.author == rhs.author
+            return lhs._achievementID == rhs._achievementID &&
+            lhs._points == rhs._points &&
+            lhs._trueRatio == rhs._trueRatio &&
+            lhs._dateCreated == rhs._dateCreated &&
+            lhs._dateModified == rhs._dateModified &&
+            lhs.title == rhs.title &&
+            lhs.achievementDescription == rhs.achievementDescription &&
+            lhs.author == rhs.author
         }
+        
     }
 }
 

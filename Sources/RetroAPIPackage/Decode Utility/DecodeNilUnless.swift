@@ -7,20 +7,12 @@
 
 import Foundation
 
-public struct DecodeNilUnless<Decoded : Codable & LosslessStringConvertible> : Codable, LosslessStringConvertible {
-    public init?(_ description: String) {
-        self.decoded = Decoded(description)
-        self.description = description
-    }
+public struct DecodeNilUnless<Decoded : Codable> : Codable {
     
-    public var description: String
-    
-
     var decoded: Decoded?
 
     public init(_ decoded: Decoded) {
         self.decoded = decoded
-        self.description = String(describing: decoded)
     }
 
     public init(from decoder: Decoder) throws {
@@ -32,13 +24,15 @@ public struct DecodeNilUnless<Decoded : Codable & LosslessStringConvertible> : C
             decodedValue = try container.decode(Decoded.self)
         }
         catch DecodingError.typeMismatch(let type, let context) {
+            
             print("Type '\(type)' mismatch:", context.debugDescription)
             print("codingPath:", context.codingPath)
+            print("handling by returning nil.")
+            
             decodedValue = nil
         }
 
         self.decoded = decodedValue
-        self.description = String(describing: decodedValue)
     }
 
     public func encode(to encoder: Encoder) throws {

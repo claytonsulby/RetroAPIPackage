@@ -18,9 +18,9 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
         self._hardcoreMode = _hardcoreMode
     }
     
+    public var consoleName, title: String
     
     private var _gameID, _numAwarded, _maxPossible: StringMapTo<Int>
-    private var consoleName, title: String
     private var imageIcon : String
     private var _pctWon: StringMapTo<Double>
     private var _hardcoreMode: String

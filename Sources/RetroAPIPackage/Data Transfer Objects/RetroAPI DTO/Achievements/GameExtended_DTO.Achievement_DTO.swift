@@ -77,19 +77,19 @@ public extension GameExtended_DTO {
         }
         
         public static func == (lhs: GameExtended_DTO.Achievement_DTO, rhs: GameExtended_DTO.Achievement_DTO) -> Bool {
-            return lhs.achievementID == rhs.achievementID &&
-                lhs.numAwarded == rhs.numAwarded &&
-                lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
-                lhs.displayOrder == rhs.displayOrder &&
-                lhs.points == rhs.points &&
-                lhs.trueRatio == rhs.trueRatio &&
-                lhs.title == rhs.title &&
-                lhs.achievementDescription == rhs.achievementDescription &&
-                lhs.author == rhs.author &&
-                lhs.memAddr == rhs.memAddr &&
-                lhs._dateModified == rhs._dateModified &&
-                lhs._dateCreated == rhs._dateCreated &&
-                lhs.badgeName == rhs.badgeName
+            return lhs._achievementID == rhs._achievementID &&
+            lhs._numAwarded == rhs._numAwarded &&
+            lhs._numAwardedHardcore == rhs._numAwardedHardcore &&
+            lhs._displayOrder == rhs._displayOrder &&
+            lhs._points == rhs._points &&
+            lhs._trueRatio == rhs._trueRatio &&
+            lhs.title == rhs.title &&
+            lhs.achievementDescription == rhs.achievementDescription &&
+            lhs.author == rhs.author &&
+            lhs.memAddr == rhs.memAddr &&
+            lhs._dateModified == rhs._dateModified &&
+            lhs._dateCreated == rhs._dateCreated &&
+            lhs.badgeName == rhs.badgeName
         }
 
     }

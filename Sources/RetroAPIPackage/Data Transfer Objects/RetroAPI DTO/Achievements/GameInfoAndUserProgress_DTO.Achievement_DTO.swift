@@ -74,24 +74,22 @@ public extension GameInfoAndUserProgress_DTO {
             case _dateEarnedHardcore = "DateEarnedHardcore"
         }
         
-        // NOTE: equitable conformance depends on public computed properties
         public static func == (lhs: GameInfoAndUserProgress_DTO.Achievement_DTO, rhs: GameInfoAndUserProgress_DTO.Achievement_DTO) -> Bool {
-            return
-                lhs.achievementID == rhs.achievementID &&
-                lhs.numAwarded == rhs.numAwarded &&
-                lhs.numAwardedHardcore == rhs.numAwardedHardcore &&
-                lhs.points == rhs.points &&
-                lhs.displayOrder == rhs.displayOrder &&
-                lhs.trueRatio == rhs.trueRatio &&
-                lhs.title == rhs.title &&
-                lhs.achievementDescription == rhs.achievementDescription &&
-                lhs.author == rhs.author &&
-                lhs.dateModified == rhs.dateModified &&
-                lhs.dateCreated == rhs.dateCreated &&
-                lhs.badgeName == rhs.badgeName &&
-                lhs.dateAwarded == rhs.dateAwarded &&
-                lhs.dateAwardedHardcore == rhs.dateAwardedHardcore &&
-                lhs.memAddr == rhs.memAddr
+            return lhs._achievementID == rhs._achievementID &&
+            lhs._numAwarded == rhs._numAwarded &&
+            lhs._numAwardedHardcore == rhs._numAwardedHardcore &&
+            lhs._points == rhs._points &&
+            lhs._displayOrder == rhs._displayOrder &&
+            lhs._trueRatio == rhs._trueRatio &&
+            lhs._dateModified == rhs._dateModified &&
+            lhs._dateCreated == rhs._dateCreated &&
+            lhs.badgeName == rhs.badgeName &&
+            lhs._dateEarned == rhs._dateEarned &&
+            lhs._dateEarnedHardcore == rhs._dateEarnedHardcore &&
+            lhs.title == rhs.title &&
+            lhs.achievementDescription == rhs.achievementDescription &&
+            lhs.author == rhs.author &&
+            lhs.memAddr == rhs.memAddr
         }
 
     }

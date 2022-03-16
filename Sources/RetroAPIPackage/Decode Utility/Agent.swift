@@ -8,10 +8,9 @@
 import Foundation
 import Combine
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 struct Agent {
-    // 1
-    @available(iOS 13.0, *)
+
     struct Response<T> {
         internal init(value: T, response: URLResponse) {
             self.value = value
@@ -22,8 +21,6 @@ struct Agent {
         let response: URLResponse
     }
 
-    // 2
-    @available(iOS 13.0, *)
     func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Error> {
         return URLSession.shared
             .dataTaskPublisher(for: request) // 3

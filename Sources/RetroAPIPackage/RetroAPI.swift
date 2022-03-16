@@ -105,7 +105,7 @@ public extension RetroAPI {
 
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 public extension RetroAPI {
     
     static func validateAPIKey(username: String, APIKey:String) -> AnyPublisher<TopUsers_DTO, Error> {
@@ -123,7 +123,7 @@ public extension RetroAPI {
 }
 
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 public extension RetroAPI {
 
     private static let agent = Agent()
@@ -635,6 +635,7 @@ public extension RetroAPI {
 
 }
 
+@available(macOS 10.15, *)
 public extension RetroAPI {
     
     static func getTopTenUsers(completionHandler: @escaping (TopUsers_DTO) -> Void) {

@@ -75,9 +75,14 @@ public struct GameInfoAndUserProgress_DTO: Codable, Equatable {
     //Privatized for Ease of use
     private var _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray
     
-    public var achievements:[String: GameInfoAndUserProgress_DTO.Achievement_DTO]? {
-        get { return _achievements.value }
-        set { _achievements = .anythingDict(newValue ?? [:]) }
+    public var achievements:[GameInfoAndUserProgress_DTO.Achievement_DTO] {
+        get {
+            if let values = _achievements.value?.values {
+                return Array(values)
+            } else {
+                return []
+            }
+        }
     }
     
     public var releaseDate:String?

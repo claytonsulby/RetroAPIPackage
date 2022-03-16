@@ -49,7 +49,7 @@ public struct UserSummary_DTO: Codable, Equatable {
     private var _memberSince: String //to date
     private var _permissions, _untracked, _id, _userWallActive, _points, _totalRanked: StringMapTo<Int>
     private var _userPic:String //to url
-    private var _recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]? //to unwapped dict
+    private var _recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]?
 
     public var contribCount:Int {
         get { return _contribCount.decoded }
@@ -117,6 +117,7 @@ public struct UserSummary_DTO: Codable, Equatable {
         get { return _totalRanked.decoded }
         set { _totalRanked.decoded = newValue }
     }
+    
     public var userPicURL: URL? {
         return URL(string: RetroAPI.baseImageURL + _userPic)
     }

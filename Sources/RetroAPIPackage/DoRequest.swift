@@ -51,11 +51,11 @@ public enum DoRequest {
     }
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 public extension DoRequest {
     
     private static let agent = Agent()
-    
+
     static func doRequestLogin(username:String, password:String) -> AnyPublisher<Login_DTO,Error> {
 
         var components = baseRequestComponents(.login)
@@ -138,6 +138,7 @@ public extension DoRequest {
 
 }
 
+@available(iOS 13.0, macOS 10.15, *)
 public extension DoRequest {
 
     static func doRequestLogin(username:String, password:String, completionHandler: @escaping (Login_DTO) -> Void) {
