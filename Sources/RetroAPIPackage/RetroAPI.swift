@@ -473,7 +473,7 @@ public extension RetroAPI {
     ///
     /// - parameter achievementID: Integer ID associated to achievement.
     /// - Returns: AchievementUnlocks_DTO including array of Unlock_DTO showing those who have been awarded the achievement.
-    static func getAchievementUnlocks(achievementID:Int) -> AnyPublisher<AchievementUnlocks_DTO,Error> {
+    static func getAchievementUnlocks(achievementID:Int) -> AnyPublisher<[AchievementUnlocks_DTO],Error> {
         
         var components = baseAPIComponents(.getUserCompletedGames)
         components.queryItems?.append(contentsOf: [
