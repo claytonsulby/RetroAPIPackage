@@ -28,7 +28,7 @@ struct Agent {
                 
                 do {
                     let value = try decoder.decode(T.self, from: result.data) // 4
-                    print(messages as Any)
+                    print(value as Any)
                 } catch DecodingError.dataCorrupted(let context) {
                     print(context)
                 } catch DecodingError.keyNotFound(let key, let context) {
