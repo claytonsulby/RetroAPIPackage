@@ -7,25 +7,20 @@ import Foundation
 
 // MARK: - Welcome
 public struct AchievementUnlocks_DTO: Codable {
-    public init(achievement: AchievementUnlocks_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, game: AchievementUnlocks_DTO.Game_DTO? = nil, unlocksCount: Int? = nil, totalPlayers: Int? = nil, unlocks: DecodeNilUnless<[AchievementUnlocks_DTO.Unlock_DTO]> = DecodeNilUnless([])) {
+    public init(achievement: AchievementUnlocks_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, game: AchievementUnlocks_DTO.Game_DTO? = nil, unlocksCount: Int? = nil, totalPlayers: Int? = nil, unlocks: Array<AchievementUnlocks_DTO.Unlock_DTO>? = nil) {
         self.achievement = achievement
         self.console = console
         self.game = game
         self.unlocksCount = unlocksCount
         self.totalPlayers = totalPlayers
-        self._unlocks = unlocks
+        self.unlocks = unlocks
     }
     
     public var achievement: AchievementUnlocks_DTO.Achievement_DTO?
     public var console: Console_DTO?
     public var game: AchievementUnlocks_DTO.Game_DTO?
     public var unlocksCount, totalPlayers: Int?
-    private var _unlocks: DecodeNilUnless<[AchievementUnlocks_DTO.Unlock_DTO]>
-    
-    public var unlocks: [AchievementUnlocks_DTO.Unlock_DTO] {
-        get { return _unlocks.decoded ?? [] }
-        set { _unlocks.decoded = newValue }
-    }
+    public var unlocks: [AchievementUnlocks_DTO.Unlock_DTO]?
 
     enum CodingKeys: String, CodingKey {
         case achievement = "Achievement"
@@ -33,7 +28,7 @@ public struct AchievementUnlocks_DTO: Codable {
         case game = "Game"
         case unlocksCount = "UnlocksCount"
         case totalPlayers = "TotalPlayers"
-        case _unlocks = "Unlocks"
+        case unlocks = "Unlocks"
     }
 }
 
