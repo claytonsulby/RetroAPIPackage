@@ -24,9 +24,25 @@ struct Agent {
     func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<Response<T>, Error> {
         return URLSession.shared
             .dataTaskPublisher(for: request) // 3
-            .tryMap {
-                result -> Response<T> in
-                let value = try decoder.decode(T.self, from: result.data) // 4
+            .tryMap { result -> Response<T> in
+                
+                do {
+                    let value = try decoder.decode(T.self, from: result.data) // 4
+                    print(messages as Any)
+                } catch DecodingError.dataCorrupted(let context) {
+                    print(context)
+                } catch DecodingError.keyNotFound(let key, let context) {
+                    print("Key '\(key)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.valueNotFound(let value, let context) {
+                    print("Value '\(value)' not found:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch DecodingError.typeMismatch(let type, let context) {
+                    print("Type '\(type)' mismatch:", context.debugDescription)
+                    print("codingPath:", context.codingPath)
+                } catch {
+                    print("error: ", error)
+                }
                 return Response(value: value, response: result.response) // 5
             }
             .receive(on: DispatchQueue.main) // 6
