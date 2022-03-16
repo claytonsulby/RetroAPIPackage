@@ -7,13 +7,13 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserCompletedGame_DTO: Codable, Equatable {
-    public init(_gameID: StringMapTo<Int> = StringMapTo(0), _numAwarded: StringMapTo<Int> = StringMapTo(0), _maxPossible: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", title: String = "", imageIcon: String = "", _pctWon: StringMapTo<Double> = StringMapTo(0), _hardcoreMode: String = "") {
+    public init(_gameID: StringMapTo<Int> = StringMapTo(0), _numAwarded: StringMapTo<Int> = StringMapTo(0), _maxPossible: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", title: String = "", _imageIcon: String = "", _pctWon: StringMapTo<Double> = StringMapTo(0), _hardcoreMode: String = "") {
         self._gameID = _gameID
         self._numAwarded = _numAwarded
         self._maxPossible = _maxPossible
         self.consoleName = consoleName
         self.title = title
-        self.imageIcon = imageIcon
+        self._imageIcon = _imageIcon
         self._pctWon = _pctWon
         self._hardcoreMode = _hardcoreMode
     }
@@ -21,7 +21,7 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
     public var consoleName, title: String
     
     private var _gameID, _numAwarded, _maxPossible: StringMapTo<Int>
-    private var imageIcon : String
+    private var _imageIcon : String
     private var _pctWon: StringMapTo<Double>
     private var _hardcoreMode: String
     
@@ -49,11 +49,21 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
         get { return ( _hardcoreMode == "1" ? true : false )  }
         set { _hardcoreMode = (newValue == true ? "1" : "0") }
     }
+    
+    public var imageIconURL: URL? {
+
+        if _imageIcon == "/Images/000001.png" {
+            return nil
+        } else {
+            return URL(string: RetroAPI.baseImageURL + _imageIcon)
+        }
+        
+    }
 
     enum CodingKeys: String, CodingKey {
         case _gameID = "GameID"
         case consoleName = "ConsoleName"
-        case imageIcon = "ImageIcon"
+        case _imageIcon = "ImageIcon"
         case title = "Title"
         case _numAwarded = "NumAwarded"
         case _maxPossible = "MaxPossible"
@@ -68,7 +78,7 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
 //            lhs._maxPossible == rhs._maxPossible &&
             lhs.consoleName == rhs.consoleName &&
             lhs.title == rhs.title &&
-            lhs.imageIcon == rhs.imageIcon &&
+//            lhs._imageIcon == rhs._imageIcon &&
 //            lhs._pctWon == rhs._pctWon &&
             lhs._hardcoreMode == rhs._hardcoreMode
     }
