@@ -26,25 +26,30 @@ struct Agent {
             .dataTaskPublisher(for: request) // 3
             .tryMap { result -> Response<T> in
                 
-                do {
-                    let value = try decoder.decode(T.self, from: result.data) // 4
-                    print(value as Any)
-                } catch DecodingError.dataCorrupted(let context) {
+                let value = try decoder.decode(T.self, from: result.data) // 4
+                return Response(value: value, response: result.response) // 5
+                
+
+                
+            }
+            .mapError({ error in
+                switch error {
+                case DecodingError.dataCorrupted(let context):
                     print(context)
-                } catch DecodingError.keyNotFound(let key, let context) {
+                case DecodingError.keyNotFound(let key, let context):
                     print("Key '\(key)' not found:", context.debugDescription)
                     print("codingPath:", context.codingPath)
-                } catch DecodingError.valueNotFound(let value, let context) {
+                case DecodingError.valueNotFound(let value, let context):
                     print("Value '\(value)' not found:", context.debugDescription)
                     print("codingPath:", context.codingPath)
-                } catch DecodingError.typeMismatch(let type, let context) {
+                case DecodingError.typeMismatch(let type, let context):
                     print("Type '\(type)' mismatch:", context.debugDescription)
                     print("codingPath:", context.codingPath)
-                } catch {
+                default:
                     print("error: ", error)
                 }
-                return Response(value: value, response: result.response) // 5
-            }
+                return error
+            })
             .receive(on: DispatchQueue.main) // 6
             .eraseToAnyPublisher() // 7
     }
