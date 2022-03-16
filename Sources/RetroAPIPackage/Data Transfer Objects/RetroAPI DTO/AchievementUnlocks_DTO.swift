@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - Welcome
 public struct AchievementUnlocks_DTO: Codable {
-    public init(achievement: AchievementUnlocks_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, game: AchievementUnlocks_DTO.Game_DTO? = nil, unlocksCount: Int? = nil, totalPlayers: Int? = nil, unlocks: Array<AchievementUnlocks_DTO.Unlock_DTO>? = nil) {
+    public init(achievement: AchievementUnlocks_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, game: AchievementUnlocks_DTO.Game_DTO? = nil, unlocksCount: Int? = nil, totalPlayers: Int? = nil, unlocks: [AchievementUnlocks_DTO.Unlock_DTO]? = nil) {
         self.achievement = achievement
         self.console = console
         self.game = game
