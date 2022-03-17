@@ -418,7 +418,7 @@ public extension RetroAPI {
 
     ///Gets the achievements awarded to a user between two dates.
     ///
-    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=Scott&f=1388548800&t=1388577600)
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=Scott&f=0&t=1388577600)
     /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetAchievementsEarnedBetween.php)
     ///
     /// - parameters:
