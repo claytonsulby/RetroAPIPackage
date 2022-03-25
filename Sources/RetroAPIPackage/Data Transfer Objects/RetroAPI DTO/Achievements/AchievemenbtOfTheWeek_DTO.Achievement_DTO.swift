@@ -80,6 +80,30 @@ public extension AchievementOfTheWeek_DTO {
     }
 }
 
-extension AchievementOfTheWeek_DTO.Achievement_DTO : Achievement, ExtendedAchievement {
+extension AchievementOfTheWeek_DTO.Achievement_DTO : Achievement, ExtendedAchievement, AchievementRowProtocol {
+    
+    public var displayOrder: Int? {
+        nil
+    }
+    
+    public var imageURL: URL? {
+        nil
+    }
+    
+    public var dateAwarded: Date? {
+        nil
+    }
+    
+    public var dateAwardedHardcore: Date? {
+        nil
+    }
+    
+    public var isAwarded: Bool {
+        false
+    }
+    
+    public var isAwardedHardcore: Bool {
+        false
+    }
     
 }
