@@ -10,6 +10,18 @@ import Foundation
 public extension AchievementOfTheWeek_DTO {
     // MARK: - Achievement
     public struct Achievement_DTO: Codable, Equatable {
+        
+        public init(_achievementID: StringMapTo<Int>, _points: StringMapTo<Int>, _trueRatio: StringMapTo<Double>, _dateCreated: String, _dateModified: String, title: String, achievementDescription: String, author: String) {
+            self._achievementID = _achievementID
+            self._points = _points
+            self._trueRatio = _trueRatio
+            self._dateCreated = _dateCreated
+            self._dateModified = _dateModified
+            self.title = title
+            self.achievementDescription = achievementDescription
+            self.author = author
+        }
+        
         private var _achievementID, _points: StringMapTo<Int>
         private var _trueRatio: StringMapTo<Double>
         private var _dateCreated, _dateModified: String
