@@ -7,6 +7,17 @@ import Foundation
 
 // MARK: - Welcome
 public struct AchievementOfTheWeek_DTO: Codable {
+    public init(achievement: AchievementOfTheWeek_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO? = nil, game: AchievementOfTheWeek_DTO.Game_DTO? = nil, startAt: String? = nil, totalPlayers: Int? = nil, unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]? = nil, unlocksCount: Int? = nil) {
+        self.achievement = achievement
+        self.console = console
+        self.forumTopic = forumTopic
+        self.game = game
+        self.startAt = startAt
+        self.totalPlayers = totalPlayers
+        self.unlocks = unlocks
+        self.unlocksCount = unlocksCount
+    }
+    
     public var achievement: AchievementOfTheWeek_DTO.Achievement_DTO?
     public var console: Console_DTO?
     public var forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO?
