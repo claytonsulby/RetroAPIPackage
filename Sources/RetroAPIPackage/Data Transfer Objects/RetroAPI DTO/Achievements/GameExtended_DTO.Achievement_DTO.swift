@@ -11,7 +11,7 @@ import Foundation
 public extension GameExtended_DTO {
     
     //TODO: quick help comments
-    public struct Achievement_DTO: Codable, Equatable {
+    struct Achievement_DTO: Codable, Equatable {
         
         private var _achievementID: StringMapTo<Int>
         private var _numAwarded:  StringMapTo<Int>

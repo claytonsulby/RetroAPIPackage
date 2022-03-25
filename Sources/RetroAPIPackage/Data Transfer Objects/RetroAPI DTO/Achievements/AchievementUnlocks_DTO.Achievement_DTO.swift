@@ -11,7 +11,7 @@ import Foundation
 public extension AchievementUnlocks_DTO {
     
     // MARK: - Achievement
-    public struct Achievement_DTO: Codable, Equatable {
+    struct Achievement_DTO: Codable, Equatable {
         private var _achievementID, _points: StringMapTo<Int>
         private var _trueRatio: StringMapTo<Double>
         private var _dateCreated, _dateModified: String

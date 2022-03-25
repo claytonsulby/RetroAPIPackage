@@ -10,7 +10,7 @@ import Foundation
 public extension UserSummary_DTO {
     
     // MARK: - RecentAchievement
-    public struct Achievement_DTO: Codable, Equatable {
+    struct Achievement_DTO: Codable, Equatable {
         
         public var title, gameTitle, achievementDescription:String
         

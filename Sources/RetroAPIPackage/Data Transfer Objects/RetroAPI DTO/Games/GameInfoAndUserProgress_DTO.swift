@@ -237,7 +237,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
 
 public extension GameInfoAndUserProgress_DTO {
     
-    public enum DictOrEmptyArray: Codable, Equatable {
+    enum DictOrEmptyArray: Codable, Equatable {
 
         case anythingDict([String: GameInfoAndUserProgress_DTO.Achievement_DTO])
         case anythingArray([JSONAny])

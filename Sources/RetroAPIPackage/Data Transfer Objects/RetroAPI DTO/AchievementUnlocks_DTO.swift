@@ -36,7 +36,7 @@ public struct AchievementUnlocks_DTO: Codable {
 public extension AchievementUnlocks_DTO {
     
     // MARK: - Unlock
-    public struct Unlock_DTO: Codable {
+    struct Unlock_DTO: Codable {
         public var user, raPoints, dateAwarded, hardcoreMode: String?
 
         enum CodingKeys: String, CodingKey {

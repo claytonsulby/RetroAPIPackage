@@ -9,7 +9,7 @@ import Foundation
 
 public extension GameInfoAndUserProgress_DTO {
     
-    public struct Achievement_DTO: Codable, Equatable {
+    struct Achievement_DTO: Codable, Equatable {
 
         //Private StringCodableMap wrapped variables
         private var _achievementID, _numAwarded, _numAwardedHardcore, _points, _displayOrder: StringMapTo<Int>

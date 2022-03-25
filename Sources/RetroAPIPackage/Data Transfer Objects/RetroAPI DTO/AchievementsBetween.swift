@@ -108,7 +108,7 @@ extension AchievementBetween_DTO : AchievementRowProtocol {
     public var dateAwarded: Date? {
 
         if hardcoreMode == "0" {
-            return DateFormatter.standardFormat(from: self.date ?? "")
+            return DateFormatter.standardFormat(from: self.date )
         } else {
             return nil
         }
@@ -119,7 +119,7 @@ extension AchievementBetween_DTO : AchievementRowProtocol {
     public var dateAwardedHardcore: Date? {
 
         if hardcoreMode == "1" {
-            return DateFormatter.standardFormat(from: self.date ?? "")
+            return DateFormatter.standardFormat(from: self.date )
         } else {
             return nil
         }

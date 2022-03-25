@@ -10,7 +10,7 @@ import Foundation
 public extension AchievementUnlocks_DTO {
     
     // MARK: - Console
-    public struct Game_DTO: Codable {
+    struct Game_DTO: Codable {
         private var _gameID: StringMapTo<Int>
         
         public var gameID: Int {

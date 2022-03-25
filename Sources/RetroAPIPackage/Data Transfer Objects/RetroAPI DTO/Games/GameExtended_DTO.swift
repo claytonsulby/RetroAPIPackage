@@ -230,7 +230,7 @@ extension GameExtended_DTO : AchievementSet {
 
 public extension GameExtended_DTO {
     
-    public enum DictOrEmptyArray: Codable, Equatable {
+    enum DictOrEmptyArray: Codable, Equatable {
 
         case anythingDict([String: GameExtended_DTO.Achievement_DTO])
         case anythingArray([JSONAny])

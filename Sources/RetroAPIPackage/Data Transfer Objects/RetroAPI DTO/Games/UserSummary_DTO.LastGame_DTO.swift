@@ -9,7 +9,7 @@ import Foundation
 
 public extension UserSummary_DTO {
     
-    public struct LastGame_DTO: Codable, Equatable {
+    struct LastGame_DTO: Codable, Equatable {
         public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int? = nil, flags: Int = 0, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releasedDate: String? = nil, isFinal: Bool = false, consoleName: String = "", richPresencePatch: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "") {
             self.gameID = gameID
             self.title = title

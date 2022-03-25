@@ -31,7 +31,7 @@ public struct AchievementOfTheWeek_DTO: Codable {
 public extension AchievementOfTheWeek_DTO {
     
     // MARK: - ForumTopic
-    public struct ForumTopic_DTO: Codable {
+    struct ForumTopic_DTO: Codable {
         public var id: String?
         
         enum CodingKeys: String, CodingKey {
@@ -40,7 +40,7 @@ public extension AchievementOfTheWeek_DTO {
     }
     
     // MARK: - Unlock
-    public struct Unlock_DTO: Codable {
+    struct Unlock_DTO: Codable {
         public var user, raPoints, dateAwarded, hardcoreMode: String?
         
         enum CodingKeys: String, CodingKey {
