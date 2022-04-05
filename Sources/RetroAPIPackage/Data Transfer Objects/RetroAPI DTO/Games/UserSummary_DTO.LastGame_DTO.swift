@@ -10,7 +10,7 @@ import Foundation
 public extension UserSummary_DTO {
     
     struct LastGame_DTO: Codable, Equatable {
-        public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int? = nil, flags: Int = 0, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releasedDate: String? = nil, isFinal: Bool = false, consoleName: String = "", richPresencePatch: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "") {
+        public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int? = nil, flags: Int = 0, publisher: String? = nil, developer: String? = nil, genre: String? = nil, releasedDate: String? = nil, isFinal: Bool = false, consoleName: String = "", richPresencePatch: String? = nil, _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "") {
             self.gameID = gameID
             self.title = title
             self.consoleID = consoleID
@@ -35,7 +35,8 @@ public extension UserSummary_DTO {
         public var consoleID, flags: Int
         public var publisher, developer, genre, releasedDate: String?
         public var isFinal: Bool
-        public var consoleName, richPresencePatch: String
+        public var consoleName: String
+        public var richPresencePatch: String?
         
         private var _imageIcon, _imageTitle, _imageInGame, _imageBoxArt: String
         
