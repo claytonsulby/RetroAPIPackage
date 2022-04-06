@@ -14,7 +14,3 @@ public protocol DTO {
 extension DTO {
     public init() {self.init()}
 }
-
-extension Array:DTO where Element:DTO {
-    public init() {self.init()}
-}

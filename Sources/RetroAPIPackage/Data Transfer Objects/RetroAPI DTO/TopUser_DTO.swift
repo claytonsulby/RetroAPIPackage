@@ -9,6 +9,8 @@ import Foundation
 
 public typealias TopUsers_DTO = [TopUser_DTO]
 
+extension TopUsers_DTO : DTO {}
+
 public struct TopUser_DTO : DTO, Codable, Equatable {
     
     public init(username: String = "", RAPoints: String = "", trueRAPoints: String = "") {
