@@ -9,8 +9,9 @@ import Foundation
 
 public typealias TopUsers_DTO = [TopUser_DTO]
 
-public struct TopUser_DTO : Codable, Equatable {
-    public init(username: String, RAPoints: String, trueRAPoints: String) {
+public struct TopUser_DTO : DTO, Codable, Equatable {
+    
+    public init(username: String = "", RAPoints: String = "", trueRAPoints: String = "") {
         self.username = username
         self.RAPoints = RAPoints
         self.trueRAPoints = trueRAPoints
