@@ -7,6 +7,15 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct AchievementWonData_DTO: Codable, DTO {
+    public init(success: Bool = false, offset: Int = 0, count: Int = 0, friendsOnly: Int = 0, achievementID: Int = 0, response: Response_DTO = Response_DTO()) {
+        self.success = success
+        self.offset = offset
+        self.count = count
+        self.friendsOnly = friendsOnly
+        self.achievementID = achievementID
+        self.response = response
+    }
+    
     public let success: Bool
     public let offset, count, friendsOnly, achievementID: Int
     public let response: Response_DTO
@@ -23,6 +32,13 @@ public struct AchievementWonData_DTO: Codable, DTO {
 
 // MARK: - Response
 public struct Response_DTO: Codable, DTO {
+    public init(numEarned: Int = 0, gameID: Int = 0, totalPlayers: Int = 0, recentWinner: [RecentWinner_DTO]? = nil) {
+        self.numEarned = numEarned
+        self.gameID = gameID
+        self.totalPlayers = totalPlayers
+        self.recentWinner = recentWinner
+    }
+    
     public let numEarned, gameID, totalPlayers: Int
     public let recentWinner: [RecentWinner_DTO]?
 
@@ -36,6 +52,12 @@ public struct Response_DTO: Codable, DTO {
 
 // MARK: - RecentWinner
 public struct RecentWinner_DTO: Codable, DTO {
+    public init(user: String = "", raPoints: Int = 0, dateAwarded: Int = 0) {
+        self.user = user
+        self.raPoints = raPoints
+        self.dateAwarded = dateAwarded
+    }
+    
     public let user: String
     public let raPoints, dateAwarded: Int
 
