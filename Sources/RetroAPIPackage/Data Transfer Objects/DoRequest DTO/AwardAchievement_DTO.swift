@@ -6,7 +6,8 @@
 import Foundation
 
 // MARK: - WelcomeElement
-public struct AwardAchievement_DTO: Codable, Equatable {
+public struct AwardAchievement_DTO: Codable, Equatable, DTO {
+    
     public init(success: Bool? = nil, score: Int? = nil, achievementID: Int? = nil, error: String? = nil) {
         self.success = success
         self.score = score

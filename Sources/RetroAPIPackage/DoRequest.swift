@@ -135,6 +135,55 @@ public extension DoRequest {
             .eraseToAnyPublisher()
         
     }
+    
+    static func doRequestGetLBInfo(username: String, leaderboardID:Int, count:Int, offset:Int, friendsOnly:Bool) -> AnyPublisher<LBInfo_DTO, Error> {
+        
+        let leaderboardID = String(leaderboardID)
+        let count = String(count)
+        let offset = String(offset)
+        let friendsOnly = String(friendsOnly == true ? 1 : 0)
+        
+        var components = baseRequestComponents(.postactivity)
+        components.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "u", value: username),
+            URLQueryItem(name: "i", value: leaderboardID),
+            URLQueryItem(name: "c", value: count),
+            URLQueryItem(name: "o", value: offset),
+            URLQueryItem(name: "f", value: friendsOnly),
+        ])
+        
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
+    
+    static func doRequestGetAchievementWonDate(username: String, token:String, achievementID:Int, count:Int, offset:Int, friendsOnly:Bool) -> AnyPublisher<AchievementWonData_DTO, Error> {
+        
+        let achievementID = String(achievementID)
+        let count = String(count)
+        let offset = String(offset)
+        let friendsOnly = String(friendsOnly == true ? 1 : 0)
+        
+        var components = baseRequestComponents(.postactivity)
+        components.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "u", value: username),
+            URLQueryItem(name: "t", value: token),
+            URLQueryItem(name: "a", value: achievementID),
+            URLQueryItem(name: "c", value: count),
+            URLQueryItem(name: "o", value: offset),
+            URLQueryItem(name: "f", value: friendsOnly),
+        ])
+        
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
 
 }
 
@@ -204,6 +253,59 @@ public extension DoRequest {
         agent.makeRequest(components.url!) { data in
             do {
                 completionHandler(try JSONDecoder().decode(FriendsList_DTO.self, from: data))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    static func doRequestGetLBInfo(username: String, leaderboardID:Int, count:Int, offset:Int, friendsOnly:Bool, completionHandler: @escaping (LBInfo_DTO) -> Void) {
+        
+        let leaderboardID = String(leaderboardID)
+        let count = String(count)
+        let offset = String(offset)
+        let friendsOnly = String(friendsOnly == true ? 1 : 0)
+        
+        var components = baseRequestComponents(.postactivity)
+        components.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "u", value: username),
+            URLQueryItem(name: "i", value: leaderboardID),
+            URLQueryItem(name: "c", value: count),
+            URLQueryItem(name: "o", value: offset),
+            URLQueryItem(name: "f", value: friendsOnly),
+        ])
+        
+        agent.makeRequest(components.url!) { data in
+            do {
+                completionHandler(try JSONDecoder().decode(LBInfo_DTO.self, from: data))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    static func doRequestGetAchievementWonDate(username: String, token:String, achievementID:Int, count:Int, offset:Int, friendsOnly:Bool, completionHandler: @escaping (AchievementWonData_DTO) -> Void) {
+        
+        let achievementID = String(achievementID)
+        let count = String(count)
+        let offset = String(offset)
+        let friendsOnly = String(friendsOnly == true ? 1 : 0)
+        
+        var components = baseRequestComponents(.postactivity)
+        components.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "u", value: username),
+            URLQueryItem(name: "t", value: token),
+            URLQueryItem(name: "a", value: achievementID),
+            URLQueryItem(name: "c", value: count),
+            URLQueryItem(name: "o", value: offset),
+            URLQueryItem(name: "f", value: friendsOnly),
+        ])
+        
+        agent.makeRequest(components.url!) { data in
+            do {
+                completionHandler(try JSONDecoder().decode(AchievementWonData_DTO.self, from: data))
             } catch {
                 print(error.localizedDescription)
             }
