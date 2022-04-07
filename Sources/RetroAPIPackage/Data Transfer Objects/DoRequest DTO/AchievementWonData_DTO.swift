@@ -16,9 +16,9 @@ public struct AchievementWonData_DTO: Codable, DTO {
         self.response = response
     }
     
-    public let success: Bool
-    public let offset, count, friendsOnly, achievementID:Int?
-    public let response: Response_DTO?
+    public var success: Bool
+    public var offset, count, friendsOnly, achievementID:Int?
+    public var response: Response_DTO?
 
     public enum CodingKeys: String, CodingKey {
         case success = "Success"
@@ -39,8 +39,8 @@ public struct Response_DTO: Codable, DTO {
         self.recentWinner = recentWinner
     }
     
-    public let numEarned, gameID, totalPlayers: Int
-    public let recentWinner: [RecentWinner_DTO]?
+    public var numEarned, gameID, totalPlayers: Int
+    public var recentWinner: [RecentWinner_DTO]?
 
     public enum CodingKeys: String, CodingKey {
         case numEarned = "NumEarned"
@@ -58,8 +58,8 @@ public struct RecentWinner_DTO: Codable, DTO {
         self.dateAwarded = dateAwarded
     }
     
-    public let user: String
-    public let raPoints, dateAwarded: Int
+    public var user: String
+    public var raPoints, dateAwarded: Int
 
     public enum CodingKeys: String, CodingKey {
         case user = "User"
