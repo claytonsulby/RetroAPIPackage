@@ -122,7 +122,6 @@ public extension RetroAPI {
     
 }
 
-
 @available(iOS 13.0, macOS 10.15, *)
 public extension RetroAPI {
 
