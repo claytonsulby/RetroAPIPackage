@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct AchievementWonData_DTO: Codable, DTO {
-    public init(success: Bool = false, offset: Int? = nil, count: Int? = nil, friendsOnly: Int? = nil, achievementID: Int? = nil, response: Response_DTO = Response_DTO()) {
+    public init(success: Bool = false, offset: Int? = nil, count: Int? = nil, friendsOnly: Int? = nil, achievementID: Int? = nil, response: Response_DTO? = nil) {
         self.success = success
         self.offset = offset
         self.count = count
@@ -18,7 +18,7 @@ public struct AchievementWonData_DTO: Codable, DTO {
     
     public let success: Bool
     public let offset, count, friendsOnly, achievementID:Int?
-    public let response: Response_DTO
+    public let response: Response_DTO?
 
     public enum CodingKeys: String, CodingKey {
         case success = "Success"
