@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct AchievementWonData_DTO: Codable, DTO {
-    public init(success: Bool = false, offset: Int? = nil, count: Int? = nil, friendsOnly: Int? = nil, achievementID: Int? = nil, response: Response_DTO? = nil) {
+    public init(success: Bool = false, offset: Int = 0, count: Int = 0, friendsOnly: Int = 0, achievementID: Int = 0, response: Response_DTO = Response_DTO()) {
         self.success = success
         self.offset = offset
         self.count = count
@@ -16,9 +16,9 @@ public struct AchievementWonData_DTO: Codable, DTO {
         self.response = response
     }
     
-    public var success: Bool
-    public var offset, count, friendsOnly, achievementID:Int?
-    public var response: Response_DTO?
+    public let success: Bool
+    public let offset, count, friendsOnly, achievementID: Int
+    public let response: Response_DTO
 
     public enum CodingKeys: String, CodingKey {
         case success = "Success"
@@ -39,8 +39,8 @@ public struct Response_DTO: Codable, DTO {
         self.recentWinner = recentWinner
     }
     
-    public var numEarned, gameID, totalPlayers: Int
-    public var recentWinner: [RecentWinner_DTO]?
+    public let numEarned, gameID, totalPlayers: Int
+    public let recentWinner: [RecentWinner_DTO]?
 
     public enum CodingKeys: String, CodingKey {
         case numEarned = "NumEarned"
@@ -58,8 +58,8 @@ public struct RecentWinner_DTO: Codable, DTO {
         self.dateAwarded = dateAwarded
     }
     
-    public var user: String
-    public var raPoints, dateAwarded: Int
+    public let user: String
+    public let raPoints, dateAwarded: Int
 
     public enum CodingKeys: String, CodingKey {
         case user = "User"
