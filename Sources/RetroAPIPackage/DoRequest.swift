@@ -143,7 +143,7 @@ public extension DoRequest {
         let offset = String(offset)
         let friendsOnly = String(friendsOnly == true ? 1 : 0)
         
-        var components = baseRequestComponents(.postactivity)
+        var components = baseRequestComponents(.lbinfo)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: username),
             URLQueryItem(name: "i", value: leaderboardID),
@@ -167,7 +167,7 @@ public extension DoRequest {
         let offset = String(offset)
         let friendsOnly = String(friendsOnly == true ? 1 : 0)
         
-        var components = baseRequestComponents(.postactivity)
+        var components = baseRequestComponents(.achievementwondata)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: username),
             URLQueryItem(name: "t", value: token),
@@ -267,7 +267,7 @@ public extension DoRequest {
         let offset = String(offset)
         let friendsOnly = String(friendsOnly == true ? 1 : 0)
         
-        var components = baseRequestComponents(.postactivity)
+        var components = baseRequestComponents(.lbinfo)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: username),
             URLQueryItem(name: "i", value: leaderboardID),
@@ -293,7 +293,7 @@ public extension DoRequest {
         let offset = String(offset)
         let friendsOnly = String(friendsOnly == true ? 1 : 0)
         
-        var components = baseRequestComponents(.postactivity)
+        var components = baseRequestComponents(.achievementwondata)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: username),
             URLQueryItem(name: "t", value: token),
