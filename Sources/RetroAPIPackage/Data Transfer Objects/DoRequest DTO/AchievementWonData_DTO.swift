@@ -17,7 +17,7 @@ public struct AchievementWonData_DTO: Codable, DTO {
     }
     
     public let success: Bool
-    public let offset, count, friendsOnly, achievementID::Int?
+    public let offset, count, friendsOnly, achievementID:Int?
     public let response: Response_DTO
 
     public enum CodingKeys: String, CodingKey {
