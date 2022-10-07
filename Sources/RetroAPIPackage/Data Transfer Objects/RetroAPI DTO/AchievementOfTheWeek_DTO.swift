@@ -7,25 +7,38 @@ import Foundation
 
 // MARK: - Welcome
 public struct AchievementOfTheWeek_DTO: Codable {
-    public init(achievement: AchievementOfTheWeek_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO? = nil, game: AchievementOfTheWeek_DTO.Game_DTO? = nil, startAt: String? = nil, totalPlayers: Int? = nil, unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]? = nil, unlocksCount: Int? = nil) {
+    public init(achievement: AchievementOfTheWeek_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO? = nil, game: AchievementOfTheWeek_DTO.Game_DTO? = nil, startAt: String? = nil, _totalPlayers:StringMapTo<Int> = StringMapTo(0), unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]? = nil, _unlocksCount:StringMapTo<Int> = StringMapTo(0)) {
         self.achievement = achievement
         self.console = console
         self.forumTopic = forumTopic
         self.game = game
         self.startAt = startAt
-        self.totalPlayers = totalPlayers
+        self._totalPlayers = _totalPlayers
         self.unlocks = unlocks
-        self.unlocksCount = unlocksCount
+        self._unlocksCount = _unlocksCount
     }
+    
+    private var _totalPlayers:StringMapTo<Int>
+    public var _unlocksCount:StringMapTo<Int>
     
     public var achievement: AchievementOfTheWeek_DTO.Achievement_DTO?
     public var console: Console_DTO?
     public var forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO?
     public var game: AchievementOfTheWeek_DTO.Game_DTO?
     public var startAt: String?
-    public var totalPlayers: Int?
     public var unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]?
-    public var unlocksCount: Int?
+    
+    
+    public var totalPlayers: Int {
+        get { return _totalPlayers.decoded }
+        set { _totalPlayers.decoded = newValue }
+    }
+    
+    public var unlocksCount: Int {
+        get { return _unlocksCount.decoded }
+        set { _unlocksCount.decoded = newValue }
+    }
+    
     
     enum CodingKeys: String, CodingKey {
         case achievement = "Achievement"
@@ -33,9 +46,9 @@ public struct AchievementOfTheWeek_DTO: Codable {
         case forumTopic = "ForumTopic"
         case game = "Game"
         case startAt = "StartAt"
-        case totalPlayers = "TotalPlayers"
+        case _totalPlayers = "TotalPlayers"
         case unlocks = "Unlocks"
-        case unlocksCount = "UnlocksCount"
+        case _unlocksCount = "UnlocksCount"
     }
 }
 
