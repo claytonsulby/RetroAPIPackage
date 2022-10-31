@@ -115,13 +115,13 @@ extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, A
 
     public var dateModified: Date {
 
-        return DateFormatter.standardFormat(from: self._dateModified) ?? Date(timeIntervalSince1970: 0)
+        return DateFormatter.date(fromString: self._dateModified) ?? Date(timeIntervalSince1970: 0)
 
     }
 
     public var dateCreated: Date {
 
-        return DateFormatter.standardFormat(from: self._dateCreated) ?? Date(timeIntervalSince1970: 0)
+        return DateFormatter.date(fromString: self._dateCreated) ?? Date(timeIntervalSince1970: 0)
 
     }
 

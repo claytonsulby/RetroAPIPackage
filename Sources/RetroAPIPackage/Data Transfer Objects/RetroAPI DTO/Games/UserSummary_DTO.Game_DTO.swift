@@ -49,7 +49,7 @@ public extension UserSummary_DTO {
         }
         
         public var lastPlayed: Date? {
-            DateFormatter.standardFormat(from: self._lastPlayed)
+            DateFormatter.date(fromString: self._lastPlayed)
         }
         
         public var myVote:Int? {

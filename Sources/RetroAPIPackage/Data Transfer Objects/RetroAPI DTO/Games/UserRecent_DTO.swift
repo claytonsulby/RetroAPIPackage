@@ -38,7 +38,7 @@ public struct UserRecent_DTO: Codable, Equatable {
     }
     
     public var lastPlayed:Date {
-        get { return DateFormatter.standardFormat(from: _lastPlayed) ?? Date(timeIntervalSince1970: 0) }
+        get { return DateFormatter.date(fromString: _lastPlayed) ?? Date(timeIntervalSince1970: 0) }
         set { _lastPlayed = DateFormatter().string(from: newValue) }
     }
     

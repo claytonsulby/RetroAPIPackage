@@ -91,7 +91,7 @@ public struct UserSummary_DTO: Codable, Equatable {
     }
     
     public var memberSince: Date? {
-        DateFormatter.standardFormat(from: self._memberSince)
+        DateFormatter.date(fromString: self._memberSince)
     }
     
     public var permissions:Int {
@@ -212,11 +212,11 @@ public extension UserSummary_DTO {
         }
         
         public var timestamp: Date? {
-            DateFormatter.standardFormat(from: self._timestamp)
+            DateFormatter.date(fromString: self._timestamp)
         }
         
         public var lastupdate: Date? {
-            DateFormatter.standardFormat(from: self._lastupdate)
+            DateFormatter.date(fromString: self._lastupdate)
         }
 
         enum CodingKeys: String, CodingKey {

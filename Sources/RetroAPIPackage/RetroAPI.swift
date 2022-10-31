@@ -88,6 +88,9 @@ public extension RetroAPI {
         
         case getUserRecentlyPlayedGames = "API_GetUserRecentlyPlayedGames"
         case getUserSummary = "API_GetUserSummary"
+        case getAchievementDistribution = "API_GetAchievementDistribution"
+        case getUserClaims = "API_GetUserClaims"
+        case getActiveClaims = "API_GetActiveClaims"
         
     }
     
@@ -130,7 +133,7 @@ public extension RetroAPI {
     ///Gets list of top 10 users.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetTopTenUsers.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetTopTenUsers.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetTopTenUsers.php)
     ///
     /// - Returns: list of TopUsers_DTO objects containing username, RAPoints, TrueRAPoints in that order
     static func getTopTenUsers() -> AnyPublisher<TopUsers_DTO, Error> {
@@ -148,7 +151,7 @@ public extension RetroAPI {
     ///Gets info about a game from the game's ID number.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGame.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGame.php)
     ///
     /// - parameter gameID: Integer ID associated to game.
     /// - Returns:          Game_DTO object.
@@ -169,7 +172,7 @@ public extension RetroAPI {
     ///Gets info about a game as well as all the game's achievements from the game's ID number.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGameExtended.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameExtended.php)
     ///
     /// - parameter gameID: Integer ID associated to game.
     /// - Returns:          GameExtended_DTO object.
@@ -189,7 +192,7 @@ public extension RetroAPI {
     ///Gets list of consoles.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetConsoleIDs.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetConsoleIDs.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetConsoleIDs.php)
     ///
     /// - Returns: List of Console_DTO object containing console name and console ID.
     static func getConsoleIDs() -> AnyPublisher<Consoles_DTO,Error> {
@@ -207,7 +210,7 @@ public extension RetroAPI {
     ///Gets list of games for a console from the console's ID.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetGameList.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=2)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGameList.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameList.php)
     ///
     /// - parameter consoleID: Integer ID associated to console.
     /// - Returns: List of GameListElement_DTO containing console info and limited game info.
@@ -227,14 +230,13 @@ public extension RetroAPI {
     ///Gets list of feed items for a particular user ordered by most recent.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetFeed.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&c=10&o=0)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetFeed.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetFeed.php)
     ///
     /// - parameters:
     ///     - username: String indicating the username created through RetroAchievements.org
     ///     - count:    The amount of feed items to retreive from the user's feed.
     ///     - offset:   The offset from the most recent feed item to retreive.
     /// - Returns:      List of feed items.
-    /// - bug:          Doesn't succeed at the moment.
     @available(*, deprecated, message: "not implemented")
     static func getFeed(username:String, count:Int = 10, offset:Int = 0) -> AnyPublisher<UserFeed_DTO,Error> {
         
@@ -252,7 +254,7 @@ public extension RetroAPI {
     ///Gets the rank and points of the user given their username.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetUserRankAndScore.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetUserRankAndScore.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserRankAndScore.php)
     ///
     /// - parameter username: String indicating the username created through RetroAchievements.org
     /// - Returns: UserRank_DTO object containing point total, rank, and count of all ranked users.
@@ -273,7 +275,7 @@ public extension RetroAPI {
     ///and count of awarded achievements for a user given their username and a single game's ID or many game IDs.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetUserProgress.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&i=10003)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetUserProgress.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserProgress.php)
     ///
     /// - parameters:
     ///     - username: String indicating the username created through RetroAchievements.org
@@ -296,7 +298,7 @@ public extension RetroAPI {
     ///and count of awarded achievements for a user given their username and a single game's ID or many game IDs.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetUserProgress.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&i=10003,785)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetUserProgress.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserProgress.php)
     ///
     /// - parameters:
     ///     - username: String indicating the username created through RetroAchievements.org
@@ -321,7 +323,7 @@ public extension RetroAPI {
     ///The return object contains timestamp of last played, console info, minimal game info, minimal progress info, and user rating of game.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetUserRecentlyPlayedGames.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&c=10&o=0)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetUserRecentlyPlayedGames.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserRecentlyPlayedGames.php)
     ///
     /// - parameters:
     ///     - username: String indicating the username created through RetroAchievements.org
@@ -348,7 +350,7 @@ public extension RetroAPI {
     ///Gets detailed information about a user, detailed information about their most recent game, a list of their other most recent games, and a list of their most recent awarded achievements.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetUserSummary.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&g=10)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetUserSummary.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserSummary.php)
     ///
     /// - parameters:
     ///     - username:         String indicating the username created through RetroAchievements.org
@@ -370,7 +372,7 @@ public extension RetroAPI {
     ///Gets the inforamtion about a game as well as a list of the games achievements including a user's progress for those achievements.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetGameInfoAndUserProgress.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&g=10003)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGameInfoAndUserProgress.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameInfoAndUserProgress.php)
     ///
     /// - note:         These achievements differ from ``getGameInfo`` in that they include if the achievement is awarded and if so the timestamp.
     /// - parameters:
@@ -393,20 +395,18 @@ public extension RetroAPI {
     ///Gets the achievements awarded to a user for a given day.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedOnDay.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&d=1629159353960)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetAchievementsEarnedOnDay.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementsEarnedOnDay.php)
     ///
     /// - parameters:
     ///     - username: String indicating the username created through RetroAchievements.org
     ///     - date:     Swift Date object
     /// - Returns: Array of achievements with limited information.
-    /// - bug: Currently returns empty array.
-    @available(*, deprecated, message: "bugged")
     static func getAchievementsEarnedOnDay(username:String, date:Date = Date()) -> AnyPublisher<AchievementsOnDay_DTO,Error> {
         
         var components = baseAPIComponents(.getAchievementsEarnedOnDay)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: username),
-            URLQueryItem(name: "d", value: "\(date.timeIntervalSince1970)")
+            URLQueryItem(name: "d", value: "\(date.string())")
         ])
 
         let request = URLRequest(url: components.url!)
@@ -420,7 +420,7 @@ public extension RetroAPI {
     ///Gets the achievements awarded to a user between two dates.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=Scott&f=0&t=1388577600)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetAchievementsEarnedBetween.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementsEarnedBetween.php)
     ///
     /// - parameters:
     ///     - username:     String indicating the username created through RetroAchievements.org
@@ -447,7 +447,7 @@ public extension RetroAPI {
     ///Gets all games for a user where any progress has been made and includes percentages.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetUserCompletedGames.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetUserCompletedGames.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserCompletedGames.php)
     ///
     /// - parameter username: String indicating the username created through RetroAchievements.org
     /// - Returns: Array of UserCompletedGames_DTO, completed games.
@@ -469,15 +469,18 @@ public extension RetroAPI {
     ///Gets achievement information as well as all users who have been awarded the achievement.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetAchievementUnlocks.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&a=48638)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetAchievementUnlocks.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementUnlocks.php)
     ///
     /// - parameter achievementID: Integer ID associated to achievement.
     /// - Returns: AchievementUnlocks_DTO including array of Unlock_DTO showing those who have been awarded the achievement.
-    static func getAchievementUnlocks(achievementID:Int) -> AnyPublisher<AchievementUnlocks_DTO,Error> {
+    @available(*, deprecated, message: "not working")
+    static func getAchievementUnlocks(achievementID:Int, count: Int = 10, offset: Int = 0) -> AnyPublisher<AchievementUnlocks_DTO,Error> {
         
         var components = baseAPIComponents(.getUserCompletedGames)
         components.queryItems?.append(contentsOf: [
-            URLQueryItem(name: "a", value: String(achievementID))
+            URLQueryItem(name: "a", value: String(achievementID)),
+            URLQueryItem(name: "c", value: String(count)),
+            URLQueryItem(name: "o", value: String(offset))
         ])
 
         let request = URLRequest(url: components.url!)
@@ -491,7 +494,7 @@ public extension RetroAPI {
     ///Gets all achievement IDs for a given game.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetAchievementCount.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetAchievementCount.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementCount.php)
     ///
     /// - parameter gameID: Integer ID associated to game.
     /// - Returns: AchievementCount_DTO
@@ -513,7 +516,7 @@ public extension RetroAPI {
     ///Gets achievement of the week as well as most recent users who have been awarded the achievement.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetAchievementOfTheWeek.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetAchievementOfTheWeek.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementOfTheWeek.php)
     ///
     /// - Returns: AchievementOfTheWeek_DTO
     static func getAchievementOfTheWeek() -> AnyPublisher<AchievementOfTheWeek_DTO,Error> {
@@ -531,7 +534,7 @@ public extension RetroAPI {
     ///Gets the rating out of 5 for the game and for the achievement set.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetGameRating.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGameRating.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameRating.php)
     ///
     /// - parameter gameID: Integer ID associated to game.
     /// - note: An input error will never return a failure and will still return but there will be no ratings.
@@ -554,7 +557,7 @@ public extension RetroAPI {
     ///Gets specified achievement set issue ticket or recent tickets if left unspecified.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetTicketData.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetTicketData.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetTicketData.php)
     ///
     /// - parameter gameID: Optional integer ID associated to game.
     /// - note: Not specifying a ticketID will return recent tickets.
@@ -581,7 +584,7 @@ public extension RetroAPI {
     ///Gets a user's score and rank in a particular game as well as their last rewarded timestamp.
     ///
     /// - [Example](https://retroachievements.org/API/API_GetUserGameRankAndScore.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&g=785)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetUserGameRankAndScore.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserGameRankAndScore.php)
     ///
     /// - parameters:
     ///     - username: String indicating the username created through RetroAchievements.org
@@ -605,13 +608,13 @@ public extension RetroAPI {
         
     }
     
-    ///Gets top 10 users with highest scores for a game.
+    ///Gets rank of a user for a game
     ///
     /// - [Example](https://retroachievements.org/API/API_GetGameRankAndScore.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&g=10003&t=0)
-    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGameRankAndScore.php)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameRankAndScore.php)
     ///
     /// - parameters:
-    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - gameID:   Integer ID associated to game.
     ///     - type:     0 or 1 (see remark.)
     /// - precondition: type is 0 or 1
     /// - note: a count and offset parameter are found in the github but are currently hardcoded to c=10 & o=0.
@@ -632,12 +635,81 @@ public extension RetroAPI {
             .eraseToAnyPublisher()
         
     }
+    
+    ///Gets distribution of achievers for each achievement for a game
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementDistribution.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003&h=1&f=3)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementDistribution.php)
+    ///
+    /// - parameters:
+    ///     - gameID:   Integer ID associated to game.
+    ///     - type:     only 3 (see remark.)
+    /// - precondition: type is defaulted to 3
+    /// - remark: I cannot identify what type means but it can be found in the github page defaulted to 3.
+    /// - Returns:
+    static func getAchievementDistribution(gameID:Int, hardcore:Bool = false, type:Int = 3) -> AnyPublisher<[String:Int],Error> {
+        
+        var components = baseAPIComponents(.getAchievementDistribution)
+        components.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "i", value: String(gameID)),
+            URLQueryItem(name: "h", value: hardcore ? "1" : "0"),
+            URLQueryItem(name: "f", value: String(type))
+        ])
 
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
+    
+    ///Gets all claims made by users
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserClaims.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserClaims.php)
+    ///
+    /// - Returns:
+    static func getUserClaims() -> AnyPublisher<UserClaims_DTO,Error> {
+        
+        let components = baseAPIComponents(.getUserClaims)
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
+    
+    ///Gets active claims made by users
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetActiveClaims.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetActiveClaims.php)
+    ///
+    /// - Returns:
+    static func getActiveClaims() -> AnyPublisher<UserClaims_DTO,Error> {
+        
+        let components = baseAPIComponents(.getActiveClaims)
+        let request = URLRequest(url: components.url!)
+        
+        return agent.run(request)
+            .map{$0.value}
+            .eraseToAnyPublisher()
+        
+    }
+    
+    
 }
 
 @available(macOS 10.15, *)
 public extension RetroAPI {
     
+    ///Gets list of top 10 users.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetTopTenUsers.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetTopTenUsers.php)
+    ///
+    /// - Returns: list of TopUsers_DTO objects containing username, RAPoints, TrueRAPoints in that order
     static func getTopTenUsers(completionHandler: @escaping (TopUsers_DTO) -> Void) {
         
         let components = baseAPIComponents(.getTopTenUsers)
@@ -650,7 +722,14 @@ public extension RetroAPI {
         }
     }
     
-    static func getGameInfo(_ gameID:String, completionHandler: @escaping (Game_DTO) -> Void) {
+    ///Gets info about a game from the game's ID number.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGame.php)
+    ///
+    /// - parameter gameID: Integer ID associated to game.
+    /// - Returns:          Game_DTO object.
+    static func getGame(_ gameID:String, completionHandler: @escaping (Game_DTO) -> Void) {
         var components = baseAPIComponents(.getGame)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: gameID)])
         
@@ -663,7 +742,14 @@ public extension RetroAPI {
         }
     }
     
-    static func getGameInfoExtended(_ gameID:String, completionHandler: @escaping (GameExtended_DTO) -> Void) {
+    ///Gets info about a game as well as all the game's achievements from the game's ID number.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameExtended.php)
+    ///
+    /// - parameter gameID: Integer ID associated to game.
+    /// - Returns:          GameExtended_DTO object.
+    static func getGameExtended(_ gameID:String, completionHandler: @escaping (GameExtended_DTO) -> Void) {
         var components = baseAPIComponents(.getGameExtended)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: gameID)])
         
@@ -676,6 +762,12 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets list of consoles.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetConsoleIDs.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetConsoleIDs.php)
+    ///
+    /// - Returns: List of Console_DTO object containing console name and console ID.
     static func getConsoleIDs(completionHandler: @escaping (Consoles_DTO) -> Void) {
         let components = baseAPIComponents(.getConsoleIDs)
 
@@ -688,6 +780,13 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets list of games for a console from the console's ID.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetGameList.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=2)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameList.php)
+    ///
+    /// - parameter consoleID: Integer ID associated to console.
+    /// - Returns: List of GameListElement_DTO containing console info and limited game info.
     static func getGameList(_ consoleID:String, completionHandler: @escaping (GameList_DTO) -> Void) {
         var components = baseAPIComponents(.getGameList)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "i", value: consoleID)])
@@ -701,6 +800,17 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets list of feed items for a particular user ordered by most recent.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetFeed.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&c=10&o=0)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetFeed.php)
+    ///
+    /// - parameters:
+    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - count:    The amount of feed items to retreive from the user's feed.
+    ///     - offset:   The offset from the most recent feed item to retreive.
+    /// - Returns:      List of feed items.
+    @available(*, deprecated, message: "not implemented")
     static func getFeedFor(user:String, count:Int = 10, offset:Int = 0, completionHandler: @escaping (UserFeed_DTO) -> Void) {
         //FIXME: only returns failure
         var components = baseAPIComponents(.getFeed)
@@ -715,6 +825,13 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets the rank and points of the user given their username.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserRankAndScore.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserRankAndScore.php)
+    ///
+    /// - parameter username: String indicating the username created through RetroAchievements.org
+    /// - Returns: UserRank_DTO object containing point total, rank, and count of all ranked users.
     static func getUserRankAndScore(_ user:String, completionHandler: @escaping (UserRank_DTO) -> Void) {
         var components = baseAPIComponents(.getUserRankAndScore)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user)])
@@ -728,6 +845,16 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets the sum of possible points and count of achievements for a game as well as the current sum of points
+    ///and count of awarded achievements for a user given their username and a single game's ID or many game IDs.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserProgress.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&i=10003)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserProgress.php)
+    ///
+    /// - parameters:
+    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - gameID:   Integer ID associated to game.
+    /// - Returns: Dictionary of UserProgress_DTO
     static func getUserProgress(user:String, gameID:String, completionHandler: @escaping (UserProgress_DTO) -> Void) {
         var components = baseAPIComponents(.getUserProgress)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "i", value: gameID)])
@@ -741,9 +868,19 @@ public extension RetroAPI {
         }
     }
     
-    static func getUserProgress(user:String, gameIDs:[String], completionHandler: @escaping (UserProgress_DTO) -> Void) {
+    ///Gets the sum of possible points and count of achievements for a game as well as the current sum of points
+    ///and count of awarded achievements for a user given their username and a single game's ID or many game IDs.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserProgress.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&i=10003,785)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserProgress.php)
+    ///
+    /// - parameters:
+    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - gameIDs:  Array of Integer IDs associated to game.
+    /// - Returns: Dictionary of UserProgress_DTO
+    static func getUserProgress(user:String, gameIDs:[Int], completionHandler: @escaping (UserProgress_DTO) -> Void) {
         var components = baseAPIComponents(.getUserProgress)
-        components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "i", value: gameIDs.joined(separator: ","))])
+        components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "i", value: gameIDs.map({String($0)}).joined(separator: ","))])
         
         agent.makeRequest(components.url!) { data in
             do {
@@ -754,6 +891,17 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets a specified amount of games recently played by a given user.
+    ///The return object contains timestamp of last played, console info, minimal game info, minimal progress info, and user rating of game.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserRecentlyPlayedGames.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&c=10&o=0)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserRecentlyPlayedGames.php)
+    ///
+    /// - parameters:
+    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - count:    The amount of recently played games to retreive from the user's history.
+    ///     - offset:   The offset from the most recently played games to retreive.
+    /// - Returns: Array of UserRecent_DTO
     static func getUserRecentlyPlayedGames(user:String, count:Int = 10, offset:Int = 0, completionHandler: @escaping (UserRecents_DTO) -> Void) {
         var components = baseAPIComponents(.getUserRecentlyPlayedGames)
         components.queryItems?.append(contentsOf: [
@@ -771,7 +919,16 @@ public extension RetroAPI {
         }
     }
     
-    static func getUserSummary(user:String, numRecentGames:Int, completionHandler: @escaping (UserSummary_DTO) -> Void) {
+    ///Gets detailed information about a user, detailed information about their most recent game, a list of their other most recent games, and a list of their most recent awarded achievements.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserSummary.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&g=10)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserSummary.php)
+    ///
+    /// - parameters:
+    ///     - username:         String indicating the username created through RetroAchievements.org
+    ///     - numRecentGames:   The amount of recently playeg dames to retreive along with the user summary.
+    /// - Returns: UserSummary_DTO containing array of recent games, dictionary of progress in games, and dictionary of recent achievements.
+    static func getUserSummary(username:String, numRecentGames:Int = 10, completionHandler: @escaping (UserSummary_DTO) -> Void) {
         var components = baseAPIComponents(.getUserSummary)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "g", value: String(numRecentGames))])
         agent.makeRequest(components.url!) { data in
@@ -783,7 +940,17 @@ public extension RetroAPI {
         }
     }
     
-    static func getGameInfoAndUserProgress(user:String, gameID:String, completionHandler: @escaping (GameInfoAndUserProgress_DTO) -> Void) {
+    ///Gets the inforamtion about a game as well as a list of the games achievements including a user's progress for those achievements.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetGameInfoAndUserProgress.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&g=10003)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameInfoAndUserProgress.php)
+    ///
+    /// - note:         These achievements differ from ``getGameInfo`` in that they include if the achievement is awarded and if so the timestamp.
+    /// - parameters:
+    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - gameID:   Integer ID associated to game.
+    /// - Returns: GameInfoAndUserProgress_DTO
+    static func getGameInfoAndUserProgress(username:String, gameID:String, completionHandler: @escaping (GameInfoAndUserProgress_DTO) -> Void) {
         var components = baseAPIComponents(.getGameInfoAndUserProgress)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user), URLQueryItem(name: "g", value: String(gameID))])
         agent.makeRequest(components.url!) { data in
@@ -795,6 +962,15 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets the achievements awarded to a user for a given day.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedOnDay.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&d=1629159353960)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementsEarnedOnDay.php)
+    ///
+    /// - parameters:
+    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - date:     Swift Date object
+    /// - Returns: Array of achievements with limited information.
     static func getAchievementsEarnedOnDay(user:String, date:Date = Date(), completionHandler: @escaping (AchievementsOnDay_DTO) -> Void) {
         var components = baseAPIComponents(.getAchievementsEarnedOnDay)
         components.queryItems?.append(contentsOf: [
@@ -810,8 +986,16 @@ public extension RetroAPI {
         }
     }
     
-    
-    
+    ///Gets the achievements awarded to a user between two dates.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=Scott&f=0&t=1388577600)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementsEarnedBetween.php)
+    ///
+    /// - parameters:
+    ///     - username:     String indicating the username created through RetroAchievements.org
+    ///     - dateStart:    Swift Date object indicating start of interval
+    ///     - dateEnd:      Swift Date object indicating end of interval
+    /// - Returns: Array of achievements with limited information.
     static func getAchievementsEarnedBetween(user:String, dateStart:Date = Date(timeIntervalSince1970: 0), dateEnd:Date = Date(), completionHandler: @escaping (AchievementBetween_DTO) -> Void) {
         var components = baseAPIComponents(.getAchievementsEarnedBetween)
         components.queryItems?.append(contentsOf: [
@@ -828,6 +1012,13 @@ public extension RetroAPI {
         }
     }
     
+    ///Gets all games for a user where any progress has been made and includes percentages.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserCompletedGames.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserCompletedGames.php)
+    ///
+    /// - parameter username: String indicating the username created through RetroAchievements.org
+    /// - Returns: Array of UserCompletedGames_DTO, completed games.
     static func getUserGamesCompleted(user:String, completionHandler: @escaping (UserCompletedGames_DTO) -> Void) {
         var components = baseAPIComponents(.getUserCompletedGames)
         components.queryItems?.append(contentsOf: [
@@ -842,14 +1033,23 @@ public extension RetroAPI {
         }
     }
     
-    
-    static func getAchievementUnlocks(achievementID:String, completionHandler: @escaping (AchievementUnlocks_DTO) -> Void) {
+    ///Gets achievement information as well as all users who have been awarded the achievement.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementUnlocks.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&a=48638)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementUnlocks.php)
+    ///
+    /// - parameter achievementID: Integer ID associated to achievement.
+    /// - Returns: AchievementUnlocks_DTO including array of Unlock_DTO showing those who have been awarded the achievement.
+    @available(*, deprecated, message: "not working")
+    static func getAchievementUnlocks(achievementID:String, count: Int = 10, offset: Int = 0, completionHandler: @escaping (AchievementUnlocks_DTO) -> Void) {
         
         var components = baseAPIComponents(.getUserCompletedGames)
         components.queryItems?.append(contentsOf: [
-            URLQueryItem(name: "a", value: achievementID)
+            URLQueryItem(name: "a", value: String(achievementID)),
+            URLQueryItem(name: "c", value: String(count)),
+            URLQueryItem(name: "o", value: String(offset))
         ])
-
+        
         agent.makeRequest(components.url!) { data in
             do {
                 completionHandler(try JSONDecoder().decode(AchievementUnlocks_DTO.self, from: data))
@@ -860,6 +1060,13 @@ public extension RetroAPI {
         
     }
 
+    ///Gets all achievement IDs for a given game.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementCount.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementCount.php)
+    ///
+    /// - parameter gameID: Integer ID associated to game.
+    /// - Returns: AchievementCount_DTO
     static func getAchievementCount(gameID:String, completionHandler: @escaping (AchievementCount_DTO) -> Void) {
         
         var components = baseAPIComponents(.getAchievementCount)
@@ -877,6 +1084,12 @@ public extension RetroAPI {
         
     }
 
+    ///Gets achievement of the week as well as most recent users who have been awarded the achievement.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementOfTheWeek.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementOfTheWeek.php)
+    ///
+    /// - Returns: AchievementOfTheWeek_DTO
     static func getAchievementOfTheWeek(completionHandler: @escaping (AchievementOfTheWeek_DTO) -> Void) {
         
         let components = baseAPIComponents(.getAchievementOfTheWeek)
@@ -891,6 +1104,14 @@ public extension RetroAPI {
         
     }
     
+    ///Gets the rating out of 5 for the game and for the achievement set.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetGameRating.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameRating.php)
+    ///
+    /// - parameter gameID: Integer ID associated to game.
+    /// - note: An input error will never return a failure and will still return but there will be no ratings.
+    /// - Returns: GameRating_DTO
     static func getGameRating(gameID:String, completionHandler: @escaping (GameRating_DTO) -> Void) {
         
         var components = baseAPIComponents(.getGameRating)
@@ -908,6 +1129,14 @@ public extension RetroAPI {
         
     }
 
+    ///Gets specified achievement set issue ticket or recent tickets if left unspecified.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetTicketData.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetTicketData.php)
+    ///
+    /// - parameter gameID: Optional integer ID associated to game.
+    /// - note: Not specifying a ticketID will return recent tickets.
+    /// - Returns: TicketData_DTO
     static func getTicketData(gameID:String, completionHandler: @escaping (TicketData_DTO) -> Void) {
         
         let components = baseAPIComponents(.getTicketData)
@@ -922,6 +1151,17 @@ public extension RetroAPI {
         
     }
 
+    ///Gets a user's score and rank in a particular game as well as their last rewarded timestamp.
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserGameRankAndScore.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&g=785)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserGameRankAndScore.php)
+    ///
+    /// - parameters:
+    ///     - username: String indicating the username created through RetroAchievements.org
+    ///     - gameID:   Integer ID associated to game.
+    /// - note: An unknown gameID will return an empty array but an unknown username will return JSON null. A successful return will also be in an array of only one value.
+    /// - remark: It may be possible to return more than one result in an array.
+    /// - Returns: UserGameRankAndScore_DTO
     static func getUserGameRankAndScore(username:String, gameID:String, completionHandler: @escaping (UserGameRankAndScore_DTO) -> Void) {
         
         var components = baseAPIComponents(.getUserGameRankAndScore)
@@ -940,6 +1180,18 @@ public extension RetroAPI {
         
     }
 
+    ///Gets rank of a user for a game
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetGameRankAndScore.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&g=10003&t=0)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameRankAndScore.php)
+    ///
+    /// - parameters:
+    ///     - gameID:   Integer ID associated to game.
+    ///     - type:     0 or 1 (see remark.)
+    /// - precondition: type is 0 or 1
+    /// - note: a count and offset parameter are found in the github but are currently hardcoded to c=10 & o=0.
+    /// - remark: I cannot identify what type means but it can be found in the github page as either 0 or 1.
+    /// - Returns:
     static func getGameRankAndScore(gameID:String, type:String, completionHandler: @escaping (UserGameRankAndScore_DTO) -> Void) {
         
         var components = baseAPIComponents(.getGameRankAndScore)
@@ -955,6 +1207,70 @@ public extension RetroAPI {
                 print(error.localizedDescription)
             }
         }
+        
+    }
+    
+    ///Gets distribution of achievers for each achievement for a game
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementDistribution.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003&h=1&f=3)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementDistribution.php)
+    ///
+    /// - parameters:
+    ///     - gameID:   Integer ID associated to game.
+    ///     - type:     only 3 (see remark.)
+    /// - precondition: type is defaulted to 3
+    /// - remark: I cannot identify what type means but it can be found in the github page defaulted to 3.
+    /// - Returns:
+    static func getAchievementDistribution(gameID:Int, hardcore:Bool = false, type:Int = 3, completionHandler: @escaping ([String:Int]) -> Void) {
+        
+        var components = baseAPIComponents(.getAchievementDistribution)
+        components.queryItems?.append(contentsOf: [
+            URLQueryItem(name: "i", value: String(gameID)),
+            URLQueryItem(name: "h", value: hardcore ? "1" : "0"),
+            URLQueryItem(name: "f", value: String(type))
+        ])
+
+        return agent.makeRequest(components.url!) { data in
+            do {
+                completionHandler(try JSONDecoder().decode([String:Int].self, from: data))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    ///Gets all claims made by users
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetUserClaims.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetUserClaims.php)
+    ///
+    /// - Returns:
+    static func getUserClaims(completionHandler: @escaping (UserClaim_DTO) -> Void) {
+        
+        let components = baseAPIComponents(.getUserClaims)
+
+        return agent.makeRequest(components.url!) { data in
+            do {
+                completionHandler(try JSONDecoder().decode(UserClaim_DTO.self, from: data))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    ///Gets active claims made by users
+    ///
+    /// - [Example](https://retroachievements.org/API/API_GetActiveClaims.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU)
+    /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetActiveClaims.php)
+    ///
+    /// - Returns:
+    static func getActiveClaims(completionHandler: @escaping (UserClaim_DTO) -> Void) {
+        
+        let components = baseAPIComponents(.getActiveClaims)
+
+        return agent.doRequest(components.url!, completion: { data in completionHandler(data) })
         
     }
     

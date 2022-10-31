@@ -101,13 +101,13 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAch
 
     public var dateModified: Date {
 
-        return DateFormatter.standardFormat(from: self._dateModified) ?? Date(timeIntervalSince1970: 0)
+        return DateFormatter.date(fromString: self._dateModified) ?? Date(timeIntervalSince1970: 0)
 
     }
 
     public var dateCreated: Date {
 
-        return DateFormatter.standardFormat(from: self._dateCreated) ?? Date(timeIntervalSince1970: 0)
+        return DateFormatter.date(fromString: self._dateCreated) ?? Date(timeIntervalSince1970: 0)
 
     }
 
@@ -119,13 +119,13 @@ extension GameInfoAndUserProgress_DTO.Achievement_DTO : Achievement, ExtendedAch
     
     public var dateAwarded: Date? {
 
-        DateFormatter.standardFormat(from: self._dateEarned ?? "")
+        DateFormatter.date(fromString: self._dateEarned ?? "")
 
     }
 
     public var dateAwardedHardcore: Date? {
 
-        DateFormatter.standardFormat(from: self._dateEarnedHardcore ?? "")
+        DateFormatter.date(fromString: self._dateEarnedHardcore ?? "")
 
     }
 

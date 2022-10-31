@@ -13,4 +13,14 @@ extension Date {
         DateFormatter().string(from: self)
     }
     
+    func string(_ withFormat: String = "dd-MMM-yyyy") -> String {
+       
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = withFormat
+        let string = dateFormatter.string(from: self)
+        
+        return string
+        
+    }
+    
 }

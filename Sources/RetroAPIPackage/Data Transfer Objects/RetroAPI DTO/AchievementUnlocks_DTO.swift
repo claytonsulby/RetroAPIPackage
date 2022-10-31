@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - Welcome
 public struct AchievementUnlocks_DTO: Codable, Equatable {
-    public init(achievement: AchievementUnlocks_DTO.Achievement_DTO? = nil, console: AchievementUnlocks_DTO.Console_DTO? = nil, game: AchievementUnlocks_DTO.Game_DTO? = nil, unlocksCount: Int? = nil, totalPlayers: Int? = nil, unlocks: [AchievementUnlocks_DTO.Unlock_DTO]? = nil) {
+    public init(achievement: AchievementUnlocks_DTO.Achievement_DTO? = nil, console: AchievementUnlocks_DTO.Console_DTO? = nil, game: AchievementUnlocks_DTO.Console_DTO? = nil, unlocksCount: Int? = nil, totalPlayers: Int? = nil, unlocks: [AchievementUnlocks_DTO.Unlock_DTO]? = nil) {
         self.achievement = achievement
         self.console = console
         self.game = game
@@ -17,8 +17,8 @@ public struct AchievementUnlocks_DTO: Codable, Equatable {
     }
     
     public var achievement: AchievementUnlocks_DTO.Achievement_DTO?
-    public var console: Console_DTO?
-    public var game: AchievementUnlocks_DTO.Game_DTO?
+    public var console: AchievementUnlocks_DTO.Console_DTO?
+    public var game: AchievementUnlocks_DTO.Console_DTO?
     public var unlocksCount, totalPlayers: Int?
     public var unlocks: [AchievementUnlocks_DTO.Unlock_DTO]?
 
@@ -81,33 +81,6 @@ public extension AchievementUnlocks_DTO {
                 lhs.title == rhs.title
         }
     }
-    
-    struct Game_DTO: Codable, Equatable {
-        public init(id: StringMapTo<Int>? = nil, title: String? = nil) {
-            self._id = id
-            self.title = title
-        }
-
-        private var _id: StringMapTo<Int>?
-
-        public var id: Int {
-            get { return _id?.decoded ?? 0 }
-            set { _id?.decoded = newValue }
-        }
-
-        public var title: String?
-
-        enum CodingKeys: String, CodingKey {
-            case _id = "ID"
-            case title = "Title"
-        }
-
-        public static func == (lhs: Game_DTO, rhs: Game_DTO) -> Bool {
-            return lhs.id == rhs.id &&
-                lhs.title == rhs.title
-        }
-    }
-
 }
 
 extension AchievementUnlocks_DTO.Unlock_DTO : Hashable {

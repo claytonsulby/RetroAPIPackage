@@ -51,4 +51,14 @@ struct Agent {
 
     }
     
+    func doRequest<T: Decodable>(_ url:URL, completion: @escaping (T) -> Void) {
+        self.makeRequest(url) { data in
+            do {
+                completion(try JSONDecoder().decode(T.self, from: data))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }

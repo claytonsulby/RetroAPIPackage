@@ -9,7 +9,7 @@ import Foundation
 
 public extension DateFormatter {
     
-    func format(_ format: String, from date: String) -> Date? {
+    static func date(format: String = "yyyy-MM-dd HH:mm:ss", fromString date: String) -> Date? {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
@@ -18,15 +18,4 @@ public extension DateFormatter {
         return date
         
     }
-    
-    static func standardFormat(from date: String) -> Date? {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = dateFormatter.date(from: date)
-        
-        return date
-        
-    }
-    
 }

@@ -51,9 +51,8 @@ extension XCTestCase {
     }
 }
 
-final class RetroAPIPackageTests: XCTestCase {
-    
-    private var cancellables: Set<AnyCancellable>!
+final class RetroAPITests: XCTestCase {
+
     private let games = [
         "complete":10003,
         "nullFlag":3,
@@ -129,7 +128,6 @@ final class RetroAPIPackageTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        cancellables = []
         RetroAPI.setUserAndKey("wertox123", "NntdFEl8LSxcqcEaud8AN33uRrgAsEBU")
     }
     
@@ -165,10 +163,10 @@ final class RetroAPIPackageTests: XCTestCase {
     }
     
     func testGetFeed() throws {
-//        try users.forEach { (key: String, value: String) in
-//            let result = try awaitPublisher(RetroAPI.getFeed(username: value, count: 1))
-//            XCTAssertNotEqual(result, UserFeed_DTO())
-//        }
+        try users.forEach { (key: String, value: String) in
+            let result = try awaitPublisher(RetroAPI.getFeed(username: value, count: 1))
+            XCTAssertNotEqual(result, UserFeed_DTO())
+        }
     }
     
     func testGetUserRankAndScore() throws {
@@ -217,10 +215,13 @@ final class RetroAPIPackageTests: XCTestCase {
     }
     
     func testGetAchievementsEarnedOnDay() throws {
-//        try users.forEach { (key: String, value: String) in
-//            let result = try awaitPublisher(RetroAPI.getAchievementsEarnedOnDay(username: value, date: Date()))
-//            XCTAssertNotEqual(result, AchievementsOnDay_DTO())
-//        }
+        let cases = [
+            "":("maxmilyin", DateFormatter.date(format: "dd-MMM-yyyy", fromString: "31-Oct-2022")!)
+        ]
+        try cases.forEach { (key: String, value: (String, Date)) in
+            let result = try awaitPublisher(RetroAPI.getAchievementsEarnedOnDay(username: value.0, date: value.1))
+            XCTAssertNotEqual(result, AchievementsOnDay_DTO())
+        }
     }
     
     func testGetAchievementsEarnedBetween() throws {
@@ -276,24 +277,45 @@ final class RetroAPIPackageTests: XCTestCase {
     }
     
     func testGetUserGameRankAndScore() throws {
-        try users.forEach { (_: String, username: String) in
-            try games.forEach({ (_: String, gameID: Int) in
-                let result = try awaitPublisher(RetroAPI.getUserGameRankAndScore(username: username, gameID: gameID))
-                XCTAssertNotEqual(result, UserGameRankAndScore_DTO())
-            })
-
+        let cases = [
+            "":("wertox123", 785)
+        ]
+        try cases.forEach { (_: String, value:(String, Int)) in
+            let result = try awaitPublisher(RetroAPI.getUserGameRankAndScore(username: value.0, gameID: value.1))
+            XCTAssertNotEqual(result, UserGameRankAndScore_DTO())
         }
     }
     
     func testGetGameRankAndScore() throws {
-        try games.forEach { (key: String, value: Int) in
+        let cases = [
+            "":10003
+        ]
+        try cases.forEach { (key: String, value: Int) in
             let result = try awaitPublisher(RetroAPI.getGameRankAndScore(gameID: value))
             XCTAssertNotEqual(result, GameRankAndScore_DTO())
         }
     }
+    
+    func testGetAchievementDistribution() throws {
+        let result = try awaitPublisher(RetroAPI.getAchievementDistribution(gameID: 10003))
+        XCTAssertNotEqual(result, [String:Int]())
+    }
+    
+    func testGetUserClaims() throws {
+        let result = try awaitPublisher(RetroAPI.getUserClaims())
+        XCTAssertNotEqual(result, UserClaims_DTO())
+    }
 
+    func testGetActiveClaims() throws {
+        let result = try awaitPublisher(RetroAPI.getActiveClaims())
+        XCTAssertNotEqual(result, UserClaims_DTO())
+    }
     
     static var allTests = [
         ("testGetTopUsers", testGetTopUsers),
     ]
+}
+
+final class DoRequestTests: XCTestCase {
+    
 }

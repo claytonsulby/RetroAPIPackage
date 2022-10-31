@@ -32,12 +32,12 @@ public extension AchievementUnlocks_DTO {
         }
         
         public var dateModified: Date {
-            get { return DateFormatter.standardFormat(from: self._dateModified) ?? Date(timeIntervalSince1970: 0) }
+            get { return DateFormatter.date(fromString: self._dateModified) ?? Date(timeIntervalSince1970: 0) }
             set { _dateModified = newValue.string }
         }
 
         public var dateCreated: Date {
-            get { return DateFormatter.standardFormat(from: self._dateCreated) ?? Date(timeIntervalSince1970: 0) }
+            get { return DateFormatter.date(fromString: self._dateCreated) ?? Date(timeIntervalSince1970: 0) }
             set { _dateCreated = newValue.string }
         }
         
