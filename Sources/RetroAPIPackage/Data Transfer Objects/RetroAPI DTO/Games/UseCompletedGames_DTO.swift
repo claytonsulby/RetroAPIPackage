@@ -7,10 +7,11 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserCompletedGame_DTO: Codable, Equatable {
-    public init(_gameID: StringMapTo<Int> = StringMapTo(0), _numAwarded: StringMapTo<Int> = StringMapTo(0), _maxPossible: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", title: String = "", _imageIcon: String = "", _pctWon: StringMapTo<Double> = StringMapTo(0), _hardcoreMode: String = "") {
+    public init(_gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _numAwarded: StringMapTo<Int> = StringMapTo(0), _maxPossible: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", title: String = "", _imageIcon: String = "", _pctWon: StringMapTo<Double> = StringMapTo(0), _hardcoreMode: String = "") {
         self._gameID = _gameID
         self._numAwarded = _numAwarded
         self._maxPossible = _maxPossible
+        self._consoleID = _consoleID
         self.consoleName = consoleName
         self.title = title
         self._imageIcon = _imageIcon
@@ -19,10 +20,12 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
     }
     
     public var consoleName, title: String
+    private var _consoleID: StringMapTo<Int>
     
-    private var _gameID, _numAwarded, _maxPossible: StringMapTo<Int>
+    private var _gameID, _numAwarded: StringMapTo<Int>
+    private var _maxPossible: StringMapTo<Int>?
     private var _imageIcon : String
-    private var _pctWon: StringMapTo<Double>
+    private var _pctWon: StringMapTo<Double>?
     private var _hardcoreMode: String
     
     public var gameID: Int {
@@ -30,19 +33,24 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
         set { _gameID.decoded = newValue }
     }
     
+    public var consleID: Int {
+        get { return _consoleID.decoded  }
+        set { _consoleID.decoded = newValue }
+    }
+    
     public var numAwardedToUser: Int {
         get { return _numAwarded.decoded  }
         set { _numAwarded.decoded = newValue }
     }
     
-    public var numAchievements: Int {
-        get { return _maxPossible.decoded  }
-        set { _maxPossible.decoded = newValue }
+    public var numAchievements: Int? {
+        get { return _maxPossible?.decoded ?? 0  }
+        set { _maxPossible?.decoded = newValue ?? 0 }
     }
     
-    public var userCompletion: Double {
-        get { return _pctWon.decoded  }
-        set { _pctWon.decoded = newValue }
+    public var userCompletion: Double? {
+        get { return _pctWon?.decoded ?? 0.0  }
+        set { _pctWon?.decoded = newValue ?? 0.0 }
     }
     
     public var hardcoreMode: Bool {
@@ -63,6 +71,7 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
     enum CodingKeys: String, CodingKey {
         case _gameID = "GameID"
         case consoleName = "ConsoleName"
+        case _consoleID = "ConsoleID"
         case _imageIcon = "ImageIcon"
         case title = "Title"
         case _numAwarded = "NumAwarded"

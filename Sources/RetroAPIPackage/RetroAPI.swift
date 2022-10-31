@@ -12,8 +12,8 @@ public class RetroAPI {}
 
 public extension RetroAPI {
     
-    static var user:String?
-    static var key:String?
+    private static var user:String?
+    private static var key:String?
     
     static func setUser(_ user:String) {
         RetroAPI.user = user
@@ -151,7 +151,7 @@ public extension RetroAPI {
     /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGame.php)
     ///
     /// - parameter gameID: Integer ID associated to game.
-    /// - Returns:          GameInfo_DTO object.
+    /// - Returns:          Game_DTO object.
     static func getGame(gameID:Int) -> AnyPublisher<Game_DTO,Error> {
         
         var components = baseAPIComponents(.getGame)
@@ -172,7 +172,7 @@ public extension RetroAPI {
     /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/920c202db30010c9954781d2b4237a7285ee0025/public/API/API_GetGameExtended.php)
     ///
     /// - parameter gameID: Integer ID associated to game.
-    /// - Returns:          ExtendedGameInfo_DTO object.
+    /// - Returns:          GameExtended_DTO object.
     static func getGameExtended(gameID:Int) -> AnyPublisher<GameExtended_DTO,Error> {
         
         var components = baseAPIComponents(.getGameExtended)
@@ -235,7 +235,8 @@ public extension RetroAPI {
     ///     - offset:   The offset from the most recent feed item to retreive.
     /// - Returns:      List of feed items.
     /// - bug:          Doesn't succeed at the moment.
-    static func getFeed(username:String, count:Int, offset:Int = 0) -> AnyPublisher<UserFeed_DTO,Error> {
+    @available(*, deprecated, message: "not implemented")
+    static func getFeed(username:String, count:Int = 10, offset:Int = 0) -> AnyPublisher<UserFeed_DTO,Error> {
         
         var components = baseAPIComponents(.getFeed)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user),URLQueryItem(name: "c", value: String(count)),URLQueryItem(name: "o", value: String(offset))])
@@ -327,7 +328,7 @@ public extension RetroAPI {
     ///     - count:    The amount of recently played games to retreive from the user's history.
     ///     - offset:   The offset from the most recently played games to retreive.
     /// - Returns: Array of UserRecent_DTO
-    static func getUserRecentlyPlayedGames(username:String, count:Int, offset:Int = 0) -> AnyPublisher<UserRecents_DTO,Error> {
+    static func getUserRecentlyPlayedGames(username:String, count:Int = 10, offset:Int = 0) -> AnyPublisher<UserRecents_DTO,Error> {
         
         var components = baseAPIComponents(.getUserRecentlyPlayedGames)
         components.queryItems?.append(contentsOf: [
@@ -353,7 +354,7 @@ public extension RetroAPI {
     ///     - username:         String indicating the username created through RetroAchievements.org
     ///     - numRecentGames:   The amount of recently playeg dames to retreive along with the user summary.
     /// - Returns: UserSummary_DTO containing array of recent games, dictionary of progress in games, and dictionary of recent achievements.
-    static func getUserSummary(username: String, numRecentGames: Int) -> AnyPublisher<UserSummary_DTO,Error> {
+    static func getUserSummary(username: String, numRecentGames: Int = 10) -> AnyPublisher<UserSummary_DTO,Error> {
         
         var components = baseAPIComponents(.getUserSummary)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: username), URLQueryItem(name: "g", value: String(numRecentGames))])
@@ -399,7 +400,8 @@ public extension RetroAPI {
     ///     - date:     Swift Date object
     /// - Returns: Array of achievements with limited information.
     /// - bug: Currently returns empty array.
-    static func getAchievementsEarnedOnDay(username:String, date:Date) -> AnyPublisher<[AchievementsOnDay_DTO],Error> {
+    @available(*, deprecated, message: "bugged")
+    static func getAchievementsEarnedOnDay(username:String, date:Date = Date()) -> AnyPublisher<AchievementsOnDay_DTO,Error> {
         
         var components = baseAPIComponents(.getAchievementsEarnedOnDay)
         components.queryItems?.append(contentsOf: [
@@ -425,8 +427,7 @@ public extension RetroAPI {
     ///     - dateStart:    Swift Date object indicating start of interval
     ///     - dateEnd:      Swift Date object indicating end of interval
     /// - Returns: Array of achievements with limited information.
-    /// - bug: Currently returns empty arrey.
-    static func getAchievementsEarnedBetween(username:String, dateStart:Date, dateEnd:Date) -> AnyPublisher<[AchievementBetween_DTO],Error> {
+    static func getAchievementsEarnedBetween(username:String, dateStart:Date = Date(timeIntervalSince1970: 0), dateEnd:Date = Date()) -> AnyPublisher<[AchievementBetween_DTO],Error> {
         
         var components = baseAPIComponents(.getAchievementsEarnedBetween)
         components.queryItems?.append(contentsOf: [
@@ -472,7 +473,7 @@ public extension RetroAPI {
     ///
     /// - parameter achievementID: Integer ID associated to achievement.
     /// - Returns: AchievementUnlocks_DTO including array of Unlock_DTO showing those who have been awarded the achievement.
-    static func getAchievementUnlocks(achievementID:Int) -> AnyPublisher<[AchievementUnlocks_DTO],Error> {
+    static func getAchievementUnlocks(achievementID:Int) -> AnyPublisher<AchievementUnlocks_DTO,Error> {
         
         var components = baseAPIComponents(.getUserCompletedGames)
         components.queryItems?.append(contentsOf: [
@@ -558,7 +559,7 @@ public extension RetroAPI {
     /// - parameter gameID: Optional integer ID associated to game.
     /// - note: Not specifying a ticketID will return recent tickets.
     /// - Returns: TicketData_DTO
-    static func getTicketData(ticketID:Int?) -> AnyPublisher<TicketData_DTO,Error> {
+    static func getTicketData(ticketID:Int? = nil) -> AnyPublisher<TicketData_DTO,Error> {
         
         var components = baseAPIComponents(.getTicketData)
         
@@ -616,7 +617,7 @@ public extension RetroAPI {
     /// - note: a count and offset parameter are found in the github but are currently hardcoded to c=10 & o=0.
     /// - remark: I cannot identify what type means but it can be found in the github page as either 0 or 1.
     /// - Returns:
-    static func getGameRankAndScore(gameID:Int, type:Int) -> AnyPublisher<GameRankAndScore_DTO,Error> {
+    static func getGameRankAndScore(gameID:Int, type:Int = 0) -> AnyPublisher<GameRankAndScore_DTO,Error> {
         
         var components = baseAPIComponents(.getGameRankAndScore)
         components.queryItems?.append(contentsOf: [
@@ -700,7 +701,7 @@ public extension RetroAPI {
         }
     }
     
-    static func getFeedFor(user:String, count:Int, offset:Int = 0, completionHandler: @escaping (UserFeed_DTO) -> Void) {
+    static func getFeedFor(user:String, count:Int = 10, offset:Int = 0, completionHandler: @escaping (UserFeed_DTO) -> Void) {
         //FIXME: only returns failure
         var components = baseAPIComponents(.getFeed)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: user),URLQueryItem(name: "c", value: String(count)),URLQueryItem(name: "o", value: String(offset))])
@@ -753,7 +754,7 @@ public extension RetroAPI {
         }
     }
     
-    static func getUserRecentlyPlayedGames(user:String, count:Int, offset:Int = 0, completionHandler: @escaping (UserRecents_DTO) -> Void) {
+    static func getUserRecentlyPlayedGames(user:String, count:Int = 10, offset:Int = 0, completionHandler: @escaping (UserRecents_DTO) -> Void) {
         var components = baseAPIComponents(.getUserRecentlyPlayedGames)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
@@ -794,7 +795,7 @@ public extension RetroAPI {
         }
     }
     
-    static func getAchievementsEarnedOnDay(user:String, date:Date, completionHandler: @escaping (AchievementsOnDay_DTO) -> Void) {
+    static func getAchievementsEarnedOnDay(user:String, date:Date = Date(), completionHandler: @escaping (AchievementsOnDay_DTO) -> Void) {
         var components = baseAPIComponents(.getAchievementsEarnedOnDay)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),
@@ -811,7 +812,7 @@ public extension RetroAPI {
     
     
     
-    static func getAchievementsEarnedBetween(user:String, dateStart:Date, dateEnd:Date, completionHandler: @escaping (AchievementBetween_DTO) -> Void) {
+    static func getAchievementsEarnedBetween(user:String, dateStart:Date = Date(timeIntervalSince1970: 0), dateEnd:Date = Date(), completionHandler: @escaping (AchievementBetween_DTO) -> Void) {
         var components = baseAPIComponents(.getAchievementsEarnedBetween)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: user),

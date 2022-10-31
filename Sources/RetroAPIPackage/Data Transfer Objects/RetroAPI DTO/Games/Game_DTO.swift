@@ -13,7 +13,8 @@ import Foundation
 /// - [Failure:  gameID not provided](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 /// - [Failure: gameID too large](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=1000000000)
 public struct Game_DTO: Codable, Equatable {
-    public init(title: String = "", _forumTopicID: StringMapTo<Int>? = nil, _consoleID: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", _flags: StringMapTo<Int> = StringMapTo(0), _imageIcon: String = "", _gameIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, gameTitle: String = "", console: String = "") {
+    public init(_id: StringMapTo<Int>? = nil, title: String = "", _forumTopicID: StringMapTo<Int>? = nil, _consoleID: StringMapTo<Int>? = StringMapTo(0), consoleName: String? = "", _flags: StringMapTo<Int>? = StringMapTo(0), _imageIcon: String? = "", _gameIcon: String? = "", _imageTitle: String? = "", _imageInGame: String? = "", _imageBoxArt: String? = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, gameTitle: String? = "", console: String? = "") {
+        self._id = _id
         self.title = title
         self._forumTopicID = _forumTopicID
         self._consoleID = _consoleID
@@ -32,11 +33,16 @@ public struct Game_DTO: Codable, Equatable {
         self.console = console
     }
     
+    private var _id:StringMapTo<Int>?
+    public var id: Int? {
+        get { return _id?.decoded }
+        set { _id?.decoded = newValue ?? 0 }
+    }
     
     ///Title of game
     /// - remark: So far this has been identical to ``gameTitle``
-    public var title : String
-    
+    public var title : String?
+
     ///ID Number string for topic page in forum
     /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
     private var _forumTopicID : StringMapTo<Int>?
@@ -47,46 +53,46 @@ public struct Game_DTO: Codable, Equatable {
     }
     
     ///ID Number string for console
-    private var _consoleID : StringMapTo<Int>
+    private var _consoleID : StringMapTo<Int>?
     
-    public var consoleID: Int {
-        get { return _consoleID.decoded }
-        set { _consoleID.decoded = newValue }
+    public var consoleID: Int? {
+        get { return _consoleID?.decoded }
+        set { _consoleID?.decoded = newValue ?? 0 }
     }
     
     ///String name for console
     /// - remark: So far this has been identical to ``console``
-    public var consoleName : String
+    public var consoleName : String?
     
     /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
-    private var _flags : StringMapTo<Int>
+    private var _flags : StringMapTo<Int>?
     
-    public var flags: Int {
-        get { return _flags.decoded }
-        set { _flags.decoded = newValue }
+    public var flags: Int? {
+        get { return _flags?.decoded }
+        set { _flags?.decoded = newValue ?? 0 }
     }
     
     ///partial path string to icon image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
     /// - remark: So far this has been identical to ``gameIcon``
-    private var _imageIcon : String
+    private var _imageIcon : String?
     
     ///partial path string to icon image for a game. Unused in favor of imageIcon
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
     /// - remark: So far this has been identical to ``imageIcon``
-    private var _gameIcon : String
+    private var _gameIcon : String?
     
     ///partial path struing to title screen image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var _imageTitle : String
+    private var _imageTitle : String?
     
     ///partial path string to gameplay screenshot image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var _imageInGame : String
+    private var _imageInGame : String?
     
     ///partial path string to box art image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
-    private var _imageBoxArt : String
+    private var _imageBoxArt : String?
     
     ///String of publisher for a game
     /// - note: This is different for hacked games.
@@ -109,14 +115,15 @@ public struct Game_DTO: Codable, Equatable {
     }
     
     ///Title of game
-    /// - remark: So far this has been identical to ``gameTitle``
-    private var gameTitle : String
+    /// - remark: So far this has been identical to ``title``
+    private var gameTitle : String?
     
     ///String name for console. Unused in favor of consoleName
     /// - remark: So far this has been identical to ``consoleName``
-    private var console : String
+    private var console : String?
     
     enum CodingKeys: String, CodingKey {
+        case _id = "ID"
         case title = "Title"
         case _forumTopicID = "ForumTopicID"
         case _consoleID = "ConsoleID"
@@ -162,8 +169,10 @@ extension Game_DTO {
 
         if _imageIcon == "/Images/000001.png" {
             return nil
+        } else if _imageIcon == nil {
+            return nil
         } else {
-            return URL(string: RetroAPI.baseImageURL + _imageIcon)
+            return URL(string: RetroAPI.baseImageURL + (_imageIcon!))
         }
         
     }
@@ -172,8 +181,10 @@ extension Game_DTO {
 
         if _imageTitle == "/Images/000002.png" {
             return nil
+        } else if _imageTitle == nil {
+            return nil
         } else {
-            return URL(string: RetroAPI.baseImageURL + _imageTitle)
+            return URL(string: RetroAPI.baseImageURL + (_imageTitle!))
         }
 
     }
@@ -182,8 +193,10 @@ extension Game_DTO {
 
         if _imageInGame == "/Images/000002.png" {
             return nil
+        } else if _imageInGame == nil {
+            return nil
         } else {
-            return URL(string: RetroAPI.baseImageURL + _imageInGame)
+            return URL(string: RetroAPI.baseImageURL + (_imageInGame!))
         }
         
     }
@@ -192,8 +205,10 @@ extension Game_DTO {
 
         if _imageBoxArt == "/Images/000002.png" {
             return nil
+        } else if _imageBoxArt == nil {
+            return nil
         } else {
-            return URL(string: RetroAPI.baseImageURL + _imageBoxArt)
+            return URL(string: RetroAPI.baseImageURL + (_imageBoxArt!))
         }
         
     }

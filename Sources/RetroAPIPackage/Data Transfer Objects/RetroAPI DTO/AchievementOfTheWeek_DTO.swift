@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - Welcome
-public struct AchievementOfTheWeek_DTO: Codable {
+public struct AchievementOfTheWeek_DTO: Codable, Equatable {
     public init(achievement: AchievementOfTheWeek_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO? = nil, game: AchievementOfTheWeek_DTO.Game_DTO? = nil, startAt: String? = nil, _totalPlayers:StringMapTo<Int> = StringMapTo(0), unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]? = nil, _unlocksCount:StringMapTo<Int> = StringMapTo(0)) {
         self.achievement = achievement
         self.console = console
@@ -50,21 +50,36 @@ public struct AchievementOfTheWeek_DTO: Codable {
         case unlocks = "Unlocks"
         case _unlocksCount = "UnlocksCount"
     }
+    
+    public static func == (lhs: AchievementOfTheWeek_DTO, rhs: AchievementOfTheWeek_DTO) -> Bool {
+        return lhs._totalPlayers == rhs._totalPlayers &&
+        lhs._unlocksCount == rhs._unlocksCount &&
+        lhs.achievement == rhs.achievement &&
+        lhs.console == rhs.console &&
+        lhs.forumTopic == rhs.forumTopic &&
+        lhs.game == rhs.game &&
+        lhs.startAt == rhs.startAt &&
+        lhs.unlocks == rhs.unlocks
+    }
 }
 
 public extension AchievementOfTheWeek_DTO {
     
     // MARK: - ForumTopic
-    struct ForumTopic_DTO: Codable {
+    struct ForumTopic_DTO: Codable, Equatable {
         public var id: String?
         
         enum CodingKeys: String, CodingKey {
             case id = "ID"
         }
+        
+        public static func == (lhs: AchievementOfTheWeek_DTO.ForumTopic_DTO, rhs: AchievementOfTheWeek_DTO.ForumTopic_DTO) -> Bool {
+            return lhs.id == rhs.id
+        }
     }
     
     // MARK: - Unlock
-    struct Unlock_DTO: Codable {
+    struct Unlock_DTO: Codable, Equatable {
         public var user, raPoints, dateAwarded, hardcoreMode: String?
         
         enum CodingKeys: String, CodingKey {
@@ -72,6 +87,13 @@ public extension AchievementOfTheWeek_DTO {
             case raPoints = "RAPoints"
             case dateAwarded = "DateAwarded"
             case hardcoreMode = "HardcoreMode"
+        }
+        
+        public static func == (lhs: AchievementOfTheWeek_DTO.Unlock_DTO, rhs: AchievementOfTheWeek_DTO.Unlock_DTO) -> Bool {
+            return lhs.user == rhs.user &&
+            lhs.raPoints == rhs.raPoints &&
+            lhs.dateAwarded == rhs.dateAwarded &&
+            lhs.hardcoreMode == rhs.hardcoreMode
         }
     }
     

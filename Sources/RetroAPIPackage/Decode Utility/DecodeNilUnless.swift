@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct DecodeNilUnless<Decoded : Codable> : Codable {
+public struct DecodeNilUnless<Decoded : Codable & Equatable> : Codable, Equatable {
     
     var decoded: Decoded?
 
@@ -38,6 +38,10 @@ public struct DecodeNilUnless<Decoded : Codable> : Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(decoded)
+    }
+    
+    public static func == (lhs: DecodeNilUnless, rhs: DecodeNilUnless) -> Bool {
+        return lhs.decoded == rhs.decoded
     }
 
 }

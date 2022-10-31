@@ -6,8 +6,8 @@
 import Foundation
 
 // MARK: - WelcomeElement
-public struct UserRecent_DTO: Codable {
-
+public struct UserRecent_DTO: Codable, Equatable {
+    
     public var title, consoleName:String
     private var _gameID, _consoleID: StringMapTo<Int>
     private var _imageIcon: String
@@ -15,7 +15,7 @@ public struct UserRecent_DTO: Codable {
     private var _lastPlayed: String
     
     private var _myVote: String?
-    private var _numPossibleAchievements, _possibleScore, _numAchieved, _scoreAchieved: DecodeNilUnless<Int>
+    private var _numPossibleAchievements, _possibleScore, _numAchieved, _scoreAchieved, _numAchievedHardcore, _scoreAchievedHardcore: DecodeNilUnless<String>
     
     public var gameID:Int {
         get { return _gameID.decoded }
@@ -48,25 +48,34 @@ public struct UserRecent_DTO: Codable {
     }
 
     public var numPossibleAchievements:Int? {
-        get { return _numPossibleAchievements.decoded }
-        set { _numPossibleAchievements.decoded = newValue }
+        get { return Int(_numPossibleAchievements.decoded ?? "") ?? 0 }
+        set { _numPossibleAchievements.decoded = String(newValue ?? 0) }
     }
     
     public var possibleScore:Int? {
-        get { return _possibleScore.decoded }
-        set { _possibleScore.decoded = newValue }
+        get { return Int(_possibleScore.decoded ?? "") ?? 0 }
+        set { _possibleScore.decoded = String(newValue ?? 0) }
     }
     
     public var numAchieved:Int? {
-        get { return _numAchieved.decoded }
-        set { _numAchieved.decoded = newValue }
+        get { return Int(_numAchieved.decoded ?? "") ?? 0 }
+        set { _numAchieved.decoded = String(newValue ?? 0) }
     }
     
     public var scoreAchieved:Int? {
-        get { return _scoreAchieved.decoded }
-        set { _scoreAchieved.decoded = newValue }
+        get { return Int(_scoreAchieved.decoded ?? "") ?? 0 }
+        set { _scoreAchieved.decoded = String(newValue ?? 0) }
     }
     
+    public var numAchievedHardcore:Int? {
+        get { return Int(_numAchievedHardcore.decoded ?? "") ?? 0 }
+        set { _numAchieved.decoded = String(newValue ?? 0) }
+    }
+    
+    public var scoreAchievedHardcore:Int? {
+        get { return Int(_scoreAchievedHardcore.decoded ?? "") ?? 0 }
+        set { _scoreAchieved.decoded = String(newValue ?? 0) }
+    }
     
     enum CodingKeys: String, CodingKey {
         case _gameID = "GameID"
@@ -80,6 +89,24 @@ public struct UserRecent_DTO: Codable {
         case _possibleScore = "PossibleScore"
         case _numAchieved = "NumAchieved"
         case _scoreAchieved = "ScoreAchieved"
+        case _numAchievedHardcore = "NumAchievedHardcore"
+        case _scoreAchievedHardcore = "ScoreAchievedHardcore"
+    }
+    
+    public static func == (lhs: UserRecent_DTO, rhs: UserRecent_DTO) -> Bool {
+        return lhs.title == rhs.title &&
+        lhs.consoleName == rhs.consoleName &&
+        lhs._gameID == rhs._gameID &&
+        lhs._consoleID == rhs._consoleID &&
+        lhs._imageIcon == rhs._imageIcon &&
+        lhs._lastPlayed == rhs._lastPlayed &&
+        lhs._myVote == rhs._myVote &&
+        lhs._numPossibleAchievements == rhs._numPossibleAchievements &&
+        lhs._possibleScore == rhs._possibleScore &&
+        lhs._numAchieved == rhs._numAchieved &&
+        lhs._scoreAchieved == rhs._scoreAchieved &&
+        lhs._numAchievedHardcore == rhs._numAchievedHardcore &&
+        lhs._scoreAchievedHardcore == rhs._scoreAchievedHardcore
     }
     
 }

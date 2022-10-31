@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - GameRankAndScoreElement_DTO
-public struct GameRankAndScoreElement_DTO: Codable {
+public struct GameRankAndScoreElement_DTO: Codable, Equatable {
     public init(user: String? = nil, totalScore: String? = nil, lastAward: String? = nil) {
         self.user = user
         self.totalScore = totalScore
@@ -19,6 +19,12 @@ public struct GameRankAndScoreElement_DTO: Codable {
         case user = "User"
         case totalScore = "TotalScore"
         case lastAward = "LastAward"
+    }
+    
+    public static func == (lhs: GameRankAndScoreElement_DTO, rhs: GameRankAndScoreElement_DTO) -> Bool {
+        return lhs.user == rhs.user &&
+        lhs.totalScore == rhs.totalScore &&
+        lhs.lastAward == rhs.lastAward
     }
 }
 

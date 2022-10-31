@@ -7,14 +7,14 @@ import Foundation
 
 // MARK: - Welcome
 public struct TicketData_DTO: Codable, Equatable {
-    public init(recentTickets: [RecentTicket_DTO]? = nil, openTickets: String? = nil, url: String? = nil) {
+    public init(recentTickets: [RecentTicket_DTO]? = nil, openTickets: Int? = nil, url: String? = nil) {
         self.recentTickets = recentTickets
         self.openTickets = openTickets
         self.url = url
     }
     
     public var recentTickets: [RecentTicket_DTO]?
-    public var openTickets: String?
+    public var openTickets: Int?
     public var url: String?
 
     enum CodingKeys: String, CodingKey {
@@ -32,7 +32,7 @@ public struct TicketData_DTO: Codable, Equatable {
 
 // MARK: - RecentTicket
 public struct RecentTicket_DTO: Codable, Equatable {
-    public init(id: String? = nil, achievementID: String? = nil, achievementTitle: String? = nil, achievementDesc: String? = nil, points: String? = nil, badgeName: String? = nil, achievementAuthor: String? = nil, gameID: String? = nil, consoleName: String? = nil, gameTitle: String? = nil, gameIcon: String? = nil, reportedAt: String? = nil, reportType: String? = nil, reportNotes: String? = nil, reportedBy: String? = nil, resolvedAt: JSONNull? = nil, resolvedBy: JSONNull? = nil, reportState: String? = nil) {
+    public init(id: String? = nil, achievementID: String? = nil, achievementTitle: String? = nil, achievementDesc: String? = nil, points: String? = nil, badgeName: String? = nil, achievementAuthor: String? = nil, gameID: String? = nil, consoleName: String? = nil, gameTitle: String? = nil, gameIcon: String? = nil, reportedAt: String? = nil, reportType: String? = nil, reportNotes: String? = nil, reportedBy: String? = nil, resolvedAt: JSONNull? = nil, resolvedBy: JSONNull? = nil, reportState: String? = nil, reportStateDescription:String = "", reportTypeDescription:String = "") {
         self.id = id
         self.achievementID = achievementID
         self.achievementTitle = achievementTitle
@@ -51,6 +51,8 @@ public struct RecentTicket_DTO: Codable, Equatable {
         self.resolvedAt = resolvedAt
         self.resolvedBy = resolvedBy
         self.reportState = reportState
+        self.reportStateDescription = reportStateDescription
+        self.reportTypeDescription = reportTypeDescription
     }
     
     public var id, achievementID, achievementTitle, achievementDesc: String?
@@ -59,6 +61,8 @@ public struct RecentTicket_DTO: Codable, Equatable {
     public var reportType, reportNotes, reportedBy: String?
     public var resolvedAt, resolvedBy: JSONNull? //FIXME: probably a dict that isn't available yet, will crash if different
     public var reportState: String?
+    public let reportStateDescription:String
+    public let reportTypeDescription:String
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"
@@ -79,6 +83,8 @@ public struct RecentTicket_DTO: Codable, Equatable {
         case resolvedAt = "ResolvedAt"
         case resolvedBy = "ResolvedBy"
         case reportState = "ReportState"
+        case reportStateDescription = "ReportStateDescription"
+        case reportTypeDescription = "ReportTypeDescription"
     }
     
     public static func == (lhs: RecentTicket_DTO, rhs: RecentTicket_DTO) -> Bool {

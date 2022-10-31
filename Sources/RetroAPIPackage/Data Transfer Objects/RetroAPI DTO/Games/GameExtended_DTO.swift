@@ -94,19 +94,19 @@ public struct GameExtended_DTO: Codable, Equatable {
     public var numAchievements: Int
     
     ///The sum total of players who have been awarded an achievement not in hardcore mode.
-    private var _numDistinctPlayersCasual: DecodeNilUnless<String>
+    private var _numDistinctPlayersCasual: DecodeNilUnless<String>?
     
     ///The sum total of players who have been awarded an achievement in hardcore mode.
-    private var _numDistinctPlayersHardcore: DecodeNilUnless<String>
+    private var _numDistinctPlayersHardcore: DecodeNilUnless<String>?
     
     public var numDistinctPlayers: Int {
-        get { return Int(_numDistinctPlayersCasual.decoded ?? "") ?? 0 }
-        set { _numDistinctPlayersCasual.decoded = String(newValue) }
+        get { return Int(_numDistinctPlayersCasual?.decoded ?? "") ?? 0 }
+        set { _numDistinctPlayersCasual?.decoded = String(newValue) }
     }
     
     public var numDistinctPlayersHardcore: Int {
-        get { return Int(_numDistinctPlayersHardcore.decoded ?? "") ?? 0  }
-        set { _numDistinctPlayersHardcore.decoded = String(newValue) }
+        get { return Int(_numDistinctPlayersHardcore?.decoded ?? "") ?? 0  }
+        set { _numDistinctPlayersHardcore?.decoded = String(newValue) }
     }
     
     ///Array of achievements

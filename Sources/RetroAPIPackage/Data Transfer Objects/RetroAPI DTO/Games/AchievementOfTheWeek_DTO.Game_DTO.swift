@@ -10,7 +10,7 @@ import Foundation
 public extension AchievementOfTheWeek_DTO {
     
     // MARK: - Console
-    struct Game_DTO: Codable {
+    struct Game_DTO: Codable, Equatable {
         private var _gameID: StringMapTo<Int>
         
         public var gameID: Int {
@@ -23,6 +23,11 @@ public extension AchievementOfTheWeek_DTO {
         enum CodingKeys: String, CodingKey {
             case _gameID = "ID"
             case title = "Title"
+        }
+        
+        public static func == (lhs: AchievementOfTheWeek_DTO.Game_DTO, rhs: AchievementOfTheWeek_DTO.Game_DTO) -> Bool {
+            return lhs._gameID == rhs._gameID &&
+            lhs.title == rhs.title
         }
     }
 }

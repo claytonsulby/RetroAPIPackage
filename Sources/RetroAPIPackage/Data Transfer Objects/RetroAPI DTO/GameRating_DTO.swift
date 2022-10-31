@@ -7,12 +7,12 @@ import Foundation
 
 // MARK: - Welcome
 public struct GameRating_DTO: Codable, Equatable {
-    public init(gameID: String? = nil, ratings: Ratings_DTO? = nil) {
+    public init(gameID: Int? = nil, ratings: Ratings_DTO? = nil) {
         self.gameID = gameID
         self.ratings = ratings
     }
     
-    public var gameID: String?
+    public var gameID: Int?
     public var ratings: Ratings_DTO?
 
     enum CodingKeys: String, CodingKey {
@@ -26,28 +26,34 @@ public struct GameRating_DTO: Codable, Equatable {
     }
 }
 
-// MARK: - Ratings
-public struct Ratings_DTO: Codable, Equatable {
-    public init(game: String? = nil, achievements: String? = nil, gameNumVotes: String? = nil, achievementsNumVotes: String? = nil) {
-        self.game = game
-        self.achievements = achievements
-        self.gameNumVotes = gameNumVotes
-        self.achievementsNumVotes = achievementsNumVotes
-    }
+public extension GameRating_DTO {
     
-    public var game, achievements, gameNumVotes, achievementsNumVotes: String?
+    struct Ratings_DTO: Codable, Equatable {
+        
+        public init(game: Double? = 0.0, achievements: Double? = 0.0, gameNumVotes: Int? = 0, achievementsNumVotes: Int? = 0) {
+            self.game = game
+            self.achievements = achievements
+            self.gameNumVotes = gameNumVotes
+            self.achievementsNumVotes = achievementsNumVotes
+        }
+        
+        public let game, achievements: Double?
+        public let gameNumVotes, achievementsNumVotes: Int?
 
-    enum CodingKeys: String, CodingKey {
-        case game = "Game"
-        case achievements = "Achievements"
-        case gameNumVotes = "GameNumVotes"
-        case achievementsNumVotes = "AchievementsNumVotes"
-    }
-    
-    public static func == (lhs: Ratings_DTO, rhs: Ratings_DTO) -> Bool {
-        return lhs.game == rhs.game &&
+        enum CodingKeys: String, CodingKey {
+            case game = "Game"
+            case achievements = "Achievements"
+            case gameNumVotes = "GameNumVotes"
+            case achievementsNumVotes = "AchievementsNumVotes"
+        }
+        
+        public static func == (lhs: Ratings_DTO, rhs: Ratings_DTO) -> Bool {
+            return lhs.game == rhs.game &&
             lhs.achievements == rhs.achievements &&
             lhs.gameNumVotes == rhs.gameNumVotes &&
             lhs.achievementsNumVotes == rhs.achievementsNumVotes
+        }
+        
     }
+    
 }
