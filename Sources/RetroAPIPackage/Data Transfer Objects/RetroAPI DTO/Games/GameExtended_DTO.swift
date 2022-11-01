@@ -91,7 +91,7 @@ public struct GameExtended_DTO: Codable, Equatable {
     public var richPresencePatch: String
     
     ///The number of achievements for the game.
-    public var numAchievements: Int
+    public var numAchievements: Int?
     
     ///The sum total of players who have been awarded an achievement not in hardcore mode.
     private var _numDistinctPlayersCasual: DecodeNilUnless<String>?
@@ -164,8 +164,8 @@ public struct GameExtended_DTO: Codable, Equatable {
     }
 }
 
-extension GameExtended_DTO : AchievementSet {
-    
+extension GameExtended_DTO : HasAchievements {
+
     public var imageIconURL: URL? {
 
         if _imageIcon == "/Images/000001.png" {
