@@ -195,13 +195,8 @@ public extension DoRequest {
         var components = baseRequestComponents(.login)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: username), URLQueryItem(name: "p", value: password)])
         
-        agent.makeRequest(components.url!) { data in
-            do {
-                completionHandler(try JSONDecoder().decode(Login_DTO.self, from: data))
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        let request = URLRequest(url: components.url!)
+        agent.run(request, completion: { data in completionHandler(data) })
     }
     
     static func doRequestPing(username:String, completionHandler: @escaping (Success_DTO) -> Void) {
@@ -209,13 +204,8 @@ public extension DoRequest {
         var components = baseRequestComponents(.ping)
         components.queryItems?.append(contentsOf: [URLQueryItem(name: "u", value: username)])
         
-        agent.makeRequest(components.url!) { data in
-            do {
-                completionHandler(try JSONDecoder().decode(Success_DTO.self, from: data))
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        let request = URLRequest(url: components.url!)
+        agent.run(request, completion: { data in completionHandler(data) })
     }
     
     
@@ -232,13 +222,8 @@ public extension DoRequest {
             URLQueryItem(name: "t", value: token),
         ])
         
-        agent.makeRequest(components.url!) { data in
-            do {
-                completionHandler(try JSONDecoder().decode(AwardAchievement_DTO.self, from: data))
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        let request = URLRequest(url: components.url!)
+        agent.run(request, completion: { data in completionHandler(data) })
         
     }
     
@@ -250,13 +235,8 @@ public extension DoRequest {
             URLQueryItem(name: "t", value: token),
         ])
         
-        agent.makeRequest(components.url!) { data in
-            do {
-                completionHandler(try JSONDecoder().decode(FriendsList_DTO.self, from: data))
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        let request = URLRequest(url: components.url!)
+        agent.run(request, completion: { data in completionHandler(data) })
         
     }
     
@@ -276,13 +256,8 @@ public extension DoRequest {
             URLQueryItem(name: "f", value: friendsOnly),
         ])
         
-        agent.makeRequest(components.url!) { data in
-            do {
-                completionHandler(try JSONDecoder().decode(LBInfo_DTO.self, from: data))
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        let request = URLRequest(url: components.url!)
+        agent.run(request, completion: { data in completionHandler(data) })
         
     }
     
@@ -303,13 +278,8 @@ public extension DoRequest {
             URLQueryItem(name: "f", value: friendsOnly),
         ])
         
-        agent.makeRequest(components.url!) { data in
-            do {
-                completionHandler(try JSONDecoder().decode(AchievementWonData_DTO.self, from: data))
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        let request = URLRequest(url: components.url!)
+        agent.run(request, completion: { data in completionHandler(data) })
         
     }
     

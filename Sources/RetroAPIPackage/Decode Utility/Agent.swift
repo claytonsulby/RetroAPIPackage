@@ -32,33 +32,28 @@ struct Agent {
             .receive(on: DispatchQueue.main) // 6
             .eraseToAnyPublisher() // 7
     }
-    
-    func makeRequest(_ url:URL, completionHandler: @escaping (Data) -> Void) {
 
-        var urlRequest: URLRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "GET"
-        URLSession.shared.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+    func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder(), completion: @escaping (T) -> Void) {
+        URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
 
             guard let data = data else {
                 print("invalid response")
                 return
             }
 
-            completionHandler(data)
-
-
-        }).resume()
-
-    }
-    
-    func doRequest<T: Decodable>(_ url:URL, completion: @escaping (T) -> Void) {
-        self.makeRequest(url) { data in
             do {
-                completion(try JSONDecoder().decode(T.self, from: data))
+                completion(try decoder.decode(T.self, from: data))
             } catch {
                 print(error.localizedDescription)
             }
-        }
+
+        }).resume()
+    }
+    
+    func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) async throws -> Response<T> {
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let value = try decoder.decode(T.self, from: data)
+        return Response(value: value, response: response)
     }
     
 }
