@@ -13,7 +13,7 @@ import Foundation
 /// - [Failure:  gameID not provided](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 /// - [Failure: gameID too large](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=1000000000)
 public struct Game_DTO: Codable, Equatable {
-    public init(_id: StringMapTo<Int>? = nil, title: String = "", _forumTopicID: StringMapTo<Int>? = nil, _consoleID: StringMapTo<Int>? = StringMapTo(0), consoleName: String? = "", _flags: StringMapTo<Int>? = StringMapTo(0), _imageIcon: String? = "", _gameIcon: String? = "", _imageTitle: String? = "", _imageInGame: String? = "", _imageBoxArt: String? = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, gameTitle: String? = "", console: String? = "") {
+    public init(_id: String = "", title: String = "", _forumTopicID:String? = nil, _consoleID:String = "", consoleName: String = "", _flags:String = "", _imageIcon: String? = "", _gameIcon: String? = "", _imageTitle: String? = "", _imageInGame: String? = "", _imageBoxArt: String? = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, gameTitle: String? = "", console: String = "") {
         self._id = _id
         self.title = title
         self._forumTopicID = _forumTopicID
@@ -33,43 +33,61 @@ public struct Game_DTO: Codable, Equatable {
         self.console = console
     }
     
-    private var _id:StringMapTo<Int>?
-    public var id: Int? {
-        get { return _id?.decoded }
-        set { _id?.decoded = newValue ?? 0 }
+    private var _id:String
+    public var id: Int {
+        get { return Int(_id)! }
+        set { _id = String(newValue) }
     }
     
     ///Title of game
     /// - remark: So far this has been identical to ``gameTitle``
-    public var title : String?
+    public var title : String
+    ///Title of game
+    /// - remark: So far this has been identical to ``title``
+    private var gameTitle : String?
 
     ///ID Number string for topic page in forum
     /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
-    private var _forumTopicID : StringMapTo<Int>?
+    private var _forumTopicID : String?
     
     public var forumTopicID: Int? {
-        get { return _forumTopicID?.decoded }
-        set { _forumTopicID?.decoded = newValue ?? 0 }
+        get {
+            guard let _forumTopicID = _forumTopicID else { return nil }
+            return Int(_forumTopicID)
+        }
+        set {
+            guard let newValue = newValue else { _forumTopicID = nil; return }
+            _forumTopicID = String(newValue)
+        }
     }
     
     ///ID Number string for console
-    private var _consoleID : StringMapTo<Int>?
-    
-    public var consoleID: Int? {
-        get { return _consoleID?.decoded }
-        set { _consoleID?.decoded = newValue ?? 0 }
+    private var _consoleID : String
+    public var consoleID: Int {
+        get { return Int(_consoleID)! }
+        set { _consoleID = String(newValue) }
     }
+
     
     ///String name for console
     /// - remark: So far this has been identical to ``console``
-    public var consoleName : String?
+    public var consoleName : String
+    ///String name for console. Unused in favor of consoleName
+    /// - remark: So far this has been identical to ``consoleName``
+    private var console : String
+    
     
     /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
-    private var _flags : StringMapTo<Int>?
-    
+    private var _flags : String?
     public var flags: Int? {
-        get { return _flags?.decoded }
-        set { _flags?.decoded = newValue ?? 0 }
+        get {
+            guard let _flags = _flags else { return nil }
+            return Int(_flags)
+        }
+        set {
+            guard let newValue = newValue else { _flags = nil; return }
+            _flags = String(newValue)
+        }
     }
     
     ///partial path string to icon image for a game
@@ -113,15 +131,7 @@ public struct Game_DTO: Codable, Equatable {
     public var releaseDate: String? {
         self._released
     }
-    
-    ///Title of game
-    /// - remark: So far this has been identical to ``title``
-    private var gameTitle : String?
-    
-    ///String name for console. Unused in favor of consoleName
-    /// - remark: So far this has been identical to ``consoleName``
-    private var console : String?
-    
+
     enum CodingKeys: String, CodingKey {
         case _id = "ID"
         case title = "Title"

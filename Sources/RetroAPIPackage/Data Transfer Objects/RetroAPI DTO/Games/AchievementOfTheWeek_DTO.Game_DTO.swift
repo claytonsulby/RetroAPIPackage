@@ -8,14 +8,13 @@
 import Foundation
 
 public extension AchievementOfTheWeek_DTO {
-    
-    // MARK: - Console
-    struct Game_DTO: Codable, Equatable {
-        private var _gameID: StringMapTo<Int>
+
+    struct Game_DTO: Codable, Equatable, Game {
+        private var _gameID:String
         
         public var gameID: Int {
-            get { return _gameID.decoded }
-            set { _gameID.decoded = newValue }
+            get { return Int(_gameID)! }
+            set { _gameID = String(newValue) }
         }
         
         public var title: String

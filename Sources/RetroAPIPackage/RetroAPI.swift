@@ -65,10 +65,13 @@ public extension RetroAPI {
     private enum APIPages : String {
         
         case getAchievementCount = "API_GetAchievementCount"
+        case getAchievementDistribution = "API_GetAchievementDistribution"
         case getAchievementOfTheWeek = "API_GetAchievementOfTheWeek"
         case getAchievementUnlocks = "API_GetAchievementUnlocks"
         case getAchievementsEarnedBetween = "API_GetAchievementsEarnedBetween"
         case getAchievementsEarnedOnDay = "API_GetAchievementsEarnedOnDay"
+        
+        case getActiveClaims = "API_GetActiveClaims"
         
         case getConsoleIDs = "API_GetConsoleIDs"
         case getFeed = "API_GetFeed"
@@ -81,6 +84,7 @@ public extension RetroAPI {
         case getGameRating = "API_GetGameRating"
         case getTicketData = "API_GetTicketData"
         case getTopTenUsers = "API_GetTopTenUsers"
+        case getUserClaims = "API_GetUserClaims"
         case getUserCompletedGames = "API_GetUserCompletedGames"
         case getUserGameRankAndScore = "API_GetUserGameRankAndScore"
         case getUserProgress = "API_GetUserProgress"
@@ -88,10 +92,7 @@ public extension RetroAPI {
         
         case getUserRecentlyPlayedGames = "API_GetUserRecentlyPlayedGames"
         case getUserSummary = "API_GetUserSummary"
-        case getAchievementDistribution = "API_GetAchievementDistribution"
-        case getUserClaims = "API_GetUserClaims"
-        case getActiveClaims = "API_GetActiveClaims"
-        
+
     }
     
     private static func baseAPIComponents(_ page:APIPages, username:String? = RetroAPI.user, APIKey:String? = RetroAPI.key) -> URLComponents {
@@ -120,9 +121,7 @@ public extension RetroAPI {
         return agent.run(request)
             .map{$0.value}
             .eraseToAnyPublisher()
-        
     }
-    
 }
 
 

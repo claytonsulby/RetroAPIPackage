@@ -7,65 +7,65 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserCompletedGame_DTO: Codable, Equatable {
-    public init(_gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _numAwarded: StringMapTo<Int> = StringMapTo(0), _maxPossible: StringMapTo<Int> = StringMapTo(0), consoleName: String = "", title: String = "", _imageIcon: String = "", _pctWon: StringMapTo<Double> = StringMapTo(0), _hardcoreMode: String = "") {
-        self._gameID = _gameID
-        self._numAwarded = _numAwarded
-        self._maxPossible = _maxPossible
-        self._consoleID = _consoleID
-        self.consoleName = consoleName
+    public init(title: String = "", consoleName: String = "", _gameID: String = "", _consoleID: String = "", _imageIcon: String = "", _maxPossible: String = "", _maxAwHardcoreMode: String = "", _pctWon: String = "", _pctWonHC: String = "", _numAwarded: String = "", _numAwardedHC: String = "") {
         self.title = title
+        self.consoleName = consoleName
+        self._gameID = _gameID
+        self._consoleID = _consoleID
         self._imageIcon = _imageIcon
+        self._maxPossible = _maxPossible
+        self._maxAwHardcoreMode = _maxAwHardcoreMode
         self._pctWon = _pctWon
-        self._hardcoreMode = _hardcoreMode
+        self._pctWonHC = _pctWonHC
+        self._numAwarded = _numAwarded
+        self._numAwardedHC = _numAwardedHC
     }
+
+    public let title, consoleName: String
     
-    public var consoleName, title: String
-    private var _consoleID: StringMapTo<Int>
-    
-    private var _gameID, _numAwarded: StringMapTo<Int>
-    private var _maxPossible: StringMapTo<Int>?
-    private var _imageIcon : String
-    private var _pctWon: StringMapTo<Double>?
-    private var _hardcoreMode: String
-    
+    private let _gameID, _consoleID, _imageIcon: String
+    private let _maxPossible, _maxAwHardcoreMode: String
+    private let _pctWon, _pctWonHC: String
+    private let _numAwarded, _numAwardedHC: String
+
     public var gameID: Int {
-        get { return _gameID.decoded  }
-        set { _gameID.decoded = newValue }
+        get { return Int(_gameID) ?? -1  }
     }
     
     public var consleID: Int {
-        get { return _consoleID.decoded  }
-        set { _consoleID.decoded = newValue }
+        get { return Int(_consoleID) ?? -1  }
     }
     
     public var numAwardedToUser: Int {
-        get { return _numAwarded.decoded  }
-        set { _numAwarded.decoded = newValue }
+        get { return Int(_numAwarded) ?? -1  }
+    }
+    
+    public var numAwardedToUserHardcore: Int {
+        get { return Int(_numAwardedHC) ?? -1  }
     }
     
     public var numAchievements: Int? {
-        get { return _maxPossible?.decoded ?? 0  }
-        set { _maxPossible?.decoded = newValue ?? 0 }
+        get { return Int(_maxPossible) }
+    }
+    
+    public var numAchievementsHardcore: Int? {
+        get { return Int(_maxAwHardcoreMode) }
     }
     
     public var userCompletion: Double? {
-        get { return _pctWon?.decoded ?? 0.0  }
-        set { _pctWon?.decoded = newValue ?? 0.0 }
+        get { return Double(_pctWon) ?? 0.0  }
     }
     
-    public var hardcoreMode: Bool {
-        get { return ( _hardcoreMode == "1" ? true : false )  }
-        set { _hardcoreMode = (newValue == true ? "1" : "0") }
+    public var userCompletionHardcore: Double? {
+        get { return Double(_pctWonHC) ?? 0.0  }
     }
-    
-    public var imageIconURL: URL? {
 
+    public var imageIconURL: URL? {
         if _imageIcon == "/Images/000001.png" {
             return nil
         } else {
             return URL(string: RetroAPI.baseImageURL + _imageIcon)
         }
-        
     }
 
     enum CodingKeys: String, CodingKey {
@@ -74,22 +74,12 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
         case _consoleID = "ConsoleID"
         case _imageIcon = "ImageIcon"
         case title = "Title"
-        case _numAwarded = "NumAwarded"
         case _maxPossible = "MaxPossible"
+        case _maxAwHardcoreMode = "MAX(aw.HardcoreMode)"
+        case _numAwarded = "NumAwarded"
+        case _numAwardedHC = "NumAwardedHC"
         case _pctWon = "PctWon"
-        case _hardcoreMode = "HardcoreMode"
-    }
-    
-    //FIXME: add equitable conformance for the wrapper types
-    public static func == (lhs: UserCompletedGame_DTO, rhs: UserCompletedGame_DTO) -> Bool {
-        return lhs.gameID == rhs.gameID &&
-//            lhs._numAwarded == rhs._numAwarded &&
-//            lhs._maxPossible == rhs._maxPossible &&
-            lhs.consoleName == rhs.consoleName &&
-            lhs.title == rhs.title &&
-//            lhs._imageIcon == rhs._imageIcon &&
-//            lhs._pctWon == rhs._pctWon &&
-            lhs._hardcoreMode == rhs._hardcoreMode
+        case _pctWonHC = "PctWonHC"
     }
 
 }
