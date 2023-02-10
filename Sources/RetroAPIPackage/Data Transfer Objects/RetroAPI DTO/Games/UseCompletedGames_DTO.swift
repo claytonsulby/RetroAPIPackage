@@ -7,26 +7,31 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserCompletedGame_DTO: Codable, Equatable {
-    public init(title: String = "", consoleName: String = "", _gameID: String = "", _consoleID: String = "", _imageIcon: String = "", _maxPossible: String = "", _maxAwHardcoreMode: String = "", _pctWon: String = "", _pctWonHC: String = "", _numAwarded: String = "", _numAwardedHC: String = "") {
+    public init(title: String = "", consoleName: String = "", _gameID: String = "", _consoleID: String = "", _imageIcon: String = "", _maxPossible: String = "", _pctWon: String = "", _numAwarded: String = "", _hardcoreMode:String = "") {
         self.title = title
         self.consoleName = consoleName
         self._gameID = _gameID
         self._consoleID = _consoleID
         self._imageIcon = _imageIcon
         self._maxPossible = _maxPossible
-        self._maxAwHardcoreMode = _maxAwHardcoreMode
+//        self._maxAwHardcoreMode = _maxAwHardcoreMode
         self._pctWon = _pctWon
-        self._pctWonHC = _pctWonHC
+//        self._pctWonHC = _pctWonHC
         self._numAwarded = _numAwarded
-        self._numAwardedHC = _numAwardedHC
+//        self._numAwardedHC = _numAwardedHC
+        self._hardcoreMode = _hardcoreMode
     }
 
     public let title, consoleName: String
     
+    private let _hardcoreMode:String
+    
     private let _gameID, _consoleID, _imageIcon: String
-    private let _maxPossible, _maxAwHardcoreMode: String
-    private let _pctWon, _pctWonHC: String
-    private let _numAwarded, _numAwardedHC: String
+    private let _maxPossible: String
+    private let _pctWon: String
+    private let _numAwarded: String
+    
+//    private let _maxAwHardcoreMode, _numAwardedHC, _pctWonHC: String
 
     public var gameID: Int {
         get { return Int(_gameID) ?? -1  }
@@ -36,12 +41,16 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
         get { return Int(_consoleID) ?? -1  }
     }
     
+    public var hardcoreMode:Bool {
+        get { return _hardcoreMode == "1" }
+    }
+    
     public var numAwardedToUser: Int {
-        get { return Int(_numAwarded) ?? -1  }
+        get { return Int(_numAwarded) ?? 0  }
     }
     
     public var numAwardedToUserHardcore: Int {
-        get { return Int(_numAwardedHC) ?? -1  }
+        get { return hardcoreMode ? Int(_numAwarded) ?? 0 : 0  }
     }
     
     public var numAchievements: Int? {
@@ -49,7 +58,7 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
     }
     
     public var numAchievementsHardcore: Int? {
-        get { return Int(_maxAwHardcoreMode) }
+        get { return hardcoreMode ? Int(_maxPossible) : 0  }
     }
     
     public var userCompletion: Double? {
@@ -57,7 +66,7 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
     }
     
     public var userCompletionHardcore: Double? {
-        get { return Double(_pctWonHC) ?? 0.0  }
+        get { return hardcoreMode ? Double(_pctWon) ?? 0.0 : 0.0  }
     }
 
     public var imageIconURL: URL? {
@@ -75,11 +84,12 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
         case _imageIcon = "ImageIcon"
         case title = "Title"
         case _maxPossible = "MaxPossible"
-        case _maxAwHardcoreMode = "MAX(aw.HardcoreMode)"
+//        case _maxAwHardcoreMode = "MAX(aw.HardcoreMode)"
         case _numAwarded = "NumAwarded"
-        case _numAwardedHC = "NumAwardedHC"
+//        case _numAwardedHC = "NumAwardedHC"
         case _pctWon = "PctWon"
-        case _pctWonHC = "PctWonHC"
+//        case _pctWonHC = "PctWonHC"
+        case _hardcoreMode = "HardcoreMode"
     }
 
 }
