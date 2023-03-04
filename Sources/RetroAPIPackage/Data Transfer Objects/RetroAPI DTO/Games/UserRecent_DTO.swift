@@ -9,24 +9,14 @@ import Foundation
 public struct UserRecent_DTO: Codable, Equatable {
     
     public var title, consoleName:String
-    private var _gameID, _consoleID: StringMapTo<Int>
+    public var gameID, consoleID: Int
     private var _imageIcon: String
     
     private var _lastPlayed: String
     
     private var _myVote: String?
-    private var _numPossibleAchievements, _possibleScore, _numAchieved, _scoreAchieved, _numAchievedHardcore, _scoreAchievedHardcore: DecodeNilUnless<String>
-    
-    public var gameID:Int {
-        get { return _gameID.decoded }
-        set { _gameID.decoded = newValue }
-    }
-    
-    public var consoleID:Int {
-        get { return _consoleID.decoded }
-        set { _consoleID.decoded = newValue }
-    }
-    
+    private var _numPossibleAchievements, _possibleScore, _numAchieved, _scoreAchieved, _numAchievedHardcore, _scoreAchievedHardcore: PHPHelper.PHPInt?
+
     public var imageIconURL: URL? {
 
         if _imageIcon == "/Images/000001.png" {
@@ -48,38 +38,38 @@ public struct UserRecent_DTO: Codable, Equatable {
     }
 
     public var numPossibleAchievements:Int? {
-        get { return Int(_numPossibleAchievements.decoded ?? "") ?? 0 }
-        set { _numPossibleAchievements.decoded = String(newValue ?? 0) }
+        get { return _numPossibleAchievements?.decoded ?? 0 }
+        set { _numPossibleAchievements = .integer(newValue ?? 0) }
     }
     
     public var possibleScore:Int? {
-        get { return Int(_possibleScore.decoded ?? "") ?? 0 }
-        set { _possibleScore.decoded = String(newValue ?? 0) }
+        get { return _possibleScore?.decoded ?? 0 }
+        set { _possibleScore = .integer(newValue ?? 0) }
     }
     
     public var numAchieved:Int? {
-        get { return Int(_numAchieved.decoded ?? "") ?? 0 }
-        set { _numAchieved.decoded = String(newValue ?? 0) }
+        get { return _numAchieved?.decoded ?? 0 }
+        set { _numAchieved = .integer(newValue ?? 0) }
     }
     
     public var scoreAchieved:Int? {
-        get { return Int(_scoreAchieved.decoded ?? "") ?? 0 }
-        set { _scoreAchieved.decoded = String(newValue ?? 0) }
+        get { return _scoreAchieved?.decoded ?? 0 }
+        set { _scoreAchieved = .integer(newValue ?? 0) }
     }
     
     public var numAchievedHardcore:Int? {
-        get { return Int(_numAchievedHardcore.decoded ?? "") ?? 0 }
-        set { _numAchieved.decoded = String(newValue ?? 0) }
+        get { return _numAchievedHardcore?.decoded ?? 0 }
+        set { _numAchieved = .integer(newValue ?? 0) }
     }
     
     public var scoreAchievedHardcore:Int? {
-        get { return Int(_scoreAchievedHardcore.decoded ?? "") ?? 0 }
-        set { _scoreAchieved.decoded = String(newValue ?? 0) }
+        get { return _scoreAchievedHardcore?.decoded ?? 0 }
+        set { _scoreAchieved = .integer(newValue ?? 0) }
     }
     
     enum CodingKeys: String, CodingKey {
-        case _gameID = "GameID"
-        case _consoleID = "ConsoleID"
+        case gameID = "GameID"
+        case consoleID = "ConsoleID"
         case consoleName = "ConsoleName"
         case title = "Title"
         case _imageIcon = "ImageIcon"
@@ -96,8 +86,8 @@ public struct UserRecent_DTO: Codable, Equatable {
     public static func == (lhs: UserRecent_DTO, rhs: UserRecent_DTO) -> Bool {
         return lhs.title == rhs.title &&
         lhs.consoleName == rhs.consoleName &&
-        lhs._gameID == rhs._gameID &&
-        lhs._consoleID == rhs._consoleID &&
+        lhs.gameID == rhs.gameID &&
+        lhs.consoleID == rhs.consoleID &&
         lhs._imageIcon == rhs._imageIcon &&
         lhs._lastPlayed == rhs._lastPlayed &&
         lhs._myVote == rhs._myVote &&

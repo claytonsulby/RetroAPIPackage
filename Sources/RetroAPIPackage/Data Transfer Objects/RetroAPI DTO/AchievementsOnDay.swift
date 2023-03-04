@@ -10,7 +10,7 @@ import Foundation
 public typealias AchievementsOnDay_DTO = [AchievementOnDay_DTO]
 
 public struct AchievementOnDay_DTO : Codable, Equatable {
-    public init(date: String = "", hardcoreMode: String = "", achievementID: String = "", title: String = "", welcomeDescription: String = "", badgeName: String = "", points: String = "", author: String = "", gameTitle: String = "", gameIcon: String = "", gameID: String = "", consoleName: String = "", cumulScore: Int = 0, badgeURL: String = "", gameURL: String = "") {
+    public init(date: String = "", hardcoreMode: Int = 0, achievementID: Int = 0, title: String = "", welcomeDescription: String = "", badgeName: String = "", points: Int = 0, author: String = "", gameTitle: String = "", gameIcon: String = "", gameID: Int = 0, consoleName: String = "", cumulScore: Int = 0, badgeURL: String = "", gameURL: String = "") {
         self.date = date
         self.hardcoreMode = hardcoreMode
         self.achievementID = achievementID
@@ -29,12 +29,12 @@ public struct AchievementOnDay_DTO : Codable, Equatable {
     }
     
     
-    let date, hardcoreMode, achievementID, title: String
-    let welcomeDescription, badgeName, points: String
+    let hardcoreMode, achievementID, points: Int
+    let date, title, welcomeDescription, badgeName : String
     let author: String
     let gameTitle: String
     let gameIcon: String
-    let gameID: String
+    let gameID: Int
     let consoleName: String
     let cumulScore: Int
     let badgeURL: String

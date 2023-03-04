@@ -7,66 +7,43 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserCompletedGame_DTO: Codable, Equatable {
-    public init(title: String = "", consoleName: String = "", _gameID: String = "", _consoleID: String = "", _imageIcon: String = "", _maxPossible: String = "", _pctWon: String = "", _numAwarded: String = "", _hardcoreMode:String = "") {
-        self.title = title
-        self.consoleName = consoleName
-        self._gameID = _gameID
-        self._consoleID = _consoleID
-        self._imageIcon = _imageIcon
-        self._maxPossible = _maxPossible
-//        self._maxAwHardcoreMode = _maxAwHardcoreMode
-        self._pctWon = _pctWon
-//        self._pctWonHC = _pctWonHC
-        self._numAwarded = _numAwarded
-//        self._numAwardedHC = _numAwardedHC
-        self._hardcoreMode = _hardcoreMode
-    }
 
     public let title, consoleName: String
     
     private let _hardcoreMode:String
     
-    private let _gameID, _consoleID, _imageIcon: String
-    private let _maxPossible: String
+    public let gameID, consoleID: Int
+    private let _imageIcon: String
+    private let _maxPossible: PHPHelper.PHPInt?
     private let _pctWon: String
-    private let _numAwarded: String
-    
-//    private let _maxAwHardcoreMode, _numAwardedHC, _pctWonHC: String
+    private let _numAwarded: PHPHelper.PHPInt?
 
-    public var gameID: Int {
-        get { return Int(_gameID) ?? -1  }
-    }
-    
-    public var consleID: Int {
-        get { return Int(_consoleID) ?? -1  }
-    }
-    
     public var hardcoreMode:Bool {
         get { return _hardcoreMode == "1" }
     }
     
     public var numAwardedToUser: Int {
-        get { return Int(_numAwarded) ?? 0  }
+        get { return _numAwarded?.decoded ?? 0  }
     }
     
     public var numAwardedToUserHardcore: Int {
-        get { return hardcoreMode ? Int(_numAwarded) ?? 0 : 0  }
+        get { return hardcoreMode ? _numAwarded?.decoded ?? 0 : 0 }
     }
     
     public var numAchievements: Int? {
-        get { return Int(_maxPossible) }
+        get { return _maxPossible?.decoded }
     }
     
     public var numAchievementsHardcore: Int? {
-        get { return hardcoreMode ? Int(_maxPossible) : 0  }
+        get { return hardcoreMode ? _maxPossible?.decoded : nil }
     }
     
     public var userCompletion: Double? {
-        get { return Double(_pctWon) ?? 0.0  }
+        get { return Double(_pctWon) }
     }
     
     public var userCompletionHardcore: Double? {
-        get { return hardcoreMode ? Double(_pctWon) ?? 0.0 : 0.0  }
+        get { return hardcoreMode ? Double(_pctWon) : nil }
     }
 
     public var imageIconURL: URL? {
@@ -78,17 +55,14 @@ public struct UserCompletedGame_DTO: Codable, Equatable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case _gameID = "GameID"
+        case gameID = "GameID"
         case consoleName = "ConsoleName"
-        case _consoleID = "ConsoleID"
+        case consoleID = "ConsoleID"
         case _imageIcon = "ImageIcon"
         case title = "Title"
         case _maxPossible = "MaxPossible"
-//        case _maxAwHardcoreMode = "MAX(aw.HardcoreMode)"
         case _numAwarded = "NumAwarded"
-//        case _numAwardedHC = "NumAwardedHC"
         case _pctWon = "PctWon"
-//        case _pctWonHC = "PctWonHC"
         case _hardcoreMode = "HardcoreMode"
     }
 

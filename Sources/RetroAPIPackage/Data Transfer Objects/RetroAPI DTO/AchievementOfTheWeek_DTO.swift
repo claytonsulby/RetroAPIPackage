@@ -7,19 +7,19 @@ import Foundation
 
 // MARK: - Welcome
 public struct AchievementOfTheWeek_DTO: Codable, Equatable {
-    public init(achievement: AchievementOfTheWeek_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO? = nil, game: AchievementOfTheWeek_DTO.Game_DTO? = nil, startAt: String? = nil, _totalPlayers:StringMapTo<Int> = StringMapTo(0), unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]? = nil, _unlocksCount:StringMapTo<Int> = StringMapTo(0)) {
+    public init(achievement: AchievementOfTheWeek_DTO.Achievement_DTO? = nil, console: Console_DTO? = nil, forumTopic: AchievementOfTheWeek_DTO.ForumTopic_DTO? = nil, game: AchievementOfTheWeek_DTO.Game_DTO? = nil, startAt: String? = nil, totalPlayers:Int = 0, unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]? = nil, unlocksCount:Int = 0) {
         self.achievement = achievement
         self.console = console
         self.forumTopic = forumTopic
         self.game = game
         self.startAt = startAt
-        self._totalPlayers = _totalPlayers
+        self.totalPlayers = totalPlayers
         self.unlocks = unlocks
-        self._unlocksCount = _unlocksCount
+        self.unlocksCount = unlocksCount
     }
     
-    private var _totalPlayers:StringMapTo<Int>
-    public var _unlocksCount:StringMapTo<Int>
+    public var totalPlayers:Int
+    public var unlocksCount:Int
     
     public var achievement: AchievementOfTheWeek_DTO.Achievement_DTO?
     public var console: Console_DTO?
@@ -28,32 +28,20 @@ public struct AchievementOfTheWeek_DTO: Codable, Equatable {
     public var startAt: String?
     public var unlocks: [AchievementOfTheWeek_DTO.Unlock_DTO]?
     
-    
-    public var totalPlayers: Int {
-        get { return _totalPlayers.decoded }
-        set { _totalPlayers.decoded = newValue }
-    }
-    
-    public var unlocksCount: Int {
-        get { return _unlocksCount.decoded }
-        set { _unlocksCount.decoded = newValue }
-    }
-    
-    
     enum CodingKeys: String, CodingKey {
         case achievement = "Achievement"
         case console = "Console"
         case forumTopic = "ForumTopic"
         case game = "Game"
         case startAt = "StartAt"
-        case _totalPlayers = "TotalPlayers"
+        case totalPlayers = "TotalPlayers"
         case unlocks = "Unlocks"
-        case _unlocksCount = "UnlocksCount"
+        case unlocksCount = "UnlocksCount"
     }
     
     public static func == (lhs: AchievementOfTheWeek_DTO, rhs: AchievementOfTheWeek_DTO) -> Bool {
-        return lhs._totalPlayers == rhs._totalPlayers &&
-        lhs._unlocksCount == rhs._unlocksCount &&
+        return lhs.totalPlayers == rhs.totalPlayers &&
+        lhs.unlocksCount == rhs.unlocksCount &&
         lhs.achievement == rhs.achievement &&
         lhs.console == rhs.console &&
         lhs.forumTopic == rhs.forumTopic &&
@@ -67,7 +55,7 @@ public extension AchievementOfTheWeek_DTO {
     
     // MARK: - ForumTopic
     struct ForumTopic_DTO: Codable, Equatable {
-        public var id: String?
+        public var id: Int?
         
         enum CodingKeys: String, CodingKey {
             case id = "ID"
@@ -80,7 +68,8 @@ public extension AchievementOfTheWeek_DTO {
     
     // MARK: - Unlock
     struct Unlock_DTO: Codable, Equatable {
-        public var user, raPoints, dateAwarded, hardcoreMode: String?
+        public var user, dateAwarded: String?
+        public var hardcoreMode, raPoints: Int?
         
         enum CodingKeys: String, CodingKey {
             case user = "User"

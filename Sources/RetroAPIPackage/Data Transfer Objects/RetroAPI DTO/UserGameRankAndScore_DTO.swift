@@ -7,20 +7,29 @@ import Foundation
 
 // MARK: - WelcomeElement
 public struct UserGameRankAndScoreElement_DTO: Codable, Equatable {
-    public init(user: String? = nil, totalScore: String? = nil, lastAward: String? = nil, userRank: String? = nil) {
+    public init(user: String? = nil, _totalScore: PHPHelper.PHPInt? = nil, lastAward: String? = nil, _userRank: PHPHelper.PHPInt? = nil) {
         self.user = user
-        self.totalScore = totalScore
+        self._totalScore = _totalScore
         self.lastAward = lastAward
-        self.userRank = userRank
+        self._userRank = _userRank
     }
     
-    public var user, totalScore, lastAward, userRank: String?
+    public var user, lastAward: String?
+    private var _totalScore, _userRank: PHPHelper.PHPInt?
+    
+    public var totalScore: Int? {
+        get { _totalScore?.decoded }
+    }
+    
+    public var userRank: Int? {
+        get { _userRank?.decoded }
+    }
 
     enum CodingKeys: String, CodingKey {
         case user = "User"
-        case totalScore = "TotalScore"
+        case _totalScore = "TotalScore"
         case lastAward = "LastAward"
-        case userRank = "UserRank"
+        case _userRank = "UserRank"
     }
     
     public static func == (lhs: UserGameRankAndScoreElement_DTO, rhs: UserGameRankAndScoreElement_DTO) -> Bool {

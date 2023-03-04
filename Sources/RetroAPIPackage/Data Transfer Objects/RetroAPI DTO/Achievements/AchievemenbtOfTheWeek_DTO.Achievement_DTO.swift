@@ -11,9 +11,9 @@ public extension AchievementOfTheWeek_DTO {
     // MARK: - Achievement
     struct Achievement_DTO: Codable, Equatable {
         
-        public init(_achievementID: StringMapTo<Int> = StringMapTo(0), _points: StringMapTo<Int> = StringMapTo(0), _trueRatio: StringMapTo<Double> = StringMapTo(0), _dateCreated: String = "", _dateModified: String = "", title: String = "", achievementDescription: String = "", author: String = "") {
-            self._achievementID = _achievementID
-            self._points = _points
+        public init(achievementID:Int = 0, points: Int = 0, _trueRatio:Int = 0, _dateCreated: String = "", _dateModified: String = "", title: String = "", achievementDescription: String = "", author: String = "") {
+            self.achievementID = achievementID
+            self.points = points
             self._trueRatio = _trueRatio
             self._dateCreated = _dateCreated
             self._dateModified = _dateModified
@@ -22,23 +22,13 @@ public extension AchievementOfTheWeek_DTO {
             self.author = author
         }
         
-        private var _achievementID, _points: StringMapTo<Int>
-        private var _trueRatio: StringMapTo<Double>
+        public var achievementID, points: Int
+        private var _trueRatio:Int
         private var _dateCreated, _dateModified: String
-        
-        public var achievementID:Int {
-            get { return _achievementID.decoded }
-            set { _achievementID.decoded = newValue }
-        }
-
-        public var points:Int {
-            get { return _points.decoded }
-            set { _points.decoded = newValue }
-        }
 
         public var trueRatio:Double {
-            get { return _trueRatio.decoded }
-            set { _trueRatio.decoded = newValue }
+            get { return Double(_trueRatio) }
+            set { _trueRatio = Int(newValue) }
         }
         
         public var dateModified: Date {
@@ -56,10 +46,10 @@ public extension AchievementOfTheWeek_DTO {
 
         
         enum CodingKeys: String, CodingKey {
-            case _achievementID = "ID"
+            case achievementID = "ID"
             case title = "Title"
             case achievementDescription = "Description"
-            case _points = "Points"
+            case points = "Points"
             case _trueRatio = "TrueRatio"
             case author = "Author"
             case _dateCreated = "DateCreated"
@@ -67,8 +57,8 @@ public extension AchievementOfTheWeek_DTO {
         }
         
         public static func == (lhs: AchievementOfTheWeek_DTO.Achievement_DTO, rhs: AchievementOfTheWeek_DTO.Achievement_DTO) -> Bool {
-            return lhs._achievementID == rhs._achievementID &&
-            lhs._points == rhs._points &&
+            return lhs.achievementID == rhs.achievementID &&
+            lhs.points == rhs.points &&
             lhs._trueRatio == rhs._trueRatio &&
             lhs._dateCreated == rhs._dateCreated &&
             lhs._dateModified == rhs._dateModified &&

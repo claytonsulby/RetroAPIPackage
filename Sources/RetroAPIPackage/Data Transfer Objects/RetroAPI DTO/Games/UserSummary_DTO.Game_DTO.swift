@@ -11,13 +11,13 @@ public extension UserSummary_DTO {
     
     // MARK: - RecentlyPlayed
     struct Game_DTO: Codable, Equatable {
-        public init(consoleName: String = "", title: String = "", _imageIcon: String = "", _lastPlayed: String = "", _gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _myVote: String? = nil) {
+        public init(consoleName: String = "", title: String = "", _imageIcon: String = "", _lastPlayed: String = "", gameID: Int = 0, consoleID: Int = 0, _myVote: String? = nil) {
             self.consoleName = consoleName
             self.title = title
             self._imageIcon = _imageIcon
             self._lastPlayed = _lastPlayed
-            self._gameID = _gameID
-            self._consoleID = _consoleID
+            self.gameID = gameID
+            self.consoleID = consoleID
             self._myVote = _myVote
         }
         
@@ -25,19 +25,9 @@ public extension UserSummary_DTO {
         public var consoleName, title: String
         
         private var _imageIcon, _lastPlayed: String
-        private var _gameID, _consoleID: StringMapTo<Int>
+        public var gameID, consoleID: Int
         private var _myVote:String?
-        
-        public var gameID:Int {
-            get { return _gameID.decoded }
-            set { _gameID.decoded = newValue }
-        }
-        
-        public var consoleID:Int {
-            get { return _consoleID.decoded }
-            set { _consoleID.decoded = newValue }
-        }
-        
+
         public var imageIconURL: URL? {
 
             if _imageIcon == "/Images/000001.png" {
@@ -61,8 +51,8 @@ public extension UserSummary_DTO {
         }
         
         enum CodingKeys: String, CodingKey {
-            case _gameID = "GameID"
-            case _consoleID = "ConsoleID"
+            case gameID = "GameID"
+            case consoleID = "ConsoleID"
             case consoleName = "ConsoleName"
             case title = "Title"
             case _imageIcon = "ImageIcon"

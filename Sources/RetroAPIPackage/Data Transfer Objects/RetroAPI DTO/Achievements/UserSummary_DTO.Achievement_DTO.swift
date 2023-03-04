@@ -14,35 +14,20 @@ public extension UserSummary_DTO {
         
         public var title, gameTitle, achievementDescription:String
         
-        private var _gameID, _achievementID, _points: StringMapTo<Int>
-        
-        public var gameID:Int {
-            get { return _gameID.decoded }
-            set { _gameID.decoded = newValue }
-        }
-        
-        public var achievementID:Int {
-            get { return _achievementID.decoded }
-            set { _achievementID.decoded = newValue }
-        }
-        
-        public var points:Int {
-            get { return _points.decoded }
-            set { _points.decoded = newValue }
-        }
+        public var gameID, achievementID, points:Int
         
         private var badgeName:String
         private var _isAwarded: String
-        private var _hardcoreAchieved: String?
+        private var _hardcoreAchieved:Int?
         private var _dateAwarded: String?
 
         enum CodingKeys: String, CodingKey {
-            case _achievementID = "ID"
-            case _gameID = "GameID"
+            case achievementID = "ID"
+            case gameID = "GameID"
             case gameTitle = "GameTitle"
             case title = "Title"
             case achievementDescription = "Description"
-            case _points = "Points"
+            case points = "Points"
             case badgeName = "BadgeName"
             case _isAwarded = "IsAwarded"
             case _dateAwarded = "DateAwarded"
@@ -53,9 +38,9 @@ public extension UserSummary_DTO {
             return lhs.title == rhs.title &&
                 lhs.gameTitle == rhs.gameTitle &&
                 lhs.achievementDescription == rhs.achievementDescription &&
-                lhs._gameID == rhs._gameID &&
-                lhs._achievementID == rhs._achievementID &&
-                lhs._points == rhs._points &&
+                lhs.gameID == rhs.gameID &&
+                lhs.achievementID == rhs.achievementID &&
+                lhs.points == rhs.points &&
                 lhs.badgeName == rhs.badgeName &&
                 lhs._isAwarded == rhs._isAwarded &&
                 lhs._hardcoreAchieved == rhs._hardcoreAchieved &&
@@ -103,7 +88,7 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     
     public var isAwardedHardcore: Bool {
         if let _hardcoreAchieved = _hardcoreAchieved {
-            if _hardcoreAchieved == "0" {
+            if _hardcoreAchieved == 0 {
                 return false
             } else {
                 return true

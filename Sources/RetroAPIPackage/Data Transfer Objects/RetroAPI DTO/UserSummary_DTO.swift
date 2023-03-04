@@ -7,112 +7,63 @@ import Foundation
 
 // MARK: - UserSummary
 public struct UserSummary_DTO: Codable, Equatable {
-    public init(recentlyPlayedCount: Int = 0, recentlyPlayed: [UserSummary_DTO.Game_DTO] = [], lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGame: UserSummary_DTO.LastGame_DTO? = nil, motto: String = "", rank: Int = 0, awarded: UserProgress_DTO? = nil, status: String = "", _contribCount: StringMapTo<Int> = StringMapTo(0), _contribYield: StringMapTo<Int> = StringMapTo(0), _totalPoints: StringMapTo<Int> = StringMapTo(0), _lastGameID: StringMapTo<Int> = StringMapTo(0), _totalTruePoints: String? = nil, _memberSince: String = "", _permissions: StringMapTo<Int> = StringMapTo(0), _untracked: StringMapTo<Int> = StringMapTo(0), _id: StringMapTo<Int> = StringMapTo(0), _userWallActive: StringMapTo<Int> = StringMapTo(0), _points: StringMapTo<Int> = StringMapTo(0), totalRanked:Int = 0, _userPic: String = "", _recentAchievements: [String : [String : UserSummary_DTO.Achievement_DTO]]? = nil) {
+    public init(recentlyPlayedCount: Int = 0, recentlyPlayed: [UserSummary_DTO.Game_DTO] = [], lastActivity: UserSummary_DTO.LastActivity_DTO? = nil, richPresenceMsg: String? = nil, lastGameID: Int? = nil, lastGame: UserSummary_DTO.LastGame_DTO? = nil, contribCount: Int = 0, contribYield: Int = 0, totalPoints: Int = 0, totalSoftcorePoints: Int = 0, totalTruePoints: Int = 0, permissions: Int = 0, untracked: Int = 0, _id: Int = 0, userWallActive: Int = 0, motto: String = "", rank: Int? = nil, awarded: UserProgress_DTO? = nil, totalRanked: Int = 0, status: String = "", _memberSince: String = "", _userPic: String = "", _recentAchievements: [String : [String : UserSummary_DTO.Achievement_DTO]]? = nil) {
         self.recentlyPlayedCount = recentlyPlayedCount
         self.recentlyPlayed = recentlyPlayed
         self.lastActivity = lastActivity
         self.richPresenceMsg = richPresenceMsg
+        self.lastGameID = lastGameID
         self.lastGame = lastGame
+        self.contribCount = contribCount
+        self.contribYield = contribYield
+        self.totalPoints = totalPoints
+        self.totalSoftcorePoints = totalSoftcorePoints
+        self.totalTruePoints = totalTruePoints
+        self.permissions = permissions
+        self.untracked = untracked
+        self._id = _id
+        self.userWallActive = userWallActive
         self.motto = motto
         self.rank = rank
         self.awarded = awarded
-        self.status = status
-        self._contribCount = _contribCount
-        self._contribYield = _contribYield
-        self._totalPoints = _totalPoints
-        self._lastGameID = _lastGameID
-        self._totalTruePoints = _totalTruePoints
-        self._memberSince = _memberSince
-        self._permissions = _permissions
-        self._untracked = _untracked
-        self._id = _id
-        self._userWallActive = _userWallActive
-        self._points = _points
         self.totalRanked = totalRanked
+        self.status = status
+        self._memberSince = _memberSince
         self._userPic = _userPic
         self._recentAchievements = _recentAchievements
     }
-    
-    
+
     public var recentlyPlayedCount: Int
     public var recentlyPlayed: [UserSummary_DTO.Game_DTO]
     public var lastActivity: LastActivity_DTO?
     public var richPresenceMsg: String?
+    public var lastGameID:Int?
     public var lastGame: UserSummary_DTO.LastGame_DTO?
+    public var contribCount, contribYield, totalPoints, totalSoftcorePoints: Int
+    public var totalTruePoints, permissions, untracked: Int
+    private var _id: Int
+    public var userWallActive: Int
     public var motto: String
-    public var rank: Int
+    public var rank: Int?
     public var awarded: UserProgress_DTO?
-    public var status: String
     public var totalRanked:Int
+    public var status: String
     
-    private var _contribCount, _contribYield, _totalPoints, _lastGameID:StringMapTo<Int>
-    private var _totalTruePoints: String?
     private var _memberSince: String //to date
-    private var _permissions, _untracked, _id, _userWallActive, _points: StringMapTo<Int>
     private var _userPic:String //to url
     private var _recentAchievements: [String:[String:UserSummary_DTO.Achievement_DTO]]?
-
-    public var contribCount:Int {
-        get { return _contribCount.decoded }
-        set { _contribCount.decoded = newValue }
-    }
-    
-    public var contribYield:Int {
-        get { return _contribYield.decoded }
-        set { _contribYield.decoded = newValue }
-    }
-    
-    public var totalPoints:Int {
-        get { return _totalPoints.decoded }
-        set { _totalPoints.decoded = newValue }
-    }
-    
-    //"0" if nothing
-    public var lastGameID:Int? {
-        get {
-            if _lastGameID.decoded != 0 {
-                return _lastGameID.decoded
-            } else {
-                return nil
-            }
-        }
-        set { _lastGameID.decoded = newValue ?? 0 }
-    }
-    
-    public var totalTruePoints:Int? {
-        get {
-            if let totalTruePoints = _totalTruePoints {
-                return Int(totalTruePoints)
-            } else {
-                return nil
-            }
-        }
-        set { _lastGameID.decoded = newValue ?? 0 }
-    }
     
     public var memberSince: Date? {
         DateFormatter.date(fromString: self._memberSince)
     }
     
-    public var permissions:Int {
-        get { return _permissions.decoded }
-        set { _permissions.decoded = newValue }
-    }
-    public var untracked:Int {
-        get { return _untracked.decoded }
-        set { _untracked.decoded = newValue }
-    }
-    public var userID:Int {
-        get { return _id.decoded }
-        set { _id.decoded = newValue }
-    }
-    public var userWallActive:Int {
-        get { return _userWallActive.decoded }
-        set { _userWallActive.decoded = newValue }
-    }
     public var points:Int {
-        get { return _points.decoded }
-        set { _points.decoded = newValue }
+        get { return totalPoints } 
+    }
+  
+    public var userID:Int {
+        get { return _id }
+        set { _id = newValue }
     }
     
     public var userPicURL: URL? {
@@ -133,60 +84,35 @@ public struct UserSummary_DTO: Codable, Equatable {
         case _memberSince = "MemberSince"
         case lastActivity = "LastActivity"
         case richPresenceMsg = "RichPresenceMsg"
-        case _lastGameID = "LastGameID"
+        case lastGameID = "LastGameID"
         case lastGame = "LastGame"
-        case _contribCount = "ContribCount"
-        case _contribYield = "ContribYield"
-        case _totalPoints = "TotalPoints"
-        case _totalTruePoints = "TotalTruePoints"
-        case _permissions = "Permissions"
-        case _untracked = "Untracked"
+        case contribCount = "ContribCount"
+        case contribYield = "ContribYield"
+        case totalPoints = "TotalPoints"
+        case totalSoftcorePoints = "TotalSoftcorePoints"
+        case totalTruePoints = "TotalTruePoints"
+        case permissions = "Permissions"
+        case untracked = "Untracked"
         case _id = "ID"
-        case _userWallActive = "UserWallActive"
+        case userWallActive = "UserWallActive"
         case motto = "Motto"
         case rank = "Rank"
         case awarded = "Awarded"
         case _recentAchievements = "RecentAchievements"
-        case _points = "Points"
         case _userPic = "UserPic"
         case totalRanked = "TotalRanked"
         case status = "Status"
     }
     
-    public static func == (lhs: UserSummary_DTO, rhs: UserSummary_DTO) -> Bool {
-        return lhs.recentlyPlayedCount == rhs.recentlyPlayedCount &&
-            lhs.recentlyPlayed == rhs.recentlyPlayed &&
-            lhs.lastActivity == rhs.lastActivity &&
-            lhs.richPresenceMsg == rhs.richPresenceMsg &&
-            lhs.lastGame == rhs.lastGame &&
-            lhs.motto == rhs.motto &&
-            lhs.rank == rhs.rank &&
-            lhs.awarded == rhs.awarded &&
-            lhs.status == rhs.status &&
-            lhs.contribCount == rhs.contribCount &&
-            lhs.contribYield == rhs.contribYield &&
-            lhs.totalPoints == rhs.totalPoints &&
-            lhs.lastGameID == rhs.lastGameID &&
-            lhs.totalTruePoints == rhs.totalTruePoints &&
-            lhs.memberSince == rhs.memberSince &&
-            lhs.permissions == rhs.permissions &&
-            lhs.untracked == rhs.untracked &&
-//            lhs.id == rhs.id &&
-            lhs.userWallActive == rhs.userWallActive &&
-            lhs.points == rhs.points &&
-            lhs.totalRanked == rhs.totalRanked &&
-//            lhs._userPic == rhs._userPic &&
-            lhs._recentAchievements == rhs._recentAchievements
-    }
 }
 
 public extension UserSummary_DTO {
     
     // MARK: - LastActivity
     struct LastActivity_DTO: Codable, Equatable {
-        public init(_id: StringMapTo<Int> = StringMapTo(0), _activitytype: StringMapTo<Int> = StringMapTo(0), _timestamp: String = "", _lastupdate: String = "", user: String = "", data: String? = nil, data2: String? = nil) {
-            self._id = _id
-            self._activitytype = _activitytype
+        public init(id:Int = 0, activitytype: Int = 0, _timestamp: String = "", _lastupdate: String = "", user: String = "", data: String? = nil, data2: String? = nil) {
+            self.id = id
+            self.activitytype = activitytype
             self._timestamp = _timestamp
             self._lastupdate = _lastupdate
             self.user = user
@@ -195,22 +121,12 @@ public extension UserSummary_DTO {
         }
         
 
-        private var _id, _activitytype: StringMapTo<Int>
+        public var id, activitytype: Int
         private var _timestamp, _lastupdate: String
         
         public var user: String
         public var data, data2: String?
-        
-        public var id:Int {
-            get { return _id.decoded }
-            set { _id.decoded = newValue }
-        }
-        
-        public var activitytype:Int {
-            get { return _activitytype.decoded }
-            set { _activitytype.decoded = newValue }
-        }
-        
+
         public var timestamp: Date? {
             DateFormatter.date(fromString: self._timestamp)
         }
@@ -220,10 +136,10 @@ public extension UserSummary_DTO {
         }
 
         enum CodingKeys: String, CodingKey {
-            case _id = "ID"
+            case id = "ID"
             case _timestamp = "timestamp"
             case _lastupdate = "lastupdate"
-            case _activitytype = "activitytype"
+            case activitytype = "activitytype"
             case user = "User"
             case data, data2
         }

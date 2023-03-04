@@ -37,7 +37,7 @@ public enum PHPHelper {
             }
         }
         
-        public var value:Int? {
+        public var decoded:Int? {
             switch self {
             case .integer(let x):
                 return x
@@ -47,7 +47,7 @@ public enum PHPHelper {
         }
         
         public static func == (lhs: PHPHelper.PHPInt, rhs: PHPHelper.PHPInt) -> Bool {
-            return lhs.value == rhs.value
+            return lhs.decoded == rhs.decoded
         }
         
     }

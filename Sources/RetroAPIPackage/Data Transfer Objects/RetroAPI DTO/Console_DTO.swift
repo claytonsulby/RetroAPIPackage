@@ -7,12 +7,13 @@ import Foundation
 
 // MARK: - ConsoleID_DTO
 public struct Console_DTO: Codable, Equatable {
-    public init(id: String? = nil, name: String? = nil) {
+    public init(id: Int? = nil, name: String? = nil) {
         self.id = id
         self.name = name
     }
     
-    public var id, name: String?
+    public var id: Int?
+    public var name: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "ID"

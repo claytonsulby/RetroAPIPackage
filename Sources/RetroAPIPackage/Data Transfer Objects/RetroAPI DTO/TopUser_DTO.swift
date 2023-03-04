@@ -13,7 +13,7 @@ extension TopUsers_DTO : DTO {}
 
 public struct TopUser_DTO : DTO, Codable, Equatable {
     
-    public init(username: String = "", RAPoints: String = "", trueRAPoints: String = "") {
+    public init(username: String = "", RAPoints: Int = 0, trueRAPoints: Int = 0) {
         self.username = username
         self.RAPoints = RAPoints
         self.trueRAPoints = trueRAPoints
@@ -23,10 +23,10 @@ public struct TopUser_DTO : DTO, Codable, Equatable {
     public var username:String
     
     ///sum total of points for achievements and games which are still active
-    public var RAPoints:String
+    public var RAPoints:Int
     
     ///sum total of points for achievements and games which are either active or removed / editted / deleted.
-    public var trueRAPoints:String
+    public var trueRAPoints:Int
     
     enum CodingKeys: String, CodingKey {
         case username = "1"
