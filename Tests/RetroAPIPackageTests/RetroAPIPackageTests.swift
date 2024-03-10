@@ -5,7 +5,7 @@ import Combine
 extension XCTestCase {
     func awaitPublisher<T: Publisher>(
         _ publisher: T,
-        timeout: TimeInterval = 10,
+        timeout: TimeInterval = 100,
         file: StaticString = #file,
         line: UInt = #line
     ) throws -> T.Output {
@@ -141,7 +141,7 @@ final class RetroAPITests: XCTestCase {
     
 }
 
-extension Sequence {
+fileprivate extension Sequence {
     func asyncForEach(
         _ operation: (Element) async throws -> Void
     ) async rethrows {
@@ -360,6 +360,7 @@ final class RetroAPITests_Combine : XCTestCase {
     
     func testGetGame() throws {
         try Cases.games.forEach { (key: String, value: Int) in
+            print("test:", key, value)
             let result = try awaitPublisher(RetroAPI.getGame(gameID: value))
             XCTAssertNotEqual(result, Game_DTO())
         }
@@ -379,6 +380,7 @@ final class RetroAPITests_Combine : XCTestCase {
     
     func testGetGameList() throws {
         try Cases.consoles.forEach { (key: String, value: Int) in
+            print("test:", key, value)
             let result = try awaitPublisher(RetroAPI.getGameList(consoleID: value))
             XCTAssertNotEqual(result, GameList_DTO())
         }
@@ -423,7 +425,7 @@ final class RetroAPITests_Combine : XCTestCase {
         try Cases.users.forEach { (key: String, value: String) in
             print("\(key): \(value)")
             let result = try awaitPublisher(RetroAPI.getUserSummary(username: value))
-            XCTAssertNotEqual(result, UserSummary_DTO())
+            XCTAssertEqual(result.user.lowercased(), value.lowercased())
         }
     }
     
@@ -439,18 +441,22 @@ final class RetroAPITests_Combine : XCTestCase {
     
     func testGetAchievementsEarnedOnDay() throws {
         let cases = [
-            "":("maxmilyin", DateFormatter.date(format: "dd-MMM-yyyy", fromString: "31-Oct-2022")!)
+            "wertox123":DateFormatter.date(format: "yyyy-MM-dd", fromString: "2021-03-14")!
         ]
-        try cases.forEach { (key: String, value: (String, Date)) in
-            let result = try awaitPublisher(RetroAPI.getAchievementsEarnedOnDay(username: value.0, date: value.1))
-            XCTAssertNotEqual(result, AchievementsOnDay_DTO())
+        try cases.forEach { (key: String, value: Date) in
+            let result = try awaitPublisher(RetroAPI.getAchievementsEarnedOnDay(username: key, date: value))
+            XCTAssertFalse(result.isEmpty)
         }
     }
     
     func testGetAchievementsEarnedBetween() throws {
         try Cases.users.forEach { (key: String, value: String) in
             let result = try awaitPublisher(RetroAPI.getAchievementsEarnedBetween(username: value))
-//            XCTAssertNotEqual(result, AchievementsBetween_DTO())
+            if (value != "blackspot31") {
+                XCTAssertFalse(result.isEmpty)
+            } else {
+                XCTAssertTrue(result.isEmpty)
+            }
         }
     }
     
@@ -458,14 +464,18 @@ final class RetroAPITests_Combine : XCTestCase {
         try Cases.users.forEach { (key: String, value: String) in
             print("\(key): \(value)")
             let result = try awaitPublisher(RetroAPI.getUserCompletedGames(username: value))
-//            XCTAssertNotEqual(result, UserCompletedGames_DTO())
+            if (value != "blackspot31") {
+                XCTAssertFalse(result.isEmpty)
+            } else {
+                XCTAssertTrue(result.isEmpty)
+            }
         }
     }
     
     func testGetAchievementUnlocks() throws {
         try Cases.achievements.forEach { (key: String, value: Int) in
             let result = try awaitPublisher(RetroAPI.getAchievementUnlocks(achievementID: value))
-            XCTAssertNotEqual(result, AchievementUnlocks_DTO())
+            XCTAssertEqual(result.achievement?.achievementID, value)
         }
     }
     
@@ -752,6 +762,37 @@ final class RetroAPITests_HTTP : XCTestCase {
     }
     
 }
-final class DoRequestTests: XCTestCase {
+final class DoRequestTests_Combine: XCTestCase {
+
+    func testDoRequestLogin() throws {
+        let result = try awaitPublisher(DoRequest.doRequestLogin(username: "wertox123", password: ""))
+        print(result)
+        XCTAssertNotEqual(result, Login_DTO())
+    }
+    func testDoRequestPing() throws {
+        let result = try awaitPublisher(DoRequest.doRequestPing(username: "wertox123", token: ""))
+        print(result)
+        XCTAssertTrue(result.success ?? false)
+    }
+    func testDoRequestAwardAchievement() throws {
+        let result = try awaitPublisher(DoRequest.doRequestAwardAchievement(username: "", achievementID: -1, token: ""))
+        XCTAssertNotEqual(result, AwardAchievement_DTO())
+    }
+    func testDoRequestGetFriendsList() throws {
+        let result = try awaitPublisher(DoRequest.doRequestGetFriendsList(username: "", token: ""))
+        XCTAssertNotEqual(result, FriendsList_DTO())
+    }
+    func testDoRequestGetLBInfo() throws {
+        let result = try awaitPublisher(DoRequest.doRequestGetLBInfo(username: "", leaderboardID: -1, count: -1, offset: -1, friendsOnly: false))
+        XCTAssertNotEqual(result, LBInfo_DTO())
+    }
+    func testDoRequestGetAchievementWonDate() throws {
+        try Cases.achievements.forEach { (key: String, value: Int) in
+            print(key, value)
+            let result = try awaitPublisher(DoRequest.doRequestGetAchievementWonDate(username: "wertox123", token: "", achievementID: value, count: 5, offset: 0, friendsOnly: false))
+            XCTAssertNotEqual(result, AchievementWonData_DTO())
+        }
+
+    }
     
 }

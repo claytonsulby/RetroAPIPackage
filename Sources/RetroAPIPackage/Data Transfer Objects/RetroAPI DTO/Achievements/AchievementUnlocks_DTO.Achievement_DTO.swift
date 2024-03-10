@@ -12,44 +12,29 @@ public extension AchievementUnlocks_DTO {
     
     // MARK: - Achievement
     struct Achievement_DTO: Codable, Equatable {
-        private var _achievementID, _points: StringMapTo<Int>
-        private var _trueRatio: StringMapTo<Double>
-        private var _dateCreated, _dateModified: String
-        
-        public var achievementID:Int {
-            get { return _achievementID.decoded }
-            set { _achievementID.decoded = newValue }
-        }
-
-        public var points:Int {
-            get { return _points.decoded }
-            set { _points.decoded = newValue }
-        }
-
-        public var trueRatio:Double {
-            get { return _trueRatio.decoded }
-            set { _trueRatio.decoded = newValue }
+        public init(id: Int, title: String, description: String, points: Int, _trueRatio: Int, author: String, _dateCreated: String, _dateModified: String) {
+            self.id = id
+            self.title = title
+            self.description = description
+            self.points = points
+            self._trueRatio = _trueRatio
+            self.author = author
+            self._dateCreated = _dateCreated
+            self._dateModified = _dateModified
         }
         
-        public var dateModified: Date {
-            get { return DateFormatter.date(fromString: self._dateModified) ?? Date(timeIntervalSince1970: 0) }
-            set { _dateModified = newValue.string }
-        }
-
-        public var dateCreated: Date {
-            get { return DateFormatter.date(fromString: self._dateCreated) ?? Date(timeIntervalSince1970: 0) }
-            set { _dateCreated = newValue.string }
-        }
-        
-        public var title, achievementDescription: String
-        public var author: String
-
+        private let id: Int
+        public let title, description: String
+        public let points: Int
+        private let _trueRatio:Int
+        public let author:String
+        private let _dateCreated, _dateModified: String
         
         enum CodingKeys: String, CodingKey {
-            case _achievementID = "ID"
+            case id = "ID"
             case title = "Title"
-            case achievementDescription = "Description"
-            case _points = "Points"
+            case description = "Description"
+            case points = "Points"
             case _trueRatio = "TrueRatio"
             case author = "Author"
             case _dateCreated = "DateCreated"
@@ -57,18 +42,38 @@ public extension AchievementUnlocks_DTO {
         }
         
         public static func == (lhs: AchievementUnlocks_DTO.Achievement_DTO, rhs: AchievementUnlocks_DTO.Achievement_DTO) -> Bool {
-            return lhs._achievementID == rhs._achievementID &&
-            lhs._points == rhs._points &&
-            lhs._trueRatio == rhs._trueRatio &&
-            lhs._dateCreated == rhs._dateCreated &&
-            lhs._dateModified == rhs._dateModified &&
+            return lhs.id == rhs.id &&
             lhs.title == rhs.title &&
-            lhs.achievementDescription == rhs.achievementDescription &&
-            lhs.author == rhs.author
+            lhs.description == rhs.description &&
+            lhs.points == rhs.points &&
+            lhs._trueRatio == rhs._trueRatio &&
+            lhs.author == rhs.author &&
+            lhs._dateCreated == rhs._dateCreated &&
+            lhs._dateModified == rhs._dateModified
         }
     }
 }
 
 extension AchievementUnlocks_DTO.Achievement_DTO : Achievement, ExtendedAchievement {
+    public var achievementID: Int {
+        return id
+    }
+    
+    public var achievementDescription: String {
+        return description
+    }
+    
+    public var trueRatio: Double {
+        return Double(_trueRatio)
+    }
+    
+    public var dateModified: Date {
+        DateFormatter.date(fromString: self._dateModified) ?? Date.distantPast
+    }
+    
+    public var dateCreated: Date {
+        DateFormatter.date(fromString: self._dateCreated) ?? Date.distantPast
+    }
+    
     
 }

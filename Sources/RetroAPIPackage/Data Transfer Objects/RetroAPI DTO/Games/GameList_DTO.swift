@@ -7,28 +7,26 @@ import Foundation
 
 // MARK: - GameListElement_DTO
 public struct GameListElement_DTO: Codable, Equatable {
-    public init(title: String = "", consoleName: String = "", _gameID: StringMapTo<Int> = StringMapTo(0), _consoleID: StringMapTo<Int> = StringMapTo(0), _imageIcon: String = "") {
+    internal init(title: String = "", gameID: Int = 0, consoleID: Int = 0, consoleName: String = "", _imageIcon: String, numAchievements: Int = 0, numLeaderboards: Int = 0, points: Int = 0, dateModified: String? = nil, forumTopicID: Int? = nil) {
         self.title = title
+        self.gameID = gameID
+        self.consoleID = consoleID
         self.consoleName = consoleName
-        self._gameID = _gameID
-        self._consoleID = _consoleID
         self._imageIcon = _imageIcon
+        self.numAchievements = numAchievements
+        self.numLeaderboards = numLeaderboards
+        self.points = points
+        self.dateModified = dateModified
+        self.forumTopicID = forumTopicID
     }
-    
-    
-    public var title, consoleName:String
-    private var _gameID, _consoleID: StringMapTo<Int>
-    private var _imageIcon: String
-    
-    public var gameID: Int {
-        get { return _gameID.decoded }
-        set { _gameID.decoded = newValue }
-    }
-    
-    public var consoleID: Int {
-        get { return _consoleID.decoded }
-        set { _consoleID.decoded = newValue }
-    }
+
+    public let title: String
+    public let gameID, consoleID: Int
+    public let consoleName:String
+    private let _imageIcon: String
+    public let numAchievements, numLeaderboards, points: Int
+    public let dateModified: String?
+    public let forumTopicID: Int?
     
     public var imageIconURL: URL? {
 
@@ -42,18 +40,28 @@ public struct GameListElement_DTO: Codable, Equatable {
 
     enum CodingKeys: String, CodingKey {
         case title = "Title"
-        case _gameID = "ID"
-        case _consoleID = "ConsoleID"
-        case _imageIcon = "ImageIcon"
+        case gameID = "ID"
+        case consoleID = "ConsoleID"
         case consoleName = "ConsoleName"
+        case _imageIcon = "ImageIcon"
+        case numAchievements = "NumAchievements"
+        case numLeaderboards = "NumLeaderboards"
+        case points = "Points"
+        case dateModified = "DateModified"
+        case forumTopicID = "ForumTopicID"
     }
     
     public static func == (lhs: GameListElement_DTO, rhs: GameListElement_DTO) -> Bool {
         return lhs.title == rhs.title &&
-            lhs.consoleName == rhs.consoleName &&
-            lhs.gameID == rhs.gameID &&
-            lhs.consoleID == rhs.consoleID &&
-            lhs._imageIcon == rhs._imageIcon
+        lhs.gameID == rhs.gameID &&
+        lhs.consoleID == rhs.consoleID &&
+        lhs.consoleName == rhs.consoleName &&
+        lhs._imageIcon == rhs._imageIcon &&
+        lhs.numAchievements == rhs.numAchievements &&
+        lhs.numLeaderboards == rhs.numLeaderboards &&
+        lhs.points == rhs.points &&
+        lhs.dateModified == rhs.dateModified &&
+        lhs.forumTopicID == rhs.forumTopicID
     }
 }
 

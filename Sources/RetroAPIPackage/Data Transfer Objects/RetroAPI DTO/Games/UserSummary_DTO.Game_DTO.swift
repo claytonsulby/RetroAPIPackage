@@ -10,46 +10,19 @@ import Foundation
 public extension UserSummary_DTO {
     
     // MARK: - RecentlyPlayed
-    struct Game_DTO: Codable, Equatable {
-        public init(consoleName: String = "", title: String = "", _imageIcon: String = "", _lastPlayed: String = "", gameID: Int = 0, consoleID: Int = 0, _myVote: String? = nil) {
-            self.consoleName = consoleName
-            self.title = title
-            self._imageIcon = _imageIcon
-            self._lastPlayed = _lastPlayed
-            self.gameID = gameID
-            self.consoleID = consoleID
-            self._myVote = _myVote
-        }
-        
+    struct Game_DTO: Codable {
 
-        public var consoleName, title: String
+        public let gameID, consoleID: Int
+        public let consoleName, title: String
         
-        private var _imageIcon, _lastPlayed: String
-        public var gameID, consoleID: Int
-        private var _myVote:String?
+        private let _lastPlayed:String?
+        private let _imageIcon:String
+        
+        private let _imageTitle: String
+        private let _imageIngame: String
+        private let _imageBoxArt: String
+        public let achievementsTotal: Int
 
-        public var imageIconURL: URL? {
-
-            if _imageIcon == "/Images/000001.png" {
-                return nil
-            } else {
-                return URL(string: RetroAPI.baseImageURL + _imageIcon)
-            }
-            
-        }
-        
-        public var lastPlayed: Date? {
-            DateFormatter.date(fromString: self._lastPlayed)
-        }
-        
-        public var myVote:Int? {
-            if let myVote = _myVote {
-                return Int(myVote)
-            } else {
-                return nil
-            }
-        }
-        
         enum CodingKeys: String, CodingKey {
             case gameID = "GameID"
             case consoleID = "ConsoleID"
@@ -57,22 +30,49 @@ public extension UserSummary_DTO {
             case title = "Title"
             case _imageIcon = "ImageIcon"
             case _lastPlayed = "LastPlayed"
-            case _myVote = "MyVote"
+            case _imageTitle = "ImageTitle"
+            case _imageIngame = "ImageIngame"
+            case _imageBoxArt = "ImageBoxArt"
+            case achievementsTotal = "AchievementsTotal"
+        }
+
+        public var imageIconURL: URL? {
+            if _imageIcon == "/Images/000001.png" {
+                return nil
+            } else {
+                return URL(string: RetroAPI.baseImageURL + _imageIcon)
+            }
         }
         
-        public static func == (lhs: UserSummary_DTO.Game_DTO, rhs: UserSummary_DTO.Game_DTO) -> Bool {
-            return lhs.consoleName == rhs.consoleName &&
-                lhs.title == rhs.title &&
-//                lhs.imageIcon == rhs.imageIcon &&
-                lhs.lastPlayed == rhs.lastPlayed &&
-                lhs.gameID == rhs.gameID &&
-                lhs.consoleID == rhs.consoleID &&
-                lhs.myVote == rhs.myVote
+        public var imageTitleURL: URL? {
+            if _imageIcon == "/Images/000001.png" {
+                return nil
+            } else {
+                return URL(string: RetroAPI.baseImageURL + _imageTitle)
+            }
+        }
+        
+        public var imageIngameURL: URL? {
+            if _imageIcon == "/Images/000001.png" {
+                return nil
+            } else {
+                return URL(string: RetroAPI.baseImageURL + _imageIngame)
+            }
+        }
+        
+        public var imageBoxArtURL: URL? {
+            if _imageIcon == "/Images/000001.png" {
+                return nil
+            } else {
+                return URL(string: RetroAPI.baseImageURL + _imageBoxArt)
+            }
+        }
+        
+        public var lastPlayed: Date? {
+            DateFormatter.date(fromString: self._lastPlayed ?? "")
         }
     }
     
 }
 
-extension UserSummary_DTO.Game_DTO : Hashable {
-    
-}
+extension UserSummary_DTO.Game_DTO : Hashable {}

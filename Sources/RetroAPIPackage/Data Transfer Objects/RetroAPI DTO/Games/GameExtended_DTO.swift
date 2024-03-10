@@ -9,7 +9,7 @@ import Foundation
 /// - [Sucees](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
 /// - [Failure](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 public struct GameExtended_DTO: Codable, Equatable {
-    public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int = 0, flags: Int = 0, _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, isFinal: Bool = false, consoleName: String = "", richPresencePatch: String = "", numAchievements: Int = 0, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameExtended_DTO.DictOrEmptyArray = .anythingArray([])) {
+    public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int? = nil, flags: Int = 0, _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, isFinal: Int? = nil, consoleName: String = "", richPresencePatch: String = "", numAchievements: Int = 0, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameExtended_DTO.DictOrEmptyArray = .anythingArray([])) {
         self.gameID = gameID
         self.title = title
         self.consoleID = consoleID
@@ -23,7 +23,7 @@ public struct GameExtended_DTO: Codable, Equatable {
         self.developer = developer
         self.genre = genre
         self._released = _released
-        self.isFinal = isFinal
+        self._isFinal = isFinal
         self.consoleName = consoleName
         self.richPresencePatch = richPresencePatch
         self.numAchievements = numAchievements
@@ -44,10 +44,10 @@ public struct GameExtended_DTO: Codable, Equatable {
     
     ///ID Number string for topic page in forum
     /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
-    public var forumTopicID: Int
+    public var forumTopicID: Int?
     
     /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
-    public var flags: Int
+    public var flags: Int?
     
     ///partial path string to icon image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
@@ -82,7 +82,7 @@ public struct GameExtended_DTO: Codable, Equatable {
     private var _released: String?
     
     /// - remark: I do not know what this means, but I assume it indicates if the game will continue to be editted.
-    public var isFinal: Bool
+    public var _isFinal: Int?
     
     ///String name for console
     public var consoleName: String
@@ -131,7 +131,7 @@ public struct GameExtended_DTO: Codable, Equatable {
         case developer = "Developer"
         case genre = "Genre"
         case _released = "Released"
-        case isFinal = "IsFinal"
+        case _isFinal = "IsFinal"
         case consoleName = "ConsoleName"
         case richPresencePatch = "RichPresencePatch"
         case numAchievements = "NumAchievements"
@@ -165,6 +165,10 @@ public struct GameExtended_DTO: Codable, Equatable {
 }
 
 extension GameExtended_DTO : HasAchievements {
+    public var isFinal: Bool {
+        return _isFinal ?? 0 == 1
+    }
+    
 
     public var imageIconURL: URL? {
 
@@ -245,7 +249,22 @@ public extension GameExtended_DTO {
                 self = .anythingArray(x)
                 return
             }
-            throw DecodingError.typeMismatch(GameExtended_DTO.Achievement_DTO.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Achievements"))
+            
+            do {
+                let x = try container.decode([String: GameExtended_DTO.Achievement_DTO].self)
+                self = .anythingDict(x)
+                return
+            } catch DecodingError.dataCorrupted(let context) {
+                throw DecodingError.dataCorrupted(context)
+            } catch DecodingError.keyNotFound(let key, let context) {
+                throw DecodingError.keyNotFound(key, context)
+            } catch DecodingError.valueNotFound(let value, let context) {
+                throw DecodingError.valueNotFound(value, context)
+            } catch DecodingError.typeMismatch(let type, let context) {
+                throw DecodingError.typeMismatch(type, context)
+            } catch {
+                throw error;
+            }
         }
 
         public func encode(to encoder: Encoder) throws {

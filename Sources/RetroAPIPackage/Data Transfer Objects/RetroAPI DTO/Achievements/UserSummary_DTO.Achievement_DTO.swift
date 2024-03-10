@@ -11,15 +11,15 @@ public extension UserSummary_DTO {
     
     // MARK: - RecentAchievement
     struct Achievement_DTO: Codable, Equatable {
-        
-        public var title, gameTitle, achievementDescription:String
-        
-        public var gameID, achievementID, points:Int
-        
-        private var badgeName:String
-        private var _isAwarded: String
-        private var _hardcoreAchieved:Int?
-        private var _dateAwarded: String?
+
+        public var achievementID, gameID: Int
+        public var gameTitle, title, achievementDescription: String
+        public let points: Int
+        public let type: String?
+        private let _badgeName: String
+        private let _isAwarded:String
+        private let _dateAwarded: String?
+        private let _hardcoreAchieved: Int?
 
         enum CodingKeys: String, CodingKey {
             case achievementID = "ID"
@@ -28,34 +28,29 @@ public extension UserSummary_DTO {
             case title = "Title"
             case achievementDescription = "Description"
             case points = "Points"
-            case badgeName = "BadgeName"
+            case type = "Type"
+            case _badgeName = "BadgeName"
             case _isAwarded = "IsAwarded"
             case _dateAwarded = "DateAwarded"
             case _hardcoreAchieved = "HardcoreAchieved"
-        }
-        
-        public static func == (lhs: UserSummary_DTO.Achievement_DTO, rhs: UserSummary_DTO.Achievement_DTO) -> Bool {
-            return lhs.title == rhs.title &&
-                lhs.gameTitle == rhs.gameTitle &&
-                lhs.achievementDescription == rhs.achievementDescription &&
-                lhs.gameID == rhs.gameID &&
-                lhs.achievementID == rhs.achievementID &&
-                lhs.points == rhs.points &&
-                lhs.badgeName == rhs.badgeName &&
-                lhs._isAwarded == rhs._isAwarded &&
-                lhs._hardcoreAchieved == rhs._hardcoreAchieved &&
-                lhs._dateAwarded == rhs._dateAwarded
         }
         
     }
     
 }
 
+extension UserSummary_DTO.Achievement_DTO : Identifiable, Hashable {
+    public var id: ObjectIdentifier {
+        ObjectIdentifier(Self.self)
+    }
+}
+
 // MARK: - Achievement Protocol Conformance
 extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Awarded, AchievementRowProtocol {
+
     public var imageURL: URL? {
 
-        URL(string: RetroAPI.baseBadgeURL + self.badgeName + ".png")
+        URL(string: RetroAPI.baseBadgeURL + self._badgeName + ".png")
 
     }
     
@@ -104,12 +99,3 @@ extension UserSummary_DTO.Achievement_DTO : Achievement, AchievementImage, Award
     
     
 }
-
-extension UserSummary_DTO.Achievement_DTO : Hashable, Identifiable {
-    public var id: Int {
-        self.achievementID
-    }
-    
-    
-}
-

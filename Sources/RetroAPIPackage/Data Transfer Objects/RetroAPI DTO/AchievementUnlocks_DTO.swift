@@ -46,7 +46,10 @@ public extension AchievementUnlocks_DTO {
     
     // MARK: - Unlock
     struct Unlock_DTO: Codable {
-        public var user, raPoints, dateAwarded, hardcoreMode: String?
+        let user: String
+        let raPoints: Int
+        let dateAwarded: String
+        let hardcoreMode: Int
 
         enum CodingKeys: String, CodingKey {
             case user = "User"
@@ -57,28 +60,17 @@ public extension AchievementUnlocks_DTO {
     }
     
     struct Console_DTO: Codable, Equatable {
-        public init(id: StringMapTo<Int>? = nil, title: String? = nil) {
-            self._id = id
-            self.title = title
-        }
-        
-        private var _id: StringMapTo<Int>?
-        
-        public var id: Int {
-            get { return _id?.decoded ?? 0 }
-            set { _id?.decoded = newValue }
-        }
-        
-        public var title: String?
+        let id: Int
+        let title: String
 
         enum CodingKeys: String, CodingKey {
-            case _id = "ID"
+            case id = "ID"
             case title = "Title"
         }
         
-        public static func == (lhs: Console_DTO, rhs: Console_DTO) -> Bool {
+        public static func == (lhs: AchievementUnlocks_DTO.Console_DTO, rhs: AchievementUnlocks_DTO.Console_DTO) -> Bool {
             return lhs.id == rhs.id &&
-                lhs.title == rhs.title
+            lhs.title == rhs.title
         }
     }
 }

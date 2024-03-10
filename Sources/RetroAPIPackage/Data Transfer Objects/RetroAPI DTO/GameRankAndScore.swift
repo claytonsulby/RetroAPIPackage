@@ -7,22 +7,27 @@ import Foundation
 
 // MARK: - GameRankAndScoreElement_DTO
 public struct GameRankAndScoreElement_DTO: Codable, Equatable {
-    public init(user: String? = nil, totalScore: String? = nil, lastAward: String? = nil) {
+    public init(user: String, numAchievements: Int, totalScore: Int, lastAward: String) {
         self.user = user
+        self.numAchievements = numAchievements
         self.totalScore = totalScore
         self.lastAward = lastAward
     }
     
-    public let user, totalScore, lastAward: String?
+    let user: String
+    let numAchievements, totalScore: Int
+    let lastAward: String
 
     enum CodingKeys: String, CodingKey {
         case user = "User"
+        case numAchievements = "NumAchievements"
         case totalScore = "TotalScore"
         case lastAward = "LastAward"
     }
     
     public static func == (lhs: GameRankAndScoreElement_DTO, rhs: GameRankAndScoreElement_DTO) -> Bool {
         return lhs.user == rhs.user &&
+        lhs.numAchievements == rhs.numAchievements &&
         lhs.totalScore == rhs.totalScore &&
         lhs.lastAward == rhs.lastAward
     }

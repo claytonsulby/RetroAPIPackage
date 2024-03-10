@@ -4,6 +4,8 @@
 //
 //  Created by Clayton Sulby on 3/30/21.
 //
+//  Source: https://www.vadimbulavin.com/modern-networking-in-swift-5-with-urlsession-combine-framework-and-codable/
+//
 
 import Foundation
 import Combine
@@ -121,6 +123,7 @@ public extension RetroAPI {
         return agent.run(request)
             .map{$0.value}
             .eraseToAnyPublisher()
+        
     }
 }
 
@@ -911,7 +914,7 @@ public extension RetroAPI {
     
     ///Gets the achievements awarded to a user for a given day.
     ///
-    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedOnDay.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&d=1629159353960)
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedOnDay.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&d=2021-03-14)
     /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementsEarnedOnDay.php)
     ///
     /// - parameters:
@@ -923,7 +926,7 @@ public extension RetroAPI {
         var components = baseAPIComponents(.getAchievementsEarnedOnDay)
         components.queryItems?.append(contentsOf: [
             URLQueryItem(name: "u", value: username),
-            URLQueryItem(name: "d", value: "\(date.string())")
+            URLQueryItem(name: "d", value: "\(date.string("yyyy-MM-dd"))")
         ])
         
         let request = URLRequest(url: components.url!)
@@ -936,7 +939,7 @@ public extension RetroAPI {
     
     ///Gets the achievements awarded to a user between two dates.
     ///
-    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=Scott&f=0&t=1388577600)
+    /// - [Example](https://retroachievements.org/API/API_GetAchievementsEarnedBetween.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&u=wertox123&f=0&t=1687445833)
     /// - [GitHub Page](https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetAchievementsEarnedBetween.php)
     ///
     /// - parameters:

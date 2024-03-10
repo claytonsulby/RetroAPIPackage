@@ -7,18 +7,8 @@ import Foundation
 
 // MARK: - UserProgressElement_DTO
 public struct UserProgressElement_DTO: Codable, Equatable {
-    public init(numPossibleAchievements: PHPHelper.PHPInt? = nil, possibleScore: PHPHelper.PHPInt? = nil, numAchieved: PHPHelper.PHPInt? = nil, scoreAchieved: PHPHelper.PHPInt? = nil, numAchievedHardcore: PHPHelper.PHPInt? = nil, scoreAchievedHardcore: PHPHelper.PHPInt? = nil) {
-        self.numPossibleAchievements = numPossibleAchievements
-        self.possibleScore = possibleScore
-        self.numAchieved = numAchieved
-        self.scoreAchieved = scoreAchieved
-        self.numAchievedHardcore = numAchievedHardcore
-        self.scoreAchievedHardcore = scoreAchievedHardcore
-    }
-    
-
-    public var numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: PHPHelper.PHPInt?
-    public var numAchievedHardcore, scoreAchievedHardcore: PHPHelper.PHPInt?
+    public let numPossibleAchievements, possibleScore, numAchieved, scoreAchieved: Int
+    public let numAchievedHardcore, scoreAchievedHardcore: Int
 
     enum CodingKeys: String, CodingKey {
         case numPossibleAchievements = "NumPossibleAchievements"
@@ -28,16 +18,6 @@ public struct UserProgressElement_DTO: Codable, Equatable {
         case numAchievedHardcore = "NumAchievedHardcore"
         case scoreAchievedHardcore = "ScoreAchievedHardcore"
     }
-    
-    public static func == (lhs: UserProgressElement_DTO, rhs: UserProgressElement_DTO) -> Bool {
-        return lhs.numPossibleAchievements == rhs.numPossibleAchievements &&
-            lhs.possibleScore == rhs.possibleScore &&
-            lhs.numAchieved == rhs.numAchieved &&
-            lhs.scoreAchieved == rhs.scoreAchieved &&
-            lhs.numAchievedHardcore == rhs.numAchievedHardcore &&
-            lhs.scoreAchievedHardcore == rhs.scoreAchievedHardcore
-    }
-    
 }
 
 public typealias UserProgress_DTO = [String: UserProgressElement_DTO]

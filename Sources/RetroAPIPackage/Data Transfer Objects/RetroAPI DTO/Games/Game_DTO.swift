@@ -13,13 +13,12 @@ import Foundation
 /// - [Failure:  gameID not provided](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 /// - [Failure: gameID too large](https://retroachievements.org/API/API_GetGame.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=1000000000)
 public struct Game_DTO: Codable, Equatable {
-    public init(_id: String = "", title: String = "", _forumTopicID:String? = nil, _consoleID:String = "", consoleName: String = "", _flags:String = "", _imageIcon: String? = "", _gameIcon: String? = "", _imageTitle: String? = "", _imageInGame: String? = "", _imageBoxArt: String? = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, gameTitle: String? = "", console: String = "") {
-        self._id = _id
+    public init(title: String = "", _forumTopicID:Int? = nil, _consoleID:Int? = nil, consoleName: String = "", _flags:Int? = nil, _imageIcon: String? = "", _gameIcon: String? = "", _imageTitle: String? = "", _imageInGame: String? = "", _imageBoxArt: String? = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, gameTitle: String? = "", console: String = "") {
         self.title = title
-        self._forumTopicID = _forumTopicID
-        self._consoleID = _consoleID
+        self.forumTopicID = _forumTopicID
+        self.consoleID = _consoleID
         self.consoleName = consoleName
-        self._flags = _flags
+        self.flags = _flags
         self._imageIcon = _imageIcon
         self._gameIcon = _gameIcon
         self._imageTitle = _imageTitle
@@ -32,43 +31,22 @@ public struct Game_DTO: Codable, Equatable {
         self.gameTitle = gameTitle
         self.console = console
     }
-    
-    private var _id:String
-    public var id: Int {
-        get { return Int(_id)! }
-        set { _id = String(newValue) }
-    }
-    
+
     ///Title of game
     /// - remark: So far this has been identical to ``gameTitle``
-    public var title : String
+    public var title : GameTypes.Title
+    
     ///Title of game
     /// - remark: So far this has been identical to ``title``
     private var gameTitle : String?
 
     ///ID Number string for topic page in forum
     /// - note: This should be concatenated with ``RetroAPI.baseForumURL``
-    private var _forumTopicID : String?
-    
-    public var forumTopicID: Int? {
-        get {
-            guard let _forumTopicID = _forumTopicID else { return nil }
-            return Int(_forumTopicID)
-        }
-        set {
-            guard let newValue = newValue else { _forumTopicID = nil; return }
-            _forumTopicID = String(newValue)
-        }
-    }
+    public var forumTopicID :GameTypes.ForumTopicID
     
     ///ID Number string for console
-    private var _consoleID : String
-    public var consoleID: Int {
-        get { return Int(_consoleID)! }
-        set { _consoleID = String(newValue) }
-    }
+    public var consoleID : GameTypes.ConsoleID
 
-    
     ///String name for console
     /// - remark: So far this has been identical to ``console``
     public var consoleName : String
@@ -78,17 +56,7 @@ public struct Game_DTO: Codable, Equatable {
     
     
     /// - remark: I have only seen this as null or 0 so far. I do not know what this indicates
-    private var _flags : String?
-    public var flags: Int? {
-        get {
-            guard let _flags = _flags else { return nil }
-            return Int(_flags)
-        }
-        set {
-            guard let newValue = newValue else { _flags = nil; return }
-            _flags = String(newValue)
-        }
-    }
+    private var flags : Int?
     
     ///partial path string to icon image for a game
     /// - note: This should be concatenated with ``RetroAPI.baseImageURL``
@@ -133,12 +101,11 @@ public struct Game_DTO: Codable, Equatable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case _id = "ID"
         case title = "Title"
-        case _forumTopicID = "ForumTopicID"
-        case _consoleID = "ConsoleID"
+        case forumTopicID = "ForumTopicID"
+        case consoleID = "ConsoleID"
         case consoleName = "ConsoleName"
-        case _flags = "Flags"
+        case flags = "Flags"
         case _imageIcon = "ImageIcon"
         case _gameIcon = "GameIcon"
         case _imageTitle = "ImageTitle"

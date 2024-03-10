@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol GameMetadata : Game, GameExtended, Console, HasAchievements, UserProgress {
+public protocol GameMetadata : GameExtended, Console, HasAchievements, UserProgress {
 
 }
 
@@ -25,10 +25,10 @@ public protocol Console {
 
 }
 
-public protocol GameExtended : GameIcon {
+public protocol GameExtended : Game, GameIcon {
     
     var forumTopicID:Int? { get }
-    var flags:Int { get }
+    var flags:Int? { get }
     var imageIconURL:URL? { get }
     var imageTitleURL:URL? { get }
     var imageInGameURL:URL? { get }
