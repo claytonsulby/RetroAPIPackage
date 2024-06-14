@@ -796,3 +796,11 @@ final class DoRequestTests_Combine: XCTestCase {
     }
     
 }
+final class RetroParse_Combine: XCTestCase {
+    
+    func testSearchFor() throws {
+        let result = try awaitPublisher(RetroParse.searchFor(phrase: "mario", offset: 0))
+        XCTAssertNotEqual(result, [SearchResult]())
+    }
+    
+}
