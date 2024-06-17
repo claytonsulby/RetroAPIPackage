@@ -18,7 +18,7 @@ public struct GameInfoAndUserProgress_DTO {
     public var numAchievements: Int?
     public var numAwardedToUser, numAwardedToUserHardcore: Int?
     public var forumTopicID: Int?
-    private var _numDistinctPlayersCasual, _numDistinctPlayersHardcore: DecodeNilUnless<String>
+    private var _numDistinctPlayersCasual, _numDistinctPlayersHardcore: Int?
     private var _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray
     public var releaseDate:String?
     private var _imageIcon, _imageTitle, _imageInGame, _imageBoxArt: String
@@ -86,7 +86,7 @@ extension GameInfoAndUserProgress_DTO: Equatable {
 
 extension GameInfoAndUserProgress_DTO {
     
-    public init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int? = nil, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Int? = 0, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), releaseDate: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: DecodeNilUnless<String> = DecodeNilUnless(""), _userCompletionHardcore: DecodeNilUnless<String> = DecodeNilUnless("")) {
+    public init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int? = nil, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Int? = 0, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: Int? = nil, _numDistinctPlayersHardcore: Int? = nil, _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), releaseDate: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: DecodeNilUnless<String> = DecodeNilUnless(""), _userCompletionHardcore: DecodeNilUnless<String> = DecodeNilUnless("")) {
         self.gameID = gameID
         self.title = title
         self.forumTopicID = forumTopicID
@@ -206,19 +206,16 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
         }
     }
     
-    
-    
     public var numDistinctPlayers: Int {
-        get { return Int(_numDistinctPlayersCasual.decoded ?? "") ?? 0 }
-        set { _numDistinctPlayersCasual.decoded = String(newValue) }
+        get { return _numDistinctPlayersCasual ?? 0 }
+        set { _numDistinctPlayersCasual = newValue }
     }
     
     public var numDistinctPlayersHardcore: Int {
-        get { return Int(_numDistinctPlayersHardcore.decoded ?? "") ?? 0  }
-        set { _numDistinctPlayersHardcore.decoded = String(newValue) }
+        get { return _numDistinctPlayersHardcore ?? 0  }
+        set { _numDistinctPlayersHardcore = newValue }
     }
-    
-    
+
     public var achievements:[GameInfoAndUserProgress_DTO.Achievement_DTO] {
         get {
             if let values = _achievements.value?.values {

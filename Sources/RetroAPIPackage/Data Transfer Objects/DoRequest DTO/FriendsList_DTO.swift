@@ -32,14 +32,15 @@ public struct FriendsList_DTO: Codable, Equatable {
 
 // MARK: - Friend
 public struct Friend_DTO: Codable, Equatable {
-    public init(friend: String? = nil, raPoints: String? = nil, lastSeen: String? = nil, id: String? = nil) {
+    public init(friend: String? = nil, raPoints: Int? = nil, lastSeen: String? = nil, id: Int? = nil) {
         self.friend = friend
         self.raPoints = raPoints
         self.lastSeen = lastSeen
         self.id = id
     }
     
-    public var friend, raPoints, lastSeen, id: String?
+    public var friend, lastSeen: String?
+    public var id, raPoints: Int?
 
     enum CodingKeys: String, CodingKey {
         case friend = "Friend"

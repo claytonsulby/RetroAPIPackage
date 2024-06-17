@@ -779,7 +779,7 @@ final class DoRequestTests_Combine: XCTestCase {
         XCTAssertNotEqual(result, AwardAchievement_DTO())
     }
     func testDoRequestGetFriendsList() throws {
-        let result = try awaitPublisher(DoRequest.doRequestGetFriendsList(username: "", token: ""))
+        let result = try awaitPublisher(DoRequest.doRequestGetFriendsList(username: "wertox123", token: ""))
         XCTAssertNotEqual(result, FriendsList_DTO())
     }
     func testDoRequestGetLBInfo() throws {

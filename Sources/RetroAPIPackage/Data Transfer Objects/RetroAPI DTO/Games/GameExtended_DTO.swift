@@ -9,7 +9,7 @@ import Foundation
 /// - [Sucees](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=10003)
 /// - [Failure](https://retroachievements.org/API/API_GetGameExtended.php?z=wertox123&y=NntdFEl8LSxcqcEaud8AN33uRrgAsEBU&i=)
 public struct GameExtended_DTO: Codable, Equatable {
-    public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int? = nil, flags: Int = 0, _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, isFinal: Int? = nil, consoleName: String = "", richPresencePatch: String = "", numAchievements: Int = 0, _numDistinctPlayersCasual: DecodeNilUnless<String> = DecodeNilUnless(""), _numDistinctPlayersHardcore: DecodeNilUnless<String> = DecodeNilUnless(""), _achievements: GameExtended_DTO.DictOrEmptyArray = .anythingArray([])) {
+    public init(gameID: Int = 0, title: String = "", consoleID: Int = 0, forumTopicID: Int? = nil, flags: Int = 0, _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, _released: String? = nil, isFinal: Int? = nil, consoleName: String = "", richPresencePatch: String = "", numAchievements: Int = 0, _numDistinctPlayersCasual: Int? = nil, _numDistinctPlayersHardcore: Int? = nil, _achievements: GameExtended_DTO.DictOrEmptyArray = .anythingArray([])) {
         self.gameID = gameID
         self.title = title
         self.consoleID = consoleID
@@ -94,19 +94,19 @@ public struct GameExtended_DTO: Codable, Equatable {
     public var numAchievements: Int?
     
     ///The sum total of players who have been awarded an achievement not in hardcore mode.
-    private var _numDistinctPlayersCasual: DecodeNilUnless<String>?
+    private var _numDistinctPlayersCasual: Int?
     
     ///The sum total of players who have been awarded an achievement in hardcore mode.
-    private var _numDistinctPlayersHardcore: DecodeNilUnless<String>?
+    private var _numDistinctPlayersHardcore: Int?
     
     public var numDistinctPlayers: Int {
-        get { return Int(_numDistinctPlayersCasual?.decoded ?? "") ?? 0 }
-        set { _numDistinctPlayersCasual?.decoded = String(newValue) }
+        get { return _numDistinctPlayersCasual ?? 0 }
+        set { _numDistinctPlayersCasual = newValue }
     }
     
     public var numDistinctPlayersHardcore: Int {
-        get { return Int(_numDistinctPlayersHardcore?.decoded ?? "") ?? 0  }
-        set { _numDistinctPlayersHardcore?.decoded = String(newValue) }
+        get { return _numDistinctPlayersHardcore ?? 0  }
+        set { _numDistinctPlayersHardcore = newValue }
     }
     
     ///Array of achievements
