@@ -1,6 +1,6 @@
 # RetroAPIPackage
 
-A fully fledged Swift 5 wrapper for the [RetroAchievements](https://retroachievements.org/APIDemo.php) PHP API. Two sets of functions are included, one utilizing publisbers and Combine, the other using non-reactive URLSessions with escaping completion handlers.
+A fully fledged Swift 5 wrapper for the [RetroAchievements](https://retroachievements.org/) PHP API. Two sets of functions are included, one utilizing publisbers and Combine, the other using non-reactive URLSessions with escaping completion handlers.
 
 ## Reactive Example
 
