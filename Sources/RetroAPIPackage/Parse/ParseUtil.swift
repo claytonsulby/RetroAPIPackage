@@ -16,7 +16,7 @@ fileprivate extension String {
         guard !from.isEmpty && !last.isEmpty else { return nil }
         if let i = self.firstIndex(of: from.first!),
            let j = self.lastIndex(of: last.last!) {
-            return String(self[i..<j])
+            return self.substring(with: i..<j)
         }
         return nil
     }
@@ -25,7 +25,7 @@ fileprivate extension String {
         if let i = self.lastIndex(of: fromLast.first!),
            let j = self.lastIndex(of: toLast.last!) {
             let k = self.index(after: j)
-            return String(self[i..<k])
+            return self.substring(with: i..<k)
         }
         return nil
     }
