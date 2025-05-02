@@ -13,7 +13,7 @@ public struct GameInfoAndUserProgress_DTO {
     public var consoleID: Int
     public var consoleName: String
     public var publisher, developer, genre: String?
-    private var _isFinal:Int?
+    private var _isFinal: Bool? // Updated to handle Bool type
     public var richPresencePatch: String
     public var numAchievements: Int?
     public var numAwardedToUser, numAwardedToUserHardcore: Int?
@@ -86,7 +86,7 @@ extension GameInfoAndUserProgress_DTO: Equatable {
 
 extension GameInfoAndUserProgress_DTO {
     
-    public init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int? = nil, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Int? = 0, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: Int? = nil, _numDistinctPlayersHardcore: Int? = nil, _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), releaseDate: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: DecodeNilUnless<String> = DecodeNilUnless(""), _userCompletionHardcore: DecodeNilUnless<String> = DecodeNilUnless("")) {
+    public init(gameID: Int = 0, title: String = "", forumTopicID: Int = 0, flags: Int? = nil, consoleID: Int = 0, consoleName: String = "", publisher: String? = nil, developer: String? = nil, genre: String? = nil, isFinal: Bool? = nil, richPresencePatch: String = "", numAchievements: Int? = nil, numAwardedToUser: Int? = nil, numAwardedToUserHardcore: Int? = nil, _numDistinctPlayersCasual: Int? = nil, _numDistinctPlayersHardcore: Int? = nil, _achievements: GameInfoAndUserProgress_DTO.DictOrEmptyArray = .anythingArray([]), releaseDate: String = "", _imageIcon: String = "", _imageTitle: String = "", _imageInGame: String = "", _imageBoxArt: String = "", _userCompletion: DecodeNilUnless<String> = DecodeNilUnless(""), _userCompletionHardcore: DecodeNilUnless<String> = DecodeNilUnless("")) {
         self.gameID = gameID
         self.title = title
         self.forumTopicID = forumTopicID
@@ -173,7 +173,7 @@ extension GameInfoAndUserProgress_DTO: GameMetadata {
     }
     
     public var isFinal: Bool {
-        return _isFinal ?? 0 == 1
+        return _isFinal ?? false
     }
     
     

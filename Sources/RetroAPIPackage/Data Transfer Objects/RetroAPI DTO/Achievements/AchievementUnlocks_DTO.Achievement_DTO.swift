@@ -12,7 +12,7 @@ public extension AchievementUnlocks_DTO {
     
     // MARK: - Achievement
     struct Achievement_DTO: Codable, Equatable {
-        public init(id: Int, title: String, description: String, points: Int, _trueRatio: Int, author: String, _dateCreated: String, _dateModified: String) {
+        public init(id: Int, title: String, description: String, points: Int, _trueRatio: Int, author: String?, _dateCreated: String, _dateModified: String) {
             self.id = id
             self.title = title
             self.description = description
@@ -27,7 +27,7 @@ public extension AchievementUnlocks_DTO {
         public let title, description: String
         public let points: Int
         private let _trueRatio:Int
-        public let author:String
+        public let author: String? // Made optional to handle null values
         private let _dateCreated, _dateModified: String
         
         enum CodingKeys: String, CodingKey {

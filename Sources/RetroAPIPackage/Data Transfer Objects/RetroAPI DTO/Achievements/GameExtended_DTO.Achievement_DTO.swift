@@ -22,7 +22,7 @@ public extension GameExtended_DTO {
 
         public var title: String
         public var achievementDescription: String
-        public var author: String
+        public var author: String? // Made optional to handle null values
         public var memAddr: String
         
         private var _dateModified: String
@@ -100,4 +100,4 @@ extension GameExtended_DTO.Achievement_DTO : Achievement, ExtendedAchievement, A
     }
     
 }
- 
+

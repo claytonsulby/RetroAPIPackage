@@ -11,7 +11,7 @@ public extension AchievementOfTheWeek_DTO {
     // MARK: - Achievement
     struct Achievement_DTO: Codable, Equatable {
         
-        public init(achievementID:Int = 0, points: Int = 0, _trueRatio:Int = 0, _dateCreated: String = "", _dateModified: String = "", title: String = "", achievementDescription: String = "", author: String = "") {
+        public init(achievementID:Int = 0, points: Int = 0, _trueRatio:Int = 0, _dateCreated: String = "", _dateModified: String = "", title: String = "", achievementDescription: String = "", author: String? = nil) {
             self.achievementID = achievementID
             self.points = points
             self._trueRatio = _trueRatio
@@ -42,7 +42,7 @@ public extension AchievementOfTheWeek_DTO {
         }
         
         public var title, achievementDescription: String
-        public var author: String
+        public var author: String? // Made optional to handle null values
 
         
         enum CodingKeys: String, CodingKey {

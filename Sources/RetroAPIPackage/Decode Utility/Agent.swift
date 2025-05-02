@@ -1,4 +1,3 @@
-//
 //  Agent.swift
 //  JSFun
 //
@@ -31,95 +30,19 @@ struct Agent {
             .dataTaskPublisher(for: request)
             .receive(on: DispatchQueue.main)
             .tryMap { (data, response) throws -> Response<T> in
-                
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    throw NetworkError.invalidResponse
-                }
-                
-                switch httpResponse.statusCode {
-                case 200...299:
-                    break
-                case 400:
-                    // Bad Request
-                    throw NetworkError.badRequest
-                case 401:
-                    // Unauthorized
-                    throw NetworkError.unauthorized
-                case 403:
-                    // Forbidden
-                    throw NetworkError.forbidden
-                case 404:
-                    // Not Found
-                    throw NetworkError.notFound
-                case 405:
-                    // Method Not Allowed
-                    throw NetworkError.methodNotAllowed
-                case 406:
-                    // Not Acceptable
-                    throw NetworkError.notAcceptable
-                case 408:
-                    // Request Timeout
-                    throw NetworkError.requestTimeout
-                case 410:
-                    throw NetworkError.gone
-                case 422:
-                    // Unprocessable Entity
-                    throw NetworkError.unprocessableEntity
-                case 429:
-                    // Too Many Requests
-                    throw NetworkError.tooManyRequests
-                case 500...599:
-                    // Server error
-                    throw NetworkError.serverError(httpResponse.statusCode)
-                default:
-                    // Other status codes
-                    throw URLError(URLError.Code(rawValue: (response as! HTTPURLResponse).statusCode))
-                }
-                
-                do {
-                    
-                    // Check for a specific error response
-                    if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], 
-                        let success = jsonObject["success"] as? Bool,
-                        !success {
-                        throw DecodeError.invalidResponse(rawData: data)
-                    }
-                    
-                    let value = try decoder.decode(T.self, from: data)
-                    return Response(value: value, response: response)
-                } catch let error as DecodingError {
-                    switch error {
-                    case DecodingError.dataCorrupted(let context):
-                        throw DecodeError.dataCorrupted(context: context, rawData: data)
-                    case DecodingError.keyNotFound(let key, let context):
-                        throw DecodeError.keyNotFound(key: key, context: context, rawData: data)
-                    case DecodingError.valueNotFound(let value, let context):
-                        throw DecodeError.valueNotFound(value: value, context: context, rawData: data)
-                    case DecodingError.typeMismatch(let type, let context):
-                        throw DecodeError.typeMismatch(type: type, context: context, rawData: data)
-                    default:
-                        throw error
-                    }
-                } catch let error as URLError {
-                    throw error
-                } catch {
-                    throw error
-                }
+                //TODO: redirect
+                try handleNetworkError(response: response)
+                let value:T = try handleDecodeError(data: data, decoder: decoder)
+                return Response(value: value, response: response)
             }
             .retryWhen({ error in
-                if let networkError = error as? NetworkError {
-                    switch networkError {
-                    case .requestTimeout, .serverError, .tooManyRequests:
-                        return true
-                    default:
-                        return false
-                    }
-                }
-                return false // Don't retry for other errors
+                guard let networkError = error as? NetworkError else { return false }
+                return networkError.canBeRetried()
             }, maxRetries: 3)
             .eraseToAnyPublisher()
     }
     
+    @available(*, deprecated, message: "use `run` with completion handler accepting `Result<T, Error>` instead")
     func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder(), completion: @escaping (T) -> Void) {
         URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
             
@@ -137,10 +60,39 @@ struct Agent {
         }).resume()
     }
     
+    func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder(), completion: @escaping (Result<T, Error>) -> Void) {
+        URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+            if let error { completion(.failure(error)) }
+            guard let response, let data else { return }
+
+            do {
+                try handleNetworkError(response: response)
+                let value:T = try handleDecodeError(data: data, decoder: decoder)
+                completion(.success(value))
+            } catch {
+                completion(.failure(error))
+            }
+            
+        }).resume()
+    }
+    
+    @available(*, deprecated, message: "use `run` returning `Result<T, Error>` instead")
     func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) async throws -> Response<T> {
         let (data, response) = try await URLSession.shared.data(for: request)
         let value = try decoder.decode(T.self, from: data)
         return Response(value: value, response: response)
+    }
+    
+    func run<T: Decodable>(_ request: URLRequest, _ decoder: JSONDecoder = JSONDecoder()) async -> Result<T, Error> {
+        do {
+            var (data, response) = try await URLSession.shared.data(for: request)
+            (data, response) = try await handleRedirection(request: request, data: data, response: response)
+            try handleNetworkError(response: response)
+            let value:T = try handleDecodeError(data: data, decoder: decoder)
+            return .success(value)
+        } catch {
+            return .failure(error)
+        }
     }
     
 }
@@ -175,3 +127,92 @@ extension Publisher {
             .eraseToAnyPublisher()
     }
 }
+
+
+//MARK: Error Handling
+extension Agent {
+    
+    private func handleRedirection(request: URLRequest, data:Data, response:URLResponse, redirections: Int = 0) async throws -> (Data, URLResponse) {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+        
+        if (300...399).contains(httpResponse.statusCode) {
+            
+            guard redirections < 5 else {
+                throw NetworkError.requestFailed(reason: "Too many redirects - \(redirections)") // Avoid redirect loops
+            }
+            
+            // Check if there's a Location header to follow
+            if let locationHeader = httpResponse.allHeaderFields["Location"] as? String,
+               let url = URL(string: locationHeader, relativeTo: httpResponse.url) {
+                
+                var redirectedRequest = request
+                redirectedRequest.url = url
+                
+                let (redirectedData, redirectedResponse) = try await URLSession.shared.data(for: redirectedRequest)
+                return try await handleRedirection(request: redirectedRequest, data: redirectedData, response: redirectedResponse, redirections: redirections + 1)
+                
+            } else {
+                throw NetworkError.requestFailed(reason: "Invalid redirection url")
+            }
+        }
+        
+        return (data, response)
+    }
+    
+    
+    private func handleNetworkError(response:URLResponse) throws {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+
+        switch httpResponse.statusCode {
+        case 100...399:
+            break
+        default:
+            let error = NetworkError.from(statusCode: httpResponse.statusCode)
+            throw error
+        }
+    }
+    
+    private func handleDecodeError<T: Decodable>(data: Data, decoder: JSONDecoder) throws -> T {
+        do {
+            // Check for a specific error response
+            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                if let success = jsonObject["success"] as? Bool, !success {
+                    throw DecodeError.invalidResponse(rawData: data)
+                }
+                if let message = jsonObject["message"] as? String, let errors = jsonObject["errors"] as? [[String: Any]] {
+                    let errorDetails = errors.compactMap { errorDict in
+                        guard let status = errorDict["status"] as? Int,
+                              let code = errorDict["code"] as? String,
+                              let title = errorDict["title"] as? String else { return nil }
+                        return "Status: \(status), Code: \(code), Title: \(title)"
+                    }.joined(separator: "; ")
+                    throw DecodeError.invalidResponse(rawData: Data("\(message): \(errorDetails)".utf8))
+                }
+            }
+            return try decoder.decode(T.self, from: data)
+        } catch let error as DecodingError {
+            switch error {
+            case DecodingError.dataCorrupted(let context):
+                throw DecodeError.dataCorrupted(context: context, rawData: data)
+            case DecodingError.keyNotFound(let key, let context):
+                throw DecodeError.keyNotFound(key: key, context: context, rawData: data)
+            case DecodingError.valueNotFound(let value, let context):
+                throw DecodeError.valueNotFound(value: value, context: context, rawData: data)
+            case DecodingError.typeMismatch(let type, let context):
+                throw DecodeError.typeMismatch(type: type, context: context, rawData: data)
+            default:
+                throw error
+            }
+        } catch let error as URLError {
+            throw error
+        } catch {
+            throw error
+        }
+    }
+    
+}
+
