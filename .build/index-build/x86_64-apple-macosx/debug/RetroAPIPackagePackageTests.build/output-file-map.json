@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/claytonsulby/Documents/Code/Xcode/claytonsulby/RetroAPIPackage/.build/index-build/x86_64-apple-macosx/debug/RetroAPIPackagePackageTests.build/master.swiftdeps"
+  },
+  "/Users/claytonsulby/Documents/Code/Xcode/claytonsulby/RetroAPIPackage/.build/index-build/x86_64-apple-macosx/debug/RetroAPIPackagePackageTests.derived/runner.swift": {
+    "dependencies": "/Users/claytonsulby/Documents/Code/Xcode/claytonsulby/RetroAPIPackage/.build/index-build/x86_64-apple-macosx/debug/RetroAPIPackagePackageTests.build/runner.d",
+    "object": "/Users/claytonsulby/Documents/Code/Xcode/claytonsulby/RetroAPIPackage/.build/index-build/x86_64-apple-macosx/debug/RetroAPIPackagePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/claytonsulby/Documents/Code/Xcode/claytonsulby/RetroAPIPackage/.build/index-build/x86_64-apple-macosx/debug/RetroAPIPackagePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/claytonsulby/Documents/Code/Xcode/claytonsulby/RetroAPIPackage/.build/index-build/x86_64-apple-macosx/debug/RetroAPIPackagePackageTests.build/runner.swiftdeps"
+  }
+}

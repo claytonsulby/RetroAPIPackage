@@ -1,0 +1,4 @@
+module RetroAPIPackage {
+    header "/Users/claytonsulby/Documents/Code/Xcode/claytonsulby/RetroAPIPackage/.build/index-build/x86_64-apple-macosx/debug/RetroAPIPackage.build/RetroAPIPackage-Swift.h"
+    requires objc
+}
